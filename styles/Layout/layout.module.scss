@@ -1,0 +1,95 @@
+.container{ 
+    width: 100%; height: auto;
+    display: flex; flex-direction: column; 
+   
+    
+
+    //change later
+    min-height: 100vh;
+
+    .top{
+        position: sticky; top: 0; background-color: rgba(255, 255, 255, 0.8);
+        width: 100%; height: fit-content; z-index: 2;
+
+        
+        .NavBarClosed{
+            margin: 0 auto; padding-top: 2.25vh; padding-bottom: 1.5vh; 
+            width: min(max(56%, 815px), 100%);
+            @media only screen and (orientation:portrait) { width: 100%;}
+        }
+    
+    }
+
+    .content_containter{
+        flex-grow: 1; // relative to the main container, it brings the footer to the bottom
+        width: 100%; // relative to the main container
+        margin: 0 auto; position: relative;
+        display: flex; flex-wrap: nowrap; align-items: flex-start; justify-content: space-between;
+        
+        main{
+            width: min(max(56%, 815px), 100%);
+            padding-left: 1.3rem; padding-right: 1.3rem; // the loaded page padding
+            @media only screen and (orientation:portrait) { width: 100%;}
+            @media only screen and (max-width: 358px) {  padding-left: 0.7rem; padding-right: 0.7rem; width: 100%;}
+           
+        }
+
+
+        .sides{
+            min-height: 40px; width: calc( ( 100% - min(max(56%, 815px), 100%)) / 2);
+            position: sticky; top: 25.5vh; z-index: 0;
+            @media screen and (max-width: 815px), 
+            only screen and (orientation:portrait){display: none;}
+        }
+
+        .categories{
+            padding-bottom: 2vh; 
+            @media screen and (max-width: 815px), 
+            only screen and (orientation:portrait){display: none;}
+
+            h3{font-weight: 700;}
+            ul{
+                width: fit-content;
+                margin-left:auto; 
+                padding-right: 16%;
+                @media (max-width: 1190px){padding-right: 0.5rem;}
+                @media (max-width: 1240px), (max-height: 690px) {display: none;}
+
+  
+            }
+            a{
+                white-space: nowrap;
+                overflow-x: hidden;
+
+            }
+
+        }
+
+    }
+    
+    footer{
+        width: 100%; height: fit-content;
+        background-color: var(--orange);
+        border-top: solid 1px var(--blue-sea);
+       /*  width: min(max(56%, 815px), 100%); margin: 0 auto;
+        background-color: white;
+        border-top: solid 2px var(--orange);
+        border-bottom: solid 2px var(--orange); */
+
+    }
+
+}
+
+
+
+
+
+
+      
+
+
+
+
+
+
+

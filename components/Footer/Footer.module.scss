@@ -1,0 +1,31 @@
+.container{
+    width: min(max(55%, 805px), 100%); margin: 0 auto;
+    padding: 2.5rem 0;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+    @media screen and (max-width: 680px){align-items: flex-start;}
+    @media only screen and (orientation:portrait) {width: 100%;}
+
+    .col1{
+        max-width: 62.5%;
+        @media screen and (max-width: 805px) {max-width: none; width: fit-content;}
+
+        
+        
+        .logo{
+            margin-bottom: 1vh;
+            @media screen and (max-width: 805px){padding-top: 7px;}
+
+
+        }
+        .text{
+            @media screen and (max-width: 805px){display: none;}
+
+        }
+    }
+
+    .col2{
+        width: fit-content; margin-left: 19%; 
+        @media only screen and (orientation:portrait) {margin-left: none;}
+    }
+
+}

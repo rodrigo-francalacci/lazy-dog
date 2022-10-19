@@ -1,13 +1,27 @@
+/* If changing these, make sure stores/breakpoints.ts values also match for consistency */
+@custom-media --breakpoint-xsmall (min-width: 22.5rem); /* 360px */
+@custom-media --breakpoint-small (min-width: 50rem); /* 768px */
+@custom-media --breakpoint-medium (min-width: 64rem); /* 1024px */
+@custom-media --breakpoint-large (min-width: 85.375rem); /* 1366px */
+@custom-media --breakpoint-xlarge (min-width: 120rem); /* 1920px */
+@custom-media --breakpoint-xxlarge (min-width: 160rem); /* 2560px */
+
+
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+/*   box-sizing: content-box; */
+  font-family: var(--font-worksans);
+  /* MacOS font smoothing */
+  /* -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; */
 }
 
 a {
   color: inherit;
+  overflow-wrap: break-word;
   text-decoration: none;
 }
 
@@ -15,12 +29,59 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
+
+ul, ol {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+button {
+  appearance: none;
+  padding: 0;
+  border: none;
+  background: none;
+
+  &:hover {
+    cursor: pointer;
   }
 }
+
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+/* .progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: var(--orange-dark);
+  transform-origin: 0%;
+  z-index: 1;
+} */
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+/*   * {
+
+    scrollbar-width: none;
+    scrollbar-color: var(--orange-dark) #000000;
+  } */
+
+  /* Chrome, Edge, and Safari */
+/*  * ::-webkit-scrollbar {
+    width: 20px;
+  } */
+
+/*   *::-webkit-scrollbar-track {
+    background: var(--black);
+  } */
+
+/*  *::-webkit-scrollbar-thumb {
+    background-color: var(--orange-normal);
+    border-radius: 10px;
+    border: 2px solid var(--black);
+  } */

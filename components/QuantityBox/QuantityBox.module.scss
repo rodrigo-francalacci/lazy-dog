@@ -1,0 +1,7 @@
+.container{
+    display: flex; align-items: center; justify-content: space-between;
+    user-select: none;
+    div{
+        flex-grow: 1; text-align: center;
+    }
+}

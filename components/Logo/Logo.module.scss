@@ -1,0 +1,19 @@
+.container{
+   /*  width: 155px; height: 50px; background-color: burlywood; */
+    width: fit-content; height: fit-content;
+
+    .lazy_dog{
+        font-size: 100%;
+        line-height: 0.7;
+    };
+    
+    .company{
+        font-size: 25%;
+        text-align: right;
+        line-height: 1; padding-top: 4px;
+    };
+
+}
+
+
+

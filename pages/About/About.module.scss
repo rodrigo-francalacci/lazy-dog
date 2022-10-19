@@ -1,0 +1,27 @@
+.container{
+    width: 100%;
+    margin-top: 4.21rem;
+    margin-bottom: 4.21rem;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+
+    h2{
+        margin-bottom: 1.68rem; text-align: center; 
+    }
+
+    .image_width{
+        width: 100%;
+        @media only screen and (min-width:1439px) { width: 90%;}
+        @media only screen and (min-width:1919px) { width: 80%;}
+    }
+
+    .image_container{
+         position: relative; 
+         width: 100%; padding-top: 50%;
+    }
+    p{
+        width: 100%; 
+        margin-top: 1.43rem; 
+        text-align: justify;
+    }
+    
+}

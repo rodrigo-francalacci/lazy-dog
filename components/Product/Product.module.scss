@@ -1,0 +1,17 @@
+.container{
+
+    .image_container{
+        position: relative; width: 100%; padding-top: 100%;
+        background-color: var(--grey);
+    }
+
+    h3{
+        margin-top: 0.5rem; 
+    }
+
+    p{
+        font-weight: 500; color: var(--grey-dark);
+        margin-top: 0.3rem; 
+    }
+
+}

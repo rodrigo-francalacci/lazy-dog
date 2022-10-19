@@ -1,0 +1,73 @@
+/* Theme 1 */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@font-face {
+    font-family: 'Good Dog';
+    src: url('gooddog-plain/gooddog-plain.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+} 
+
+
+:root{
+
+    --font-worksans: 'Work Sans', sans-serif;
+	--font-gooddog: 'Good Dog';
+	--black: #000000;
+    --red: #F23737;
+    --orange: #FF6432;
+    --salmon: #FFAA64;
+    --gold: #FFAA2A;
+	--pale: #FADCC8;
+	--white: #FFFFFF;
+    --blue-sea: #00237D;
+	--blue-velvet: #016298;
+	--green: #008C62;
+	--green-light: #B9DCC8;
+	--blue-sky: #A5CDEB;
+	--grey: #D2D2D2;    
+    --grey-dark: #828282;
+    
+
+}
+
+
+
+
+/* Font Color */
+.font-black{ color: var(--black)}
+.font-white{ color: var(--white)}
+
+/* Background Color */
+.bkg-orange{ background-color: var(--orange)}
+.bkg-red{ background-color: var(--red)}
+.bkg-green{ background-color: var(--green)}
+.bkg-gold{ background-color: var(--gold)}
+.bkg-blue-velvet{ background-color: var(--blue-velvet)}
+
+/* Hyperlinks */
+
+/* PromoBar */
+.promoBar-theme-normal{ color: var(--white); background-color: var(--orange);}
+.promoBar-theme-light{ color: var(--black); background-color: var(--salmon);}
+
+/* Opacity Overlay */
+.overlay {
+    position: fixed; top: 0; bottom: 0; left: 0; right: 0;
+    background: var(--black);
+    transition: 1s;
+    visibility: visible;
+    opacity: 0.8;
+    z-index: 2;
+
+}
+
+/* Body */
+body{
+    overscroll-behavior: none;
+}
+
+
+
+
+
+

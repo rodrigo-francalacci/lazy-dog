@@ -1,0 +1,94 @@
+//ToggleButton Container
+.hamburger__toggle{
+    display:block; position: relative;
+    /* width: 2.2rem ;  height: 2.2rem ; */ //using a class for set the dimensions
+  }
+  
+  //Closed ToggleButton Class
+  /* give the span element and related pseudo-elements the appearance of white lines */
+  .hamburger__icon{
+    position: absolute; width: 80%; height: 8.6%;
+    background-color: var(--black); border-radius: 6px;
+  }
+
+  .hamburger__icon::before,
+  .hamburger__icon::after{
+    position: absolute; width: 100%; height: 100%;
+    @media only screen and (orientation:portrait) { width: 75%;}
+    background-color: var(--black); border-radius: 6px;
+  }
+  
+  /* center the span element in the middle of its containing button */
+  .hamburger__icon { top: calc(50% - 5.7%); left: calc(50% - 43%); }
+    
+  /* position the two pseudo-elements to the very left */
+  .hamburger__icon::before, .hamburger__icon::after { 
+    content: ""; left: 0; 
+    @media only screen and (orientation:portrait) { left: 15%;}
+  }
+  
+  /* this is the top dash of the hamburger */
+  .hamburger__icon::before { bottom: 320%; }
+  
+  /* this is the bottom dash of the hamburger */
+  .hamburger__icon::after { top: 320%; }
+
+    /* TRANSITION */
+  /* adjust duration to see it happen slower */
+  .hamburger__icon, .hamburger__icon::after {
+    transition: all 0.8s linear;
+  }
+  
+
+  //===========================================================================================================================
+  //Opened ToggleButton Class
+  /* give the span element and related pseudo-elements the appearance of white lines */
+  .hamburger__icon2{
+    position: absolute; width: 80%; height: 8.6%;
+    background-color: var(--black); border-radius: 6px;
+  }
+
+  .hamburger__icon2::before,
+  .hamburger__icon2::after{
+    position: absolute; width: 100%; height: 100%;
+    background-color: var(--black); border-radius: 6px;
+  }
+  
+  /* center the span element in the middle of its containing button */
+  .hamburger__icon2 { top: calc(50% - 5.7%); left: calc(50% - 43%); }
+    
+  /* position the two pseudo-elements to the very left */
+  .hamburger__icon2::before, .hamburger__icon2::after { content: ""; left: 0; }
+  
+  /* this is the top dash of the hamburger */
+  .hamburger__icon2::before { bottom: 320%; }
+  
+  /* this is the bottom dash of the hamburger */
+  .hamburger__icon2::after { top: 320%; }
+  
+  /* HOVER STYLES ON THE BUTTON */
+  //Closed Style ToggleButton
+  /* rotate middle dash of hamburger */
+  .hamburger__icon2 {
+    background-color: var(--black); border-radius: 9px; 
+    width: 100%; height: 8.6%;
+    left: 0; top: calc(50% - 5.7%); transform: rotate(-45deg);    
+  }
+  
+  /* rotate bottom dash of hamburger counter clockwise */
+  .hamburger__icon2::after {
+    background-color: var(--black); border-radius: 9px;
+    width: 100%; height: 100%;
+    top: 0; transform: rotate(-270deg); 
+  }
+  
+  /* hide the top dash by scaling it to 0 */
+.hamburger__icon2::before {
+    transform: scale(0);
+  }
+  
+  /* TRANSITION */
+  /* adjust duration to see it happen slower */
+  .hamburger__icon2, .hamburger__icon2::after {
+    transition: all 0.8s linear;
+  }

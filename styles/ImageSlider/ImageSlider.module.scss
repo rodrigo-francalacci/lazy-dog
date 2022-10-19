@@ -1,0 +1,42 @@
+.container{
+    width: 100%;
+    
+    .image_container{
+        position: relative; width: 100%; 
+        
+        .Left, .Right{
+            width: 1.7rem; height: 100%;
+            position: absolute; top: 50%; z-index: 1; transform: translate(0, -50%);
+            font-size: 2rem; color: var(--black); cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            
+        }
+
+        .Right{
+            right: 0;
+        }
+
+    }
+
+    .small_images_container{
+        width: 100%; margin-top: 1rem;
+        display: flex; flex-wrap: wrap;
+        align-items: center; justify-content:space-around;
+        position: relative;
+
+            .small_image{
+                position: relative; width: 21.2%; padding-top: 17%;
+                cursor: pointer;
+                opacity: 0.5;
+                border: none;
+            }
+
+    }
+
+}
+
+.prevent_select {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }

@@ -1,0 +1,15 @@
+.container{
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+
+    .image{
+       width: 100%; padding-top: 50%; position: relative; pointer-events: none;
+    }
+
+    .text{
+        width: 100%; padding-top: 0.5rem; padding-bottom: 0.5rem;
+        display: flex; justify-content: space-between; align-items:flex-start;
+        h3{width: 67%; text-align: left;}
+        div{width: 33%; color: var(--green); text-align: right;}
+    }
+
+}
