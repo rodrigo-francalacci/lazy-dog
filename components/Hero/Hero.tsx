@@ -13,6 +13,7 @@ const Hero = ({imgUrl, title, description}:{imgUrl: string, title: string, descr
         <div className={styles.imageContainer}>
             <Image 
                 src={imgUrl} 
+                priority
                 layout='fill' 
                 objectFit='cover'/>
         </div>

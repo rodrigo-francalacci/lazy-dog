@@ -12,7 +12,7 @@
         .NavBarClosed{
             margin: 0 auto; padding-top: 2.25vh; padding-bottom: 1.5vh; 
             width: min(max(56%, 815px), 100%); 
-            @media only screen and (orientation:portrait) { width: 100%;}
+            @media only screen and (orientation:portrait) { width: 95%;}
         }
     
     }

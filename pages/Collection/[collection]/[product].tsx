@@ -1,6 +1,7 @@
 /* React */
 import React from 'react'
 import { useRef, useEffect, useState } from 'react'
+import Link from 'next/link';
 
 /* Redux */
 import { useAppDispatch, useAppSelector } from '../../../hooks';
@@ -200,13 +201,15 @@ const Product = ({shopifyResponse}: any) => {
                 </Buttom>
             </div>
             
-            <div>
-                <Buttom
-                    size='big' className={styles.buttom}
-                    bkgColor='bkg-red' fontColor='font-black'>
-                    Buy Now
-                </Buttom>
+            <Link href={'/Cart/Cart'}>
+            <div onClick={aux_addToCart}>
+                    <Buttom
+                        size='big' className={styles.buttom}
+                        bkgColor='bkg-red' fontColor='font-black'>
+                        Buy Now
+                    </Buttom>
             </div>
+            </Link>
         </div>
 
         {/* Details */}

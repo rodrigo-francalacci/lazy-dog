@@ -109,7 +109,7 @@
     .container {
         display: grid; 
         grid-template-columns: 1fr 1fr; 
-        grid-template-rows: auto auto 4em 4em auto auto; 
+        grid-template-rows: auto auto auto auto auto auto; 
         gap: 0px 0px; 
         grid-template-areas: 
           "imageSlider imageSlider"
@@ -134,20 +134,22 @@
       }
       .dogsName {
         justify-self: center; 
-        align-self: center; 
+        align-self: center;
+        padding-top: 1em;
         grid-area: dogsName; 
         text-align: center;
         input{text-align: center;}
       }
       .price {
         justify-self: start; 
-        align-self: start; 
+        align-self: center; 
         grid-area: price;
  
       }
       .quantity {
         justify-self: end; 
-        align-self: start; 
+        align-self: center;
+        padding-top: 1em; padding-bottom: 1em;
         grid-area: quantity;
        
       }
@@ -168,7 +170,7 @@
       .details {
         justify-self: start; 
         grid-area: details;
-        text-align: center; margin: 2.2rem auto 0 auto; 
+        text-align: center; margin: 0.5em auto 0 auto; 
       }
       .specifications {
         justify-self: center; 
