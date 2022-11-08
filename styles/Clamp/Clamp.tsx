@@ -201,8 +201,14 @@ export const FluidX = (min: number, middleScreen: number, middleFont: number | '
   let y: number = 100 * (fontDiff/screenDiff);
   let x: number = (middleFont/(16 * I)) - (y*(middleScreen/(1600 * I)));
   
-    let minPX: string = min.toFixed(3) + "px";
-    let maxPX: string = middleFont.toFixed(3) + "px";
+    if(min < middleFont){
+      var minPX: string = min.toFixed(3) + "px";
+      var maxPX: string = middleFont.toFixed(3) + "px";
+    } else {
+      var maxPX: string = min.toFixed(3) + "px";
+      var minPX: string = middleFont.toFixed(3) + "px";
+    }
+
 
     let signal: string = "";
     if (y<0){  signal = "-"; }
@@ -216,8 +222,13 @@ export const FluidX = (min: number, middleScreen: number, middleFont: number | '
    y = 100 * (fontDiff/screenDiff);
    x = (max/(16 * A)) - (y*(biggerScreen/(1600 * A)));
 
-    minPX = middleFont.toFixed(3) + "px";
-    maxPX = max.toFixed(3) + "px";
+   if(middleFont < max){
+    var minPX: string = middleFont.toFixed(3) + "px";
+    var maxPX: string = max.toFixed(3) + "px";
+  } else {
+    var maxPX: string = middleFont.toFixed(3) + "px";
+    var minPX: string = max.toFixed(3) + "px";
+  }
 
     if (y<0){  signal = "-"; }
     if (y>=0){ signal = "+"; }

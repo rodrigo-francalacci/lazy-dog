@@ -1,26 +1,25 @@
+//React
 import React from 'react'
-import styles from './promoBar.module.scss'
 
 //Components
 import SlideShow  from '../../styles/SlideShow/SlideShow'
 
+//Style
+import styles from './promoBar.module.scss'
+
 //Types
+import {bannerItemProps} from '../../utils/sanity_queries'
+
 type promosConfig ={
     defaultInterval: number;
     positon: string;
 }
 
-type promosItemsProps = {
-    text: string;
-    url?: string;
-    theme: "promoBar-theme-normal" | "promoBar-theme-light";
-    flashing: boolean;
-    duration?: number;
-}[];
 
 
 //===========================================================================================================================
-export const PromoBar = () => {
+export const PromoBar = ({banners}: {banners: bannerItemProps[]}) => {
+
 
 //--------------HARDCODE FAKE DATA-----------------
 //general configuration data
@@ -29,32 +28,6 @@ var promoConfig: promosConfig = {
     positon: "fixed",
 }
 
-
-//idividual banners data
-var promosItems: promosItemsProps = [
-    {
-        text: "Sale 20% off Use HAPPY20 at the checkout for 20% ",
-        theme: "promoBar-theme-normal",
-        flashing: false,
-        duration: 1000,
-    },
-    {
-        text: "Check out instagram page here - 5s",
-        url: "https://www.instagram.com/lazydogduvets/",
-        theme: "promoBar-theme-normal",
-        flashing: false,
-        duration: 5000
-    },
-    {
-        text: "Check out instagram page here - 15s",
-        url: "https://www.instagram.com/lazydogduvets/",
-        theme: "promoBar-theme-normal",
-        flashing: false,
-        duration: 15000        
-    },
-
-];
-
 //define the allSlidesDuration array to get the duration of each slides
 let allSlidesDuration: (number | undefined)[] = [];
 
@@ -62,18 +35,24 @@ let allSlidesDuration: (number | undefined)[] = [];
 allSlidesDuration[0] = promoConfig.defaultInterval;
 
 //get the duration of each slide
-promosItems?.length > 0 && promosItems.map((item, index) => (
-    allSlidesDuration[index + 1] = item.duration
+banners?.length > 0 && banners.map((item, index) => (
+    allSlidesDuration[index + 1] = item.duration! * 1000 // seconds to miliseconds
 ))
 
 
-  return (
+return (
 
     <div className={`worksans-promobar ${styles.bar_container}`}>
+        
+        {banners?.length > 0 && //because the slideshow component won't update the state
+                                //we only pass the banner when it exists and there is
+                                // at least one item (banner)
+        
         <SlideShow
             t={promoConfig.defaultInterval}
             allSlidesDuration={allSlidesDuration}>
-            {promosItems?.length > 0 && promosItems.map((item, index) => (
+            
+            {banners.map((item, index) => (
                 <div className={`${item.theme} ${styles.item_container}`} key={'promo' + index}>
                     {!!item.url ?
                     <a href={item.url}>{item.text}</a> :
@@ -81,10 +60,10 @@ promosItems?.length > 0 && promosItems.map((item, index) => (
                     }
                 </div>
             ))}
-        </SlideShow>
-    </div>
+        </SlideShow>}
+    </div> 
 
-  )
+  ) 
 };
 
 

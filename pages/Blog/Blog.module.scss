@@ -1,0 +1,16 @@
+.blogContainer{
+    width: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    h2{
+        margin-top: 1.5rem; margin-bottom: 2.5rem; color: var(--orange);
+    }
+}
+
+.postListContainer{
+    width: 100%;
+    display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+
+    li{
+        padding: 1rem;
+    }
+}

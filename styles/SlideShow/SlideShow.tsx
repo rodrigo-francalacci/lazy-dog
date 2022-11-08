@@ -125,6 +125,7 @@ function slideTimmer(slideDuration: number, n: number, src: string){
 
 
     useEffect(() => {
+
         
         if(interact.current == false){
             let firstSlideDuration: number
@@ -161,6 +162,7 @@ function slideTimmer(slideDuration: number, n: number, src: string){
             }, 100)
 
         });
+
             
 
     }, []);

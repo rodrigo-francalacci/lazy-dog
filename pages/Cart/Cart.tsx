@@ -1,14 +1,31 @@
 /* React */
 import React from 'react'
+import Image from 'next/image';
 
 /* Styles */
 import styles from './Cart.module.scss'
 
+/* Redux */
+import {useAppSelector, useAppDispatch} from '../../hooks';
+import { removeItem } from '../../slices/cartSlice';
+
 /* Components */
 import Box from '../../components/Box/Box'
 import Buttom from '../../components/Buttom/Buttom'
+import QuantityBox from '../../components/QuantityBox/QuantityBox';
 
 const Cart = () => {
+
+/* Get items from redux */
+const cartItems = useAppSelector((state)=> state.cart.cart);
+const subtotal = useAppSelector((state) => state.cart.subtotal);
+
+/* States */
+
+
+/* Aux Functions */
+const dispatch = useAppDispatch(); 
+
   return (
     <div className={styles.wrapper}>
         <h2 className='worksans-h2'>Check Your Cart</h2>
@@ -16,22 +33,30 @@ const Cart = () => {
         {/* Cart items */}
         <div className={`worksans-cart-items ${styles.col1}`}>
 
-            <div className={styles.item}>
-                <Box size='cart-item-picture-box'></Box>
-                <h3>Name of the Product</h3><p>£12.00</p>
-            </div>
+            {cartItems?.length > 0 && cartItems.map((item) =>{
+                let title: string = item.title;
+                if(item.personalized === 'yes'){title = `${title} Personalized with ${item.dogName}'s Name`}
 
-            <div className={styles.item}>
-                <Box size='cart-item-picture-box'></Box>
-                <h3>Name of the Product</h3><p>£12.00</p>
-            </div>
-
-            <div className={styles.item}>
-                <Box size='cart-item-picture-box'></Box>
-                <h3>Name of the Product</h3><p>£12.00</p>
-            </div>
-
-            
+                return(
+                    <div className={styles.item} key={item.id}>
+                        <Box size='cart-item-picture-box' className={styles.box}>
+                            <div className={styles.thumbnailContainer}>
+                                <Image src={item.imgURL} layout='fill' objectFit='cover' alt={item.title}/>
+                            </div>
+                        </Box>
+                        <div className={styles.text_info}>
+                            <div>
+                                <h3>{title}</h3><p><span>£</span>{(item.price*item.quantity).toFixed(2)}</p>
+                            </div>
+                            <div>
+                                <QuantityBox use='cartPage' productID={item.id}/>
+                                <span onClick={()=>{ dispatch(removeItem({id: item.id}))}}>Remove</span>
+                            </div>
+                        </div>
+                        
+                    </div>   
+                )
+            })} 
         </div>
 
 
@@ -59,7 +84,7 @@ const Cart = () => {
                     
                     <div className={styles.summary_bottom}>
                         <p>Total Amount</p>
-                        <p>GBP 38.00</p>
+                        <p>GBP {subtotal.toFixed(2)}</p>
                     </div>
                 </Box>
 

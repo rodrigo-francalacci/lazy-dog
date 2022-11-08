@@ -4,32 +4,59 @@ import Link from 'next/link'
 import { useRef, useEffect } from 'react'
 
 //Redux
+import { useAppSelector, useAppDispatch } from '../../hooks';
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../store' //to get the correct types
 import { open, close } from '../../slices/navbarSlice';
 
 //Components
-import Logo from '../Logo/Logo'
+import Logo from '../Logo/Logo' 
 import NavBarToggle from '../NavBar_Toggle/NavBar_Toggle'
 import {FaShoppingCart} from 'react-icons/fa'
 import {HiUser} from 'react-icons/hi'
 
-
 //Styles
 import styles from './NavBar.module.scss'
-import { Clamp, ClampX_Builder, ClampY } from '../../styles/Clamp/Clamp'
 
-
+/* Types */
+import {collectionsListProps} from '../../utils/shopify_colllection_query' //to fill the navbar
+type socialMedias = {
+  name: string;
+  link: string;
+}
 
 //===========================================================================================================================
 //COMPONENT => Closed NavBar -------------------------------
 export const NavBarClosed = () => {
+    //HTML refs
+    const ref_cartNumberContainer = useRef<HTMLSpanElement>(null!);
+    const cartNumber = useAppSelector(state => state.cart.numberOfItems)
+
+    useEffect(()=>{
+      if(cartNumber === 0){
+        ref_cartNumberContainer.current.style.display = 'none';
+      } else {
+        ref_cartNumberContainer.current.style.display = 'flex';
+      }
+    },[cartNumber])
+
+  //Aux Funcs
+  const dispatch = useDispatch();
+
   return (
     <div className={`${styles.navBarClosed_container}`}>
         <div className={styles.toggle_container}><NavBarToggle/></div>
-        <div className={styles.logo_container}><Logo/></div>
+        <Link href={'/'}>
+          <div className={styles.logo_container} onClick={()=>{dispatch(close())}}><Logo/></div>
+        </Link>
         <div className={styles.member_cart_container}>
-            <div><FaShoppingCart size="1.4rem"/></div>
+            
+            <Link href={'/Cart/Cart'}>
+              <div className={styles.cart}>
+                <FaShoppingCart size="1.4rem"/>
+                <span ref={ref_cartNumberContainer}>{cartNumber}</span>
+              </div>
+            </Link>
             <div><HiUser size="1.4rem"/></div>
         </div>
     </div>
@@ -38,25 +65,23 @@ export const NavBarClosed = () => {
 
 //===========================================================================================================================
 //COMPONENT => Opened NavBar --------------------------------
-export const NavBarOpened = () => {
+export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: collectionsListProps[], socialMedias: socialMedias[]}) => {
   
   //HTML refs
   const ref_navBarOpened_container = useRef<HTMLDivElement>(null!);
+  const cartNumber = useAppSelector(state => state.cart.numberOfItems)
 
   //States
   const status = useSelector<RootState>(state => state.navbar_state.status);
-  const dispatch = useDispatch();
-
+  
+  
   //UseEffect
   useEffect(()=>{
 
     if(status == 'opened'){
-      /* console.log(ref_navBarOpened_container.current) */
-      console.log("opened")
       ref_navBarOpened_container.current.style.transform = "translateX(0)"
 
     } else {
-      console.log("closed")
       ref_navBarOpened_container.current.style.transform = "translateX(-100%)"
 
     }
@@ -64,60 +89,83 @@ export const NavBarOpened = () => {
   }, [status] )
 
   //Aux Funcs
+  const dispatch = useDispatch();
   function handleClick(){
     dispatch(close())
   }
 
   //Return
   return (
-    <div className={`${styles.navBarOpened_container}`} ref={ref_navBarOpened_container}>
+    <div className={`navbar-opened-width ${styles.navBarOpened_container}`} ref={ref_navBarOpened_container}>
     <div className={styles.head_container}><NavBarClosed/></div>
       <nav className='worksans-navbar'>
-        <div className={`${styles.categories_container}`} 
-              style={ClampY(
-                "paddingTop", 640, 1424, 50, 200, "clamp"
-                )}
-              >
-            <h3 className={styles.categories_header}>Categories</h3>
-            <ul className={styles.categories_items}>
+          <ul>
+  
+             {/* Load the Home Link */}
+            <li  onClick={handleClick} >
+                <Link  href="/"><a>{categoriesList && categoriesList[0].title}</a></Link>
+            </li>
+            <li  onClick={handleClick}>
+              <Link href='/Cart/Cart'><a>{`Your Cart (${cartNumber})`}</a></Link>
+            </li>
+            <li  onClick={handleClick}>
+              <Link href='/'><a>Profile</a></Link>
+            </li>
+  
+              <hr/>{/* Divider */}
+  
+            <li><h3>Categories</h3></li>
+  
+            {/* Map all categories */}
+            {categoriesList && categoriesList.map((item)=>{
+  
+              {/* Skip the home*/}
+              if(item.position>0){
+                return(
+                  <li 
+                      onClick={handleClick} 
+                      key={item.handle}>
+                    {/* The link path for dynamics routes in nexjs can be:
+                      1) /Collection/${item.handle} --> if you are using getStaticProps()
+                      2) /Collection/[${item.handle}].tsx --> if you are using getServerProps()
+                    */}
+                    <Link  href={`/Collection/${item.handle}`}><a>{item.title}</a></Link>
+                  </li>
+                )
+              }
+              })}
 
-              <li className={styles.category_item} onClick={handleClick}>
-                <Link  href="/"><a>Single Dog Duvet Sets</a></Link>
-              </li>
-              <li className={styles.category_item} onClick={handleClick}>
-                <Link  href="/"><a>Double Dog Duvet Sets</a></Link>
-              </li>
-              <li className={styles.category_item} onClick={handleClick}>
-                <Link  href="/"><a>Bag Bundle and Bags</a></Link>
-              </li>
-              <li className={styles.category_item} onClick={handleClick}>
-                <Link  href="/"><a>Extra Duvets and Pillow</a></Link>
-              </li>                               
-              
-            </ul>
-        </div>
-        <ul className={styles.otherItems_container}>
-   
-            <li className={styles.otherItems_item} onClick={handleClick}>
-              <Link href='/Cart/Cart'><a>Your Cart</a></Link>
-            </li>
-            <li className={styles.otherItems_item} onClick={handleClick}>
-              <Link href="/"><a>Profile</a></Link>
-            </li>
-            <li className={styles.otherItems_item} onClick={handleClick}>
-              <Link href="/"><a>Q and A's</a></Link>
-            </li>
-            <li className={styles.otherItems_item} onClick={handleClick}>
-              <Link href="/"><a>Instagram</a></Link>
-            </li>
-            <li className={styles.otherItems_item} onClick={handleClick}>
-              <Link href="/"><a>Contact</a></Link>
-            </li>
-            <li className={styles.otherItems_item} onClick={handleClick}>
-              <Link href="/"><a>Lazy Dog Friends</a></Link>
-            </li>
+                <hr/> {/* Divider */}     
+            
+          </ul>
 
-        </ul>
+          {/* Media Pages*/}
+          <ul>
+              <li onClick={handleClick}>
+                <Link href="/Blog/Blog"><a>Blog</a></Link>
+              </li>
+  
+              <li onClick={handleClick}>
+                <Link href="/DogsFriends/DogsFriends"><a>Lazy Dog Friends</a></Link>
+              </li>
+  
+                {/* Map Social Media */}
+                {socialMedias?.length > 0 && socialMedias.map((item)=>{
+                  return(
+                    <li onClick={handleClick} key={item.name}>
+                      <a href={item.link} target='_blank' rel="noopener noreferrer">{item.name}</a>
+                  </li>
+                  )
+                })}
+  
+              <li  onClick={handleClick}>
+                <Link href="/Contact/Contact"><a>Contact</a></Link>
+              </li>
+
+          </ul>
+
+          
+
       </nav>
     </div>
   )

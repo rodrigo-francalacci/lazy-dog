@@ -1,7 +1,46 @@
 .container{
+    user-select: none; position: relative;
+        
+   .wrapper{
+    position: absolute;
     display: flex; align-items: center; justify-content: space-between;
-    user-select: none;
-    div{
-        flex-grow: 1; text-align: center;
+    width: 100%; height: 100%;
+
+    .quantity, .decrementBot, .incrementBot, .decrementBotCartPage, .incrementBotCartPage{
+        flex-grow: 1; height: 100%;
+        display: flex; justify-content: center; align-items: center;
+        transition: ease-out 0.2s;
     }
+
+         .decrementBot{
+            
+             cursor: pointer;
+             &:hover{
+                 color: var(--blue-sky); background-color: black;
+             }}
+
+         .decrementBotCartPage{
+            
+             cursor: pointer;
+             &:hover{
+                color: var(--red);
+             }}
+
+         .incrementBot{
+            
+             cursor: pointer;
+             &:hover{
+                 color: var(--blue-sky); background-color: black;
+             }}
+
+         .incrementBotCartPage{
+            
+             cursor: pointer;
+             &:hover{
+                 color: var(--red);
+             }}
+
+
+   }
+    
 }

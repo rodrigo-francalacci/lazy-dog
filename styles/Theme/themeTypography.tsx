@@ -2,11 +2,6 @@ import React from "react"
 import { ClampX_Builder, clampY_Builder, ClampXY, FluidX } from "../Clamp/Clamp"
 
 
-function componentDidMount() {
-/*   const $style = document.createElement("style");
-  document.head.appendChild($style);
-  $style.innerHTML = ""; */
-}
 const ThemeTypography = (): JSX.Element => {
   const s: number = 0.83;
   const b: number = 1.4;
@@ -49,26 +44,34 @@ const ThemeTypography = (): JSX.Element => {
             )}
           
             ${fontBuilder(//NAVBAR
-              ".worksans-navbar", 17, 1440, 18, 32,
+              ".worksans-navbar", 17, 1440, 22, 39,
               {
                 fontFamily: "var(--font-worksans)",
-                fontWeight: "400", lineHeight: "240%",
+                fontWeight: "400", lineHeight: "130%",
+              }
+            )}
+
+            ${fontBuilder(//NAVBAR
+              ".worksans-sidebar", 15, 1440, 18, 32,
+              {
+                fontFamily: "var(--font-worksans)",
+                fontWeight: "400", lineHeight: "normal",
+              }
+            )}
+
+            ${fontBuilder(//TOAST
+              ".worksans-toast", 14, 1440, 15, 18,
+              {
+                fontFamily: "var(--font-worksans)",
+                fontWeight: "600", lineHeight: "130%",
               }
             )}
 
             ${fontBuilder(//FOOTER TEXT
-              ".worksans-footer-text", 13, 1440, 14, 26,
+              ".worksans-footer", 14, 1440, 16, 26,
               {
                 fontFamily: "var(--font-worksans)",
-                fontWeight: "400", lineHeight: "190%",
-              }
-            )}
-
-            ${fontBuilder(//FOOTER LINKS
-              ".worksans-footer-links", 19, 1440, 21, 32,
-              {
-                fontFamily: "var(--font-worksans)",
-                fontWeight: "400", lineHeight: "190%",
+                fontWeight: "400", lineHeight: "170%",
               }
             )}
 
@@ -90,6 +93,14 @@ const ThemeTypography = (): JSX.Element => {
               }
             )}
 
+            ${fontBuilder(//HERO
+              ".worksans-hero", 20, 1440, 40, 75,
+              {
+                fontFamily: "var(--font-worksans)",
+                fontWeight: "400", lineHeight: "120%",
+              }
+            )}
+
             ${fontBuilder(//ARTICLE CARD
               ".worksans-article-card", 14, 1440, 14.5, 21.5,
               {
@@ -98,15 +109,22 @@ const ThemeTypography = (): JSX.Element => {
               }
             )}
 
+            ${fontBuilder(//DOG FRIEND CARD
+              ".worksans-dogfriend-card", 15, 1440, 15, 24,
+              {
+                fontFamily: "var(--font-worksans)",
+                fontWeight: "400", lineHeight: "150%",
+              }
+            )}
+
             ${fontBuilder(//PRODUCT ITEM
-              ".worksans-product-component", 14, 1440, 18, 24,
+              ".worksans-product-card", 14, 1440, 18, 24,
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "600", lineHeight: "87%",
                 textTransform: "capitalize",
               }
             )}
-
 
             ${fontBuilder(//PRODUCT PAGE
               ".worksans-product-page", 27*s, 1440, 27, 27*b,
@@ -129,6 +147,22 @@ const ThemeTypography = (): JSX.Element => {
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "700",
+              }
+            )}
+
+            ${fontBuilder(//BLOG -> POST
+              ".worksans-blog-post", (15), 1440, 17, (22),
+              {
+                fontFamily: "var(--font-worksans)",
+                fontWeight: "400", lineHeight: "160%",
+              }
+            )}
+
+            ${fontBuilder(//CONTACTS
+              ".worksans-contacts", (15), 1440, 18, (30),
+              {
+                fontFamily: "var(--font-worksans)",
+                fontWeight: "400", lineHeight: "160%",
               }
             )}
           

@@ -2,14 +2,46 @@
     display: flex; flex-direction: column; align-items: center; justify-content: center;
 
     .image{
-       width: 100%; padding-top: 50%; position: relative; pointer-events: none;
+       width: 100%; padding-top: 50%; position: relative;
+    }
+
+    .dragDiv{
+        position: absolute; top: 0; left: 0; opacity: 0; width: 100%; height: 100%;
     }
 
     .text{
         width: 100%; padding-top: 0.5rem; padding-bottom: 0.5rem;
+        cursor: pointer;
         display: flex; justify-content: space-between; align-items:flex-start;
         h3{width: 67%; text-align: left;}
         div{width: 33%; color: var(--green); text-align: right;}
     }
+
+    //Links style
+    a {
+        text-decoration: none;
+        color:inherit;
+        position: relative;
+        width: fit-content;
+    }
+    
+    a::before {
+        content: '';
+        background-color: var(--green);
+
+        position: absolute;
+        left: 0;
+        bottom: 3px;
+        width: 100%;
+        height: 0px;
+        z-index: -1;
+        transition: all .2s ease-in-out;
+    }
+    
+    a:hover::before {
+        bottom: -4px;
+        height: 30%;
+    }
+
 
 }

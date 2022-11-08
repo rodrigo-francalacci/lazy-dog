@@ -13,6 +13,7 @@
     --font-worksans: 'Work Sans', sans-serif;
 	--font-gooddog: 'Good Dog';
 	--black: #000000;
+    --black-light: #18272F;
     --red: #F23737;
     --orange: #FF6432;
     --salmon: #FFAA64;
@@ -27,10 +28,7 @@
 	--grey: #D2D2D2;    
     --grey-dark: #828282;
     
-
 }
-
-
 
 
 /* Font Color */
@@ -47,8 +45,9 @@
 /* Hyperlinks */
 
 /* PromoBar */
-.promoBar-theme-normal{ color: var(--white); background-color: var(--orange);}
-.promoBar-theme-light{ color: var(--black); background-color: var(--salmon);}
+.promoBar-theme-orange{ color: var(--white); background-color: var(--orange);}
+.promoBar-theme-blue{ color: var(--white); background-color: var(--blue-velvet);}
+.promoBar-theme-green{ color: var(--white); background-color: var(--green);}
 
 /* Opacity Overlay */
 .overlay {
@@ -58,13 +57,67 @@
     visibility: visible;
     opacity: 0.8;
     z-index: 2;
-
 }
 
 /* Body */
 body{
     overscroll-behavior: none;
 }
+
+/* Overriding The Default Text Selection Color */
+::selection {
+    background: var(--blue-sky); color: var(--black);
+  }
+::-moz-selection {
+  background: var(--blue-sky); color: var(--black);
+}
+
+/* ===== Scrollbar CSS ===== */
+  /* Firefox */
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: var(--blue-sky) #ffffff;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+    border-left: 1px solid #000000;
+   /*  &:hover{
+        background: var(--orange)
+    } */
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: var(--blue-sky);
+    border-radius: 16px;
+    border: 1px solid #1a1919;
+    transition: background-color 1s ease;
+    &:hover{
+        background-color: var(--blue-velvet);
+    }
+  }
+
+/* [data-title]:hover:after {
+    visibility: visible;
+}
+  
+[data-title]:after {
+    content: attr(data-title);
+    background-color: #4b9c2c;    
+    color: #ffffff;
+    font-size: 150%;
+    position: absolute;
+    padding: 4px 8px 4px 8px;
+    visibility: hidden;
+} */
+
+
+
 
 
 

@@ -1,12 +1,12 @@
 /* React */
 import React from 'react'
-import { useRef, useEffect, useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { useRef, useEffect, useState } from 'react'
 
 /* Styles */
 import styles from './Carousel.module.scss'
 
 /* Plugins */
+import { motion } from 'framer-motion'
 
 /* Types */
 type CarouselrProps = {
@@ -24,11 +24,12 @@ const [width, setWidth]= useState<number>(0);
 //Use Effect
 useEffect(() => {
     handleSize();
+    ref_carousel.current.addEventListener('dragStart', () => ref_carousel.current.style.pointerEvents = 'none');
+    ref_carousel.current.addEventListener('dragEnd', () => ref_carousel.current.style.pointerEvents = 'auto');
 }, []);
 
+
 //Aux Functions
-
-
 function handleSize(){
     setWidth(ref_carousel.current.scrollWidth - ref_carousel.current.offsetWidth);
 }

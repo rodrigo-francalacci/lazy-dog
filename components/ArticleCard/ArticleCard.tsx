@@ -2,6 +2,7 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { useEffect, useState, useRef } from 'react'
 
 /* Style */
 import styles from './ArticleCard.module.scss'
@@ -9,36 +10,42 @@ import styles from './ArticleCard.module.scss'
 
 /* Types */
  type ArticleCardProps = {
-    thumbnail: {
-        url: string;
-        alt: string;
-    };
+    thumbnail_URL: string;
     title: string;
     slug: string;
 }
 
-const ArticleCard = ({thumbnail, title, slug}: ArticleCardProps) => {
+
+const ArticleCard = ({thumbnail_URL, title, slug}: ArticleCardProps) => {
 
   return (
     
         <div className={`article-card-width ${styles.container}`}>
-            <div className={`${styles.image}`}>
+            
+            <div className={`${styles.image}`} >
                 <Image
-                    src={thumbnail.url}
-                    alt={thumbnail.alt}
+                    src={thumbnail_URL}
+                    alt={`${title} Lazy Dog Company`}
                     layout='fill'
                     objectFit='cover'
                 />
+                <div className={styles.dragDiv}></div>
             </div>
+            
+
+            <Link  href={`/Blog/${slug}`}>
             <div className={`worksans-article-card ${styles.text}`}>
-                <h3>{title}</h3>
-                <div>
-                    <Link  href="/">
+                    <h3>{title}</h3>
+                    <div data-title={title}>
                         <a>Read more</a>
-                    </Link>
-                </div>
+                    </div>
             </div>
+            </Link>
+            
+            
+            
         </div>
+        
   )
 }
 

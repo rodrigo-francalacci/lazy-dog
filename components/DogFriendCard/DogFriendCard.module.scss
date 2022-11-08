@@ -1,0 +1,44 @@
+.container{
+    width: 100%; 
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border-radius: 7%; border: solid 1px var(--green-light); overflow: hidden;
+
+    h2{
+        font-family: var(--font-gooddog);
+        font-size: 2.7em; line-height: 120%;
+        padding-top: 0.2em; padding-bottom: 0.2em; text-align: center;
+    }
+    
+}
+
+.container:hover{
+    box-shadow: 0.3em 0.3em 0.9em 0.3em var(--grey);
+}
+
+.descriptionContainer{
+    width: 100%; padding: 1.2em;
+
+    p{
+        text-align: center;
+    }
+}
+
+.imageWrapper{
+    position: relative; width: 95%;
+}
+
+.imageContainer{
+    position: relative;
+    width: 85%; padding-top: 85%; margin: 0 auto;
+    border-radius: 50%; overflow: hidden; 
+    cursor: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/9632/heart.svg), auto;
+    background-color: var(--grey);
+
+}
+
+.iconContainer{
+    position: absolute; top: 0; right:3%;
+    width: 10%; padding-top: 10%;
+    cursor: pointer;
+}

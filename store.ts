@@ -1,11 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from './slices/counterSlice'
 import navbar_stateReducer from './slices/navbarSlice'
+import {cartReducer} from './slices/cartSlice'
+import fetchedDataSlice from './slices/fetchedDataSlice'
 
 export const store = configureStore({
   reducer: {
       counter: counterReducer,
       navbar_state: navbar_stateReducer,
+      cart: cartReducer,
+      data_state: fetchedDataSlice,
   },
 })
 

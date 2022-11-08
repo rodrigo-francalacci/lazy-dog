@@ -1,0 +1,180 @@
+.container {  display: grid;
+    grid-template-columns: 2.3fr 1.08fr 1.08fr 1fr;
+    grid-template-rows: auto auto 7rem auto;
+    gap: 0px 0px;
+    grid-auto-flow: row;
+    grid-template-areas:
+      "imageSlider imageSlider imageSlider imageSlider"
+      "productName price price quantity"
+      "dogsName . addToCart addToCart"
+      "details details details details"
+      ;
+
+      width: 80%; margin: 0 auto;
+      @media screen and (max-width: 690px) {width: 100%}
+  }
+
+  
+  .imageSlider {
+    justify-self: center;
+    align-self: start;
+    position: relative;; z-index: 0;
+    grid-area: imageSlider;
+
+    margin: 2rem auto; width: min(90%, 1000px); 
+    .shareBot{
+      position: absolute; top: 0; right: 0; z-index: 2;
+    }
+
+  }
+  
+  .productName {
+    justify-self: start;
+    align-self: start;
+    grid-area: productName;
+
+    margin-top: 0.7rem;
+    h1{margin-bottom: 0.22em;}
+    p{font-size: max(16px, 0.6em); color: var(--grey-dark); font-weight: 400;}
+  }
+  
+  .price {
+    justify-self: center;
+    align-self: start; margin-top: 1.25em;
+    
+
+    grid-area: price;
+    span{font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif}
+    @media screen and (max-width: 560px){margin-left: 2rem; margin-top: 1.2rem;}
+    @media screen and (max-width:380px) { margin-left: 1rem;}
+    @media screen and (max-width:352px) { margin-left: 0;}
+  }
+  
+  .quantity {
+    justify-self: start;
+    align-self: start;
+    grid-area: quantity;
+    p{font-size: 0.59em;}
+    @media screen and (max-width: 560px){margin-right: 2rem;}
+    @media screen and (max-width:380px) { margin-right: 1rem;}
+    @media screen and (max-width:352px) { margin-right: 0;}
+
+  }
+  
+  .dogsName {
+    justify-self: start;
+    align-self: center;
+    grid-area: dogsName;
+    
+
+    div{display: none;}
+    p{font-size: 1em; font-weight: 500; font-family: var(--font-gooddog);}
+    input{
+        color: var(--orange); font-weight: 500;
+        font-size: max(16px, 0.7em);
+        outline: none;
+        &::placeholder{ color: var(--orange)}
+      }
+  }
+  
+  .addToCart {
+    justify-self: start;
+    align-self: center; 
+    grid-area: addToCart;
+    :nth-child(2){display: none;}
+  }
+  
+  .toast{
+    border: solid 1px var(--black);
+  }
+
+  
+  .details {
+    justify-self: start;
+    align-self: start;
+    grid-area: details;
+
+
+
+    margin-bottom: 2rem;
+    font-size: max(16px, 0.6em);
+    ul{font-weight: 400; line-height: 130%;}
+    li{padding-top: 0.6rem; padding-bottom: 0.6rem;}
+    h3{margin-top: 1.5rem; margin-bottom: 0.7rem; font-size: 1.15em;}
+  }
+  
+  
+//Mobile version
+  @media screen and (max-width: 560px) {
+    .container {
+        display: grid; 
+        grid-template-columns: 1fr 1fr; 
+        grid-template-rows: auto auto 4em 4em auto auto; 
+        gap: 0px 0px; 
+        grid-template-areas: 
+          "imageSlider imageSlider"
+          "productName productName"
+          "dogsName dogsName"
+          "price quantity"
+          "addToCart addToCart"
+          "details details"
+
+      }
+      .imageSlider {
+        justify-self: center; 
+        align-self: start; 
+        grid-area: imageSlider;
+        width: 100%;
+      }
+      .productName {
+        justify-self: center; 
+        align-self: start; 
+        grid-area: productName;
+        text-align: center;
+      }
+      .dogsName {
+        justify-self: center; 
+        align-self: center; 
+        grid-area: dogsName; 
+        text-align: center;
+        input{text-align: center;}
+      }
+      .price {
+        justify-self: start; 
+        align-self: start; 
+        grid-area: price;
+ 
+      }
+      .quantity {
+        justify-self: end; 
+        align-self: start; 
+        grid-area: quantity;
+       
+      }
+
+      .addToCart {
+        justify-self: center;
+        align-self: center; 
+        grid-area: addToCart;
+        
+        :nth-child(n){padding: 0.5rem 0.8rem;}
+        :nth-child(2){display: block;}
+        display: flex; justify-content: space-around; width: 100%;
+        flex-wrap: wrap;
+        
+
+      }
+
+      .details {
+        justify-self: start; 
+        grid-area: details;
+        text-align: center; margin: 2.2rem auto 0 auto; 
+      }
+      .specifications {
+        justify-self: center; 
+        grid-area: specifications; 
+        text-align: center; align-self: center; 
+      }
+  }
+      
+  

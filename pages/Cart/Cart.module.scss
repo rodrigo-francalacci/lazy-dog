@@ -2,38 +2,67 @@
     width: 100%; margin: 0 auto; height: fit-content;
     margin-bottom: 6rem;
     display: flex; flex-wrap: wrap; justify-content: center;
-    @media only screen and (max-width:555px) { 
+    @media only screen and (max-width:590px) { 
          flex-direction: column; align-items: center; justify-content: flex-start;}
 
     h2{
         width: 100%; text-align: center; 
         margin-bottom: 4.5rem; margin-top: 3.5rem;
-        @media only screen and (max-width:555px) {margin-bottom: 1.9rem; margin-top: 1.5rem;};
+        @media only screen and (max-width:590px) {margin-bottom: 1.9rem; margin-top: 1.5rem;};
     }
 
     .col1{
         min-width: 50%; padding-right: 5%;
         display: flex; flex-direction: column;
-        @media only screen and (max-width:555px) {padding-right: 0};
+        @media only screen and (max-width:590px) {padding-right: 0; min-width: 90%;};
         
 
         .item{
-            display: flex; align-items: center; justify-content: center;
+            display: flex; align-items:flex-start; justify-content: space-around;
             margin-bottom: 1rem;
-            h3{
-                width: 55%; margin-left: 2.5%; margin-right: 5%;}
-            p{
-                font-size: 0.92em; margin-left: auto;
+
+            .box{
+                position: relative;
+                .thumbnailContainer{
+                    width: 100%; padding-top: 100%; position: relative; 
+                }
             }
+
+            .text_info {
+                width:80%; height: 100%;
+                display: flex; flex-direction: column; justify-content:flex-start;
+
+                & > div:first-child{
+                    width: 100%; display: flex;
+
+                    h3{
+                        margin-left: 0.5rem; margin-right: 5%;}
+                    p{
+                        font-size: 1.25em; margin-left: auto; color: var(--blue-sea);
+                        span{font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif}
+                    }
+                }
+                & > div:last-child{
+                    width: 100%; padding-top: 1em; 
+                    display: flex; justify-content: flex-end; align-items: center;
+                    font-size: 1em;
+
+                    & > :first-child{width: 24%; min-height: 2em;}
+                    span{color: var(--red); margin-left: 1em; cursor: pointer;}
+                }
+                
+            }
+
+
         }
         
     }
 
-
     .col2{
         width: auto; padding-left: 5%;
         display: flex; flex-direction: column; align-items: center; justify-content: center;
-        @media only screen and (max-width:555px) {padding-left: 0; padding-top: 3rem;};
+        @media only screen and (max-width:590px) {padding-left: 0; padding-top: 1.5rem;};
+        
         .summary_top_buttoms{
             display: flex; justify-content: space-between; width: 100%;
             margin-bottom: 3.64em;

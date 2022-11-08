@@ -8,14 +8,10 @@ import styles from "./Footer.module.scss"
 /* Components */
 import Logo from '../Logo/Logo'
 
+const Footer = ({text}:{text: string}) => {
 
-const Footer = () => {
-
-/* Fake Data */
-const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
-
-  return (
-    <div className={styles.container}>
+  return ( 
+    <div className={`worksans-footer ${styles.container}`}>
 
         <div className={styles.col1}>
             
@@ -23,30 +19,31 @@ const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do ei
                 <Logo/>
             </div>
 
-            <p className={`worksans-footer-text ${styles.text}`}>
+            <p>
                 {text}
+            </p>
+            <p>
+              © Copyright 2021-2022 Lazy Dog Company All rights reserved
             </p>
             
         </div>
 
-         <ul className={`worksans-footer-links ${styles.col2}`}>
-                <li>
-                <Link href="/About/About"><a>About Us</a></Link>
-                </li>
-                <li className={styles.otherItems_item}>
-                <Link href="/"><a>Products</a></Link>
-                </li>
-                <li className={styles.otherItems_item}>
-                <Link href="/"><a>Q and A's</a></Link>
-                </li>
-                <li className={styles.otherItems_item}>
-                <Link href="/"><a>Instagram</a></Link>
-                </li>
-                <li className={styles.otherItems_item}>
-                <Link href="/"><a>Contact</a></Link>
-                </li>
-               
-         </ul>
+         <div className={`${styles.col2}`}>
+           <ul>
+                  <li>
+                  <Link href="/About/About"><a>About Us</a></Link>
+                  </li>
+                  <li className={styles.otherItems_item}>
+                  <Link href="/Blog/Blog"><a>Blog</a></Link>
+                  </li>
+                  <li className={styles.otherItems_item}>
+                  <Link href="/"><a>Instagram</a></Link>
+                  </li>
+                  <li className={styles.otherItems_item}>
+                  <Link href="/Contact/Contact"><a>Contact</a></Link>
+                  </li>
+           </ul>
+         </div>
 
     </div>
   )

@@ -2,7 +2,6 @@ import React from 'react'
 import {ClampX_Builder, clampY_Builder, FluidX} from './Clamp' 
 
 
-
 const ClampedClasses = (): JSX.Element => {
   return (
 
@@ -26,11 +25,27 @@ const ClampedClasses = (): JSX.Element => {
           }
         }
 
-        ${NewClampClass(//product component
-          ".product-width", 1440, 
+        ${NewClampClass(//ProductCard component
+          ".product-card-width", 1440, 
           [
             {cssProp: "width", min: (150), mid: 238, max: (320)},
-          ]                  //min: 240 for 1 collumn in mobile (2 classes?)
+          ]                  //min: 240 for 1 collumn in mobile
+        )
+        }
+
+        ${NewClampClass(//Navbar opened
+          ".navbar-opened-width", 1440, 
+          [
+            {cssProp: "width", min: (320), mid: 600, max: (1000)},
+          ]                  
+        )
+        }
+
+        ${NewClampClass(//ProductCard component
+          ".dogfriend-card-width", 1440, 
+          [
+            {cssProp: "width", min: (320), mid: 228, max: (430)},
+          ]                  
         )}                   
 
         ${NewClampClass(//image slider component
@@ -90,15 +105,7 @@ const ClampedClasses = (): JSX.Element => {
           ".cart-item-picture-box", 1440, 
           [
             {cssProp: "width", min: (70*0.83), mid: 70, max: (70*1.4)},
-            {cssProp: "min-height", min: (70*0.83), mid: 70, max: (70*1.4)},
-          ]
-        )}
-
-        ${NewClampClass(//cart page
-          ".cart-item-picture-box", 1440, 
-          [
-            {cssProp: "width", min: (70*0.83), mid: 70, max: (70*1.4)},
-            {cssProp: "min-height", min: (70*0.83), mid: 70, max: (70*1.4)},
+            {cssProp: "max-height", min: (70*0.83), mid: 70, max: (70*1.4)},
           ]
         )}
 
