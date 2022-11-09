@@ -39,7 +39,7 @@ const Buttom = ({bkgColor="bkg-orange", fontColor="font-black", size='small', cl
             ref_.current.style.border = "solid 0.0625rem black"
         }
 
-    },[])
+    },[fontColor,size])
 
 
 

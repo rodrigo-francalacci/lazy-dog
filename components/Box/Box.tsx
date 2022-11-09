@@ -28,7 +28,7 @@ const Box = ({bkgColor="bkg-white", fontColor="font-black", size='', className='
             ref_.current.style.border = "solid 0.0625rem black"
         }
 
-    },[])
+    },[fontColor])
 
 
   return (

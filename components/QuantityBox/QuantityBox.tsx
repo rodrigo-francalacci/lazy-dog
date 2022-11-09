@@ -23,6 +23,11 @@ type QuantityBoxProps = {
 
 const QuantityBox = ({productID, className, use, handleClick, counter}: QuantityBoxProps) => {
 
+//States
+const itemCart = useAppSelector(state => state.cart.cart.find((item) => (item.id === productID) ));
+const dispatch = useAppDispatch();
+
+
  //CSS class setup
  className = `${styles.container} ${className}`
  
@@ -52,8 +57,6 @@ if(use === 'productPage'){
 
 //If I'm using inside the cartPage...
 else {
-  const itemCart = useAppSelector(state => state.cart.cart.find((item) => (item.id === productID) ));
-  const dispatch = useAppDispatch();
   
   return (
     <Box size='quantity-box-dimensions' className={className}>

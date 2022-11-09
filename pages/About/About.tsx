@@ -28,7 +28,7 @@ const aboutUs: aboutUsProps = format_aboutUs(sanityAboutUs)
         
         <div className={styles.image_width}> {/* Image width */}
           <div className={` ${styles.image_container}`}> {/* Image container */}
-            <Image src={aboutUs.imageURL} layout='fill' objectFit='cover' /> {/* React Image -> hange config to allow external src */}
+            <Image src={aboutUs.imageURL} layout='fill' objectFit='cover' alt='Lazy Dod Company'/> {/* React Image -> hange config to allow external src */}
           </div>
         </div>
 

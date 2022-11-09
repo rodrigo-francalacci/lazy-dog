@@ -25,7 +25,7 @@ const Loading = () => {
       seLoading(false)
     });
 
-  },[])
+  },[path.events])
 
   //if loading is true we return the component
   if(loading === true ){

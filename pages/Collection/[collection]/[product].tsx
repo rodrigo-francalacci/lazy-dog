@@ -66,7 +66,7 @@ const Product = ({shopifyResponse}: any) => {
 
            /* We need this dependency to make sure 
            this field is updated for every product */
-        },[product.shopifyHandle])
+        },[product.shopifyHandle, product.options])
 
 
 /* AUX FUNCTIONS */
