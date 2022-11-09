@@ -9,6 +9,7 @@ import { wrap } from "popmotion";
 
 /* Styles */
 import styles from './DragSlider.module.scss'
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 /* Types */
 type DragSliderProps = {
@@ -192,10 +193,10 @@ export const DragSlider = ({slides, aspectRatio, objectFit}: DragSliderProps) =>
 
              {/* Navigation Arrows */}
              <div className={`${styles.next}`} style={ratio} >
-                 <div onClick={() => paginate(1)}>{"🡢"}</div>
+                 <div onClick={() => paginate(1)}><AiOutlineArrowRight/></div>
              </div>
              <div className={styles.prev} style={ratio}>
-                 <div onClick={() => paginate(-1)}>{"🡠"}</div>
+                 <div onClick={() => paginate(-1)}><AiOutlineArrowLeft/></div>
              </div>
    
              {/* Images Miniatures */}

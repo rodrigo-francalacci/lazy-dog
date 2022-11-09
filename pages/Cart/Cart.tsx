@@ -50,7 +50,7 @@ const dispatch = useAppDispatch();
                             </div>
                             <div>
                                 <QuantityBox use='cartPage' productID={item.id}/>
-                                <span onClick={()=>{ dispatch(removeItem({id: item.id}))}}>Remove</span>
+                                <span onClick={()=>{ dispatch(removeItem({id: item.id}))}}>X</span>
                             </div>
                         </div>
                         

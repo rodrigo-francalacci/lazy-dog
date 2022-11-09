@@ -13,6 +13,7 @@ import Hero from '../components/Hero/Hero';
 /* Style */
 import styles from './Home.module.scss'
 import { motion } from 'framer-motion';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 /* Queries */
 import {collectionPageQuery, formatCollectionPageQueryResponse} from '../utils/shopify_colllection_query' // collections query to fill the page
@@ -96,7 +97,7 @@ const Home: NextPage<any> = ({shopifyResponse, sanityPostsList, sanityHeroAndPro
 
             <div className={styles.articles_wrapper}>
             
-              <div className={`article-arrow-div-height ${styles.left_arrow}`}><div>🡠</div></div>
+              <div className={`article-arrow-div-height ${styles.left_arrow}`}><div><AiOutlineArrowLeft/></div></div>
                 <div className={styles.carousel_container}>
                   <Carousel>
 
@@ -111,7 +112,7 @@ const Home: NextPage<any> = ({shopifyResponse, sanityPostsList, sanityHeroAndPro
 
                   </Carousel>
                 </div>
-                <div className={`article-arrow-div-height ${styles.right_arrow}`}><div>🡢</div></div>
+                <div className={`article-arrow-div-height ${styles.right_arrow}`}><div><AiOutlineArrowRight/></div></div>
 
             </div>
 

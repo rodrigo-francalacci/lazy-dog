@@ -11,7 +11,7 @@ const ThemeTypography = (): JSX.Element => {
     <style>
         {`   
             ${fontBuilder(//H2 => About us, Cart items
-                ".worksans-h2", (22*s), 1440, 22, (22*b),
+                ".worksans-h2", (21), 1440, 24, (23*b),
                 {
                   fontFamily: "var(--font-worksans)",
                   fontWeight: "600",
@@ -44,7 +44,7 @@ const ThemeTypography = (): JSX.Element => {
             )}
           
             ${fontBuilder(//NAVBAR
-              ".worksans-navbar", 17, 1440, 22, 39,
+              ".worksans-navbar", 19, 1440, 22, 39,
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "400", lineHeight: "130%",
@@ -68,7 +68,7 @@ const ThemeTypography = (): JSX.Element => {
             )}
 
             ${fontBuilder(//FOOTER TEXT
-              ".worksans-footer", 14, 1440, 16, 26,
+              ".worksans-footer", 16, 1440, 16, 26,
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "400", lineHeight: "170%",
@@ -76,7 +76,7 @@ const ThemeTypography = (): JSX.Element => {
             )}
 
             ${fontBuilder(//SMALL BUTTOM
-              ".worksans-small-buttom", 10.5, 1440, 12, 17,
+              ".worksans-small-buttom", 13, 1440, 14, 17,
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "700", lineHeight: "120%",
@@ -85,7 +85,7 @@ const ThemeTypography = (): JSX.Element => {
             )}
 
             ${fontBuilder(//BIG BUTTOM
-              ".worksans-big-buttom", 13.5, 1440, 15, 19.8,
+              ".worksans-big-buttom", 15, 1440, 17, 21,
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "700", lineHeight: "120%",
@@ -135,7 +135,7 @@ const ThemeTypography = (): JSX.Element => {
             )}
 
             ${fontBuilder(//CART SUMMARY
-              ".worksans-cart-summary", 10, 1440, 11, 17,
+              ".worksans-cart-summary", 12, 1440, 11, 17,
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "400",
@@ -143,7 +143,7 @@ const ThemeTypography = (): JSX.Element => {
             )}
 
             ${fontBuilder(//CART ITEMS
-              ".worksans-cart-items", (12.6*s), 1440, 12.6, (12.6*b),
+              ".worksans-cart-items", (13), 1440, 15, (15*b),
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "700",

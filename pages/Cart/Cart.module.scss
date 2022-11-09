@@ -29,7 +29,7 @@
             }
 
             .text_info {
-                width:80%; height: 100%;
+                width:90%; height: 100%;
                 display: flex; flex-direction: column; justify-content:flex-start;
 
                 & > div:first-child{
@@ -48,7 +48,7 @@
                     font-size: 1em;
 
                     & > :first-child{width: 24%; min-height: 2em;}
-                    span{color: var(--red); margin-left: 1em; cursor: pointer;}
+                    span{color: var(--red); margin-left: 1em; cursor: pointer; font-size: 1.3em;}
                 }
                 
             }

@@ -11,6 +11,7 @@ import SEO from '../../components/SEO/SEO';
 /* Style */
 import styles from './Collection.module.scss'
 import { motion } from 'framer-motion';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 /* API */
 import { storefront } from '../../utils/shopify_fetch_function'
@@ -80,7 +81,7 @@ const Collection: NextPage<any> = ({shopifyResponse, sanityPostsList}: any) => {
 
           <div className={styles.articles_wrapper}>
           
-            <div className={`article-arrow-div-height ${styles.left_arrow}`}><div>🡠</div></div>
+          <div className={`article-arrow-div-height ${styles.left_arrow}`}><div><AiOutlineArrowLeft/></div></div>
               <div className={styles.carousel_container}>
                 <Carousel>
 
@@ -95,7 +96,7 @@ const Collection: NextPage<any> = ({shopifyResponse, sanityPostsList}: any) => {
 
                 </Carousel>
               </div>
-              <div className={`article-arrow-div-height ${styles.right_arrow}`}><div>🡢</div></div>
+              <div className={`article-arrow-div-height ${styles.right_arrow}`}><div><AiOutlineArrowRight/></div></div>
 
           </div>
 
