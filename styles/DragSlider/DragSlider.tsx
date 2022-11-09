@@ -133,7 +133,7 @@ export const DragSlider = ({slides, aspectRatio, objectFit}: DragSliderProps) =>
         Images visible above the fold, such as images on a landing page, 
         should use the priority prop for the performance boost.
         https://refine.dev/blog/using-next-image/#priority */
-        priority
+        priority={true}
         loading='eager'
 
         /* On screens that are 690px wide or less, the size is 84vw */
