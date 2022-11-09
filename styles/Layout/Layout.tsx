@@ -74,6 +74,7 @@ const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =
    //HTML refs
    const ref_overlay = useRef<HTMLDivElement>(null!);
    const ref_top = useRef<HTMLDivElement>(null!);
+   const ref_main = useRef<HTMLDivElement>(null!);
 
    //States
    const status = useAppSelector(state => state.navbar_state.status);
@@ -83,9 +84,11 @@ const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =
         if(status == 'opened'){
           ref_overlay.current.style.visibility = "visible";
           ref_overlay.current.style.opacity = "0.8";
+          ref_main.current.style.pointerEvents = 'none';
         } else {
           ref_overlay.current.style.visibility = "hidden";
           ref_overlay.current.style.opacity = "0";
+          ref_main.current.style.pointerEvents = 'auto';
         }
       
    }, [status] )
@@ -194,7 +197,7 @@ return (
         </div>
 
         {/* Page content */}
-        <main>
+        <main ref={ref_main}>
             {children}
         </main>
 

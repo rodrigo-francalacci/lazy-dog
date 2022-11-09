@@ -48,7 +48,7 @@
 //===========================================================================================================================
 //COMPONENT => Opened NavBar
 .navBarOpened_container{
-    height: 100%; max-height: 100vh;
+    height: 100%; min-height: 100vh;
     position: fixed; top: 0; left: 0; transform: translateX(-100%); z-index: 3;
     transition: 1s; overflow-x: hidden;
     border-right: solid 0.2rem var(--grey);
