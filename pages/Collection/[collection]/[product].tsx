@@ -139,7 +139,7 @@ const Product = ({shopifyResponse}: any) => {
             
         {/* Temporary  message when the user clicks on "add to cart" 
         more information on https://react-hot-toast.com/*/}
-        <Toaster toastOptions={{ className: `worksans-toast ${styles.toast}`,  duration: 5000,  icon: '🐕'}}/>
+        <Toaster toastOptions={{ className: `worksans-toast ${styles.toast}`,  duration: 2000,  icon: '🐕'}}/>
 
         {/* The slider with the pictures */}
         <div className={styles.imageSlider}>
