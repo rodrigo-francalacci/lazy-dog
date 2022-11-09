@@ -118,6 +118,41 @@ export const DragSlider = ({slides, aspectRatio, objectFit}: DragSliderProps) =>
         }
     }
 
+    //Create the components that will go inside the slider
+    const slideComponents: JSX.Element[] = slides?.length > 0 ? slides.map((item, index) =>{
+        return <Image
+        key={index}
+        className={styles.image}
+        src={item.url}
+        alt={item.alt}
+        layout='fill'
+        objectFit={objectFit}
+
+        /* This prop is particularly useful for images visible above the fold - i.e, 
+        the portion of a web page that is visible without scrolling. 
+        Images visible above the fold, such as images on a landing page, 
+        should use the priority prop for the performance boost.
+        https://refine.dev/blog/using-next-image/#priority */
+        priority
+
+        /* On screens that are 690px wide or less, the size is 84vw */
+        /* On screens that are 1000px wide or less, the size is 68vw */
+        /* On screens that are 1400px wide or less, the size is 39vw */
+        /* On screens that are 1920px wide or less, the size is 37vw */
+        /* The smaller screen overrides the bigger, 
+        but if a bigger sized is already loaded, nextJS will keep the better image
+        */
+        /* Check documentation: https://nextjs.org/docs/api-reference/next/image#sizes */
+        sizes="
+        (max-width: 690px) 84vw,
+        (max-width: 1000px) 68vw,
+        (max-width: 1400px) 39vw,
+        (max-width: 1920px) 37vw,
+        37vw"                      
+        quality={50}
+    />
+    }) : []
+
 
   /* JSX Return
   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -156,36 +191,7 @@ export const DragSlider = ({slides, aspectRatio, objectFit}: DragSliderProps) =>
                           
                           {/* Single slide element */}
                           <div className={styles.imageContainer} style={ratio}>
-                              <Image
-                                  className={styles.image}
-                                  src={slides[imageIndex].url}
-                                  alt={slides[imageIndex].alt}
-                                  layout='fill'
-                                  objectFit={objectFit}
-
-                                  /* This prop is particularly useful for images visible above the fold - i.e, 
-                                  the portion of a web page that is visible without scrolling. 
-                                  Images visible above the fold, such as images on a landing page, 
-                                  should use the priority prop for the performance boost.
-                                  https://refine.dev/blog/using-next-image/#priority */
-                                  priority
-
-                                  /* On screens that are 690px wide or less, the size is 84vw */
-                                  /* On screens that are 1000px wide or less, the size is 68vw */
-                                  /* On screens that are 1400px wide or less, the size is 39vw */
-                                  /* On screens that are 1920px wide or less, the size is 37vw */
-                                  /* The smaller screen overrides the bigger, 
-                                  but if a bigger sized is already loaded, nextJS will keep the better image
-                                  */
-                                  /* Check documentation: https://nextjs.org/docs/api-reference/next/image#sizes */
-                                  sizes="
-                                  (max-width: 690px) 84vw,
-                                  (max-width: 1000px) 68vw,
-                                  (max-width: 1400px) 39vw,
-                                  (max-width: 1920px) 37vw,
-                                  37vw"                      
-                                  quality={50}
-                              />
+                              {slideComponents[imageIndex]}
                           </div>
 
                   </motion.div>
