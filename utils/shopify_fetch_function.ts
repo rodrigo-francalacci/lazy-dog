@@ -1,4 +1,4 @@
-import { default as fetch } from 'node-fetch';
+import { default as fetch } from 'node-fetch'; 
 
 
 /* export const postToShopify = async ({ query, variables = {} }) => {
