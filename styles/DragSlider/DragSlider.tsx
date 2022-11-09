@@ -65,9 +65,8 @@ export const DragSlider = ({slides, aspectRatio, objectFit}: DragSliderProps) =>
 
   //States, Refs and Props 
   const [[page, direction], setPage] = useState([0, 0]);
-  const ratio = {
-      paddingTop: aspectRatio,
-  }
+  const [ratio, setRatio] = useState<any>({paddingTop: aspectRatio})
+
   const ref_slides = useRef<HTMLDivElement[]>(new Array());
 
 
@@ -90,6 +89,10 @@ export const DragSlider = ({slides, aspectRatio, objectFit}: DragSliderProps) =>
     });
   },[imageIndex])
 
+  useEffect(()=>{
+      if(window.screen.width < 680){setRatio({paddingTop: '75%'})}
+      if(window.screen.width < 500){setRatio({paddingTop: '100%'})}
+  },[])
 
   /* Aux Functions
   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */

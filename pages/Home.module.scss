@@ -26,7 +26,7 @@
 
     .h2_article {
         text-align: center; color: var(--blue-velvet);
-        margin-bottom: 1rem; margin-top: 5rem;
+        margin-bottom: 1rem; margin-top: 3rem;
     }
 
     .articles_wrapper{
@@ -35,7 +35,7 @@
 
         .carousel_container{
             max-width: 87%;
-            @media only screen and (max-width: 425px) {max-width: 77%;}
+            @media only screen and (max-width: 425px) {max-width: 90%;}
             
 
             .slider_item{

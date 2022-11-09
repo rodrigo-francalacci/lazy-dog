@@ -57,13 +57,12 @@ const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =
     useEffect(() => {
 
         loadData();
-
+       /* Remember to include this page on Sanity CORS origins Hosts so you can connect to the project API. */
         async function loadData(){
           const data = await getLayoutProps()
           setBanners(formatBannerItems(data.sanityLayoutItems.banners))
           setSiteSettings(formatSiteSettings(data.sanityLayoutItems.sitesettings))
           setCategoriesList(formatCollectionsListResponse(data.shopifyCollectionsResponse.data.collections))
-          console.log(data)
         }
         
     }, [])
