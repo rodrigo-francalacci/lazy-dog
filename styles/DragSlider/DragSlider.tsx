@@ -134,6 +134,7 @@ export const DragSlider = ({slides, aspectRatio, objectFit}: DragSliderProps) =>
         should use the priority prop for the performance boost.
         https://refine.dev/blog/using-next-image/#priority */
         priority
+        loading='eager'
 
         /* On screens that are 690px wide or less, the size is 84vw */
         /* On screens that are 1000px wide or less, the size is 68vw */
