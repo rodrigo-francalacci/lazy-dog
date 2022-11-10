@@ -205,8 +205,8 @@
           align-self: start; 
       grid-area: imageSlider;
       width: 100%;
-      @media screen and (max-width:450px) { transform: scale(1.1)}
-      @media screen and (max-width:360px) { transform: scale(1.06)}
+      @media screen and (max-width:450px) {width: 85vw; transform: scale(1.17); margin: 3.5rem auto;}
+
       
     }
     .productName {
