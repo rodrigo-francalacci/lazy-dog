@@ -5,7 +5,8 @@
 * Browsers: last 4 version
 */
 
-.container {  display: -ms-grid;  display: grid;
+.container {  
+  display: -ms-grid;  display: grid;
   -ms-grid-columns: 2.3fr 0px 1.08fr 0px 1.08fr 0px 1fr;
   grid-template-columns: 2.3fr 1.08fr 1.08fr 1fr;
   -ms-grid-rows: auto 0px auto 0px 7rem 0px auto;
@@ -21,6 +22,7 @@
 
     width: 80%; margin: 0 auto;
     @media screen and (max-width: 690px) {width: 100%}
+    
 }
 
 
@@ -42,6 +44,7 @@
   .shareBot{
     position: absolute; top: 0; right: 0; z-index: 2;
   }
+
 
 }
 
@@ -202,6 +205,9 @@
           align-self: start; 
       grid-area: imageSlider;
       width: 100%;
+      @media screen and (max-width:450px) { transform: scale(1.1)}
+      @media screen and (max-width:360px) { transform: scale(1.06)}
+      
     }
     .productName {
       -ms-grid-row: 3;
