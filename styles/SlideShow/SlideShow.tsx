@@ -17,7 +17,7 @@ type SlideShowProps = {
 const SlideShow: React.FunctionComponent<SlideShowProps> = ({children, t = 5000, allSlidesDuration}: SlideShowProps) => {
 
     //States
-    const [prevWidth, setPrevWidth] = useState<number>(null!)
+    const [prevWidth, setPrevWidth] = useState<number>(document.documentElement.clientWidth)
     
     //HTML refs
     const ref_SlidesContainer =useRef<HTMLUListElement>(null!);
@@ -126,58 +126,56 @@ function slideTimmer(slideDuration: number, n: number, src: string){
 }
 
 
-
+    // Use Effects
     useEffect(() => {
 
-        
         if(interact.current == false){
             let firstSlideDuration: number
             if(allSlidesDuration && allSlidesDuration[1]){firstSlideDuration = allSlidesDuration[1]} else {firstSlideDuration = t};
             interact.current = true;
             copyFirstElement();
             slideTimmer(firstSlideDuration ,1, "load page");
-            
         }
 
-
-        window.addEventListener('resize', function(){
-
-            if(prevWidth !== window.screen.width){
-
-                setPrevWidth(window.screen.width)
-                clearTimeout(resizeTimer.current!);
-
-                resizeTimer.current = setTimeout(()=>{
-
-                    if(interact.current==true){
-                        interact.current = false;
-                        ref_SlidesContainer.current.style.scrollBehavior = "auto";
-                        ref_SlidesContainer.current.scrollLeft = 0;
-                        clearTimeout(timer1.current!);
-                        clearTimeout(timer2.current!);
-                        clearTimeout(timer3.current!); 
-                    };
-            
-                    if(interact.current == false){
-                        let firstSlideDuration: number
-                        interact.current = true;
-                        if(allSlidesDuration && allSlidesDuration[1]){firstSlideDuration = allSlidesDuration[1]} else {firstSlideDuration = t};
-                        slideTimmer(firstSlideDuration , 1, "unpause");
-                    }
-
-                }, 100)
-
-            }
-
-        }
-        );
-
-            
+       /* Changes the state "prevWidth" on resize, a change in this state 
+       triggers the useEffect bellow to recalculate the slideshow width */
+        window.addEventListener('resize', ()=>{
+            setPrevWidth(document.documentElement.clientWidth)
+        })
 
     }, []);
 
 
+    //Happens whenever the width changes
+    useEffect(()=>{
 
+        clearTimeout(resizeTimer.current!);
+        
+        resizeTimer.current = setTimeout(()=>{
+
+            if(interact.current==true){
+                interact.current = false;
+                ref_SlidesContainer.current.style.scrollBehavior = "auto";
+                ref_SlidesContainer.current.scrollLeft = 0;
+                clearTimeout(timer1.current!);
+                clearTimeout(timer2.current!);
+                clearTimeout(timer3.current!); 
+            };
+    
+            if(interact.current == false){
+                let firstSlideDuration: number
+                interact.current = true;
+                if(allSlidesDuration && allSlidesDuration[1]){firstSlideDuration = allSlidesDuration[1]} else {firstSlideDuration = t};
+                slideTimmer(firstSlideDuration , 1, "unpause");
+            }
+
+        }, 100)
+
+    },[prevWidth])
+
+
+/* JSX element return
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
   return (
     <section className = {styles.sliderWrapper}> 
     
