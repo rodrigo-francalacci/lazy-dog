@@ -24,8 +24,6 @@
             transition: color .4s; /* Animation */
             cursor: pointer;
 
-            &:hover{color: var(--blue-sea);}
-
             span{
                 position: absolute; right: -0.5rem ; bottom: -0.2rem; display: flex;
                 font-size: 0.8rem;

@@ -16,6 +16,9 @@ type SlideShowProps = {
 //===========================================================================================================================
 const SlideShow: React.FunctionComponent<SlideShowProps> = ({children, t = 5000, allSlidesDuration}: SlideShowProps) => {
 
+    //States
+    const [prevWidth, setPrevWidth] = useState<number>(null!)
+    
     //HTML refs
     const ref_SlidesContainer =useRef<HTMLUListElement>(null!);
 
@@ -139,29 +142,35 @@ function slideTimmer(slideDuration: number, n: number, src: string){
 
         window.addEventListener('resize', function(){
 
-            clearTimeout(resizeTimer.current!);
+            if(prevWidth !== window.screen.width){
 
-            resizeTimer.current = setTimeout(()=>{
+                setPrevWidth(window.screen.width)
+                clearTimeout(resizeTimer.current!);
 
-                if(interact.current==true){
-                    interact.current = false;
-                    ref_SlidesContainer.current.style.scrollBehavior = "auto";
-                    ref_SlidesContainer.current.scrollLeft = 0;
-                    clearTimeout(timer1.current!);
-                    clearTimeout(timer2.current!);
-                    clearTimeout(timer3.current!); 
-                };
-        
-                if(interact.current == false){
-                    let firstSlideDuration: number
-                    interact.current = true;
-                    if(allSlidesDuration && allSlidesDuration[1]){firstSlideDuration = allSlidesDuration[1]} else {firstSlideDuration = t};
-                    slideTimmer(firstSlideDuration , 1, "unpause");
-                }
+                resizeTimer.current = setTimeout(()=>{
 
-            }, 100)
+                    if(interact.current==true){
+                        interact.current = false;
+                        ref_SlidesContainer.current.style.scrollBehavior = "auto";
+                        ref_SlidesContainer.current.scrollLeft = 0;
+                        clearTimeout(timer1.current!);
+                        clearTimeout(timer2.current!);
+                        clearTimeout(timer3.current!); 
+                    };
+            
+                    if(interact.current == false){
+                        let firstSlideDuration: number
+                        interact.current = true;
+                        if(allSlidesDuration && allSlidesDuration[1]){firstSlideDuration = allSlidesDuration[1]} else {firstSlideDuration = t};
+                        slideTimmer(firstSlideDuration , 1, "unpause");
+                    }
 
-        });
+                }, 100)
+
+            }
+
+        }
+        );
 
             
 
