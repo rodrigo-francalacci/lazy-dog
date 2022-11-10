@@ -88,7 +88,7 @@ const Collection: NextPage<any> = ({shopifyResponse, sanityPostsList}: any) => {
                   {/* mapping articles */}
                     {blogPosts?.length > 0 && blogPosts.map((item, index)=>{
                       return(
-                        <div key={index} className={styles.slider_item}>
+                        <div key={index} className={`article-card-width ${styles.slider_item}`}>
                           <ArticleCard thumbnail_URL={item.thumbnail_url} title={item.title} slug={item.slug}/>
                         </div>
                       )

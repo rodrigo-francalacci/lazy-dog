@@ -20,7 +20,7 @@ const ArticleCard = ({thumbnail_URL, title, slug}: ArticleCardProps) => {
 
   return (
     
-        <div className={`article-card-width ${styles.container}`}>
+        <div className={`${styles.container}`}>
             
             <div className={`${styles.image}`} >
                 <Image

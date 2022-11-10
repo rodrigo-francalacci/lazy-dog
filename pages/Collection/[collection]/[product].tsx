@@ -11,7 +11,6 @@ import { addToCart } from '../../../slices/cartSlice';
 import styles from './Product.module.scss'
 
 /* Components */
-import ImageSlider from '../../../styles/ImageSlider/ImageSlider'
 import QuantityBox from '../../../components/QuantityBox/QuantityBox'
 import Buttom from '../../../components/Buttom/Buttom'
 import SEO from '../../../components/SEO/SEO';

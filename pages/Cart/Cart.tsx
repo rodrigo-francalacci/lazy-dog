@@ -20,7 +20,7 @@ const Cart = () => {
 const cartItems = useAppSelector((state)=> state.cart.cart);
 const subtotal = useAppSelector((state) => state.cart.subtotal);
 
-/* States */
+/* States */ 
 
 
 /* Aux Functions */
@@ -45,13 +45,20 @@ const dispatch = useAppDispatch();
                             </div>
                         </Box>
                         <div className={styles.text_info}>
-                            <div>
-                                <h3>{title}</h3><p><span>£</span>{(item.price*item.quantity).toFixed(2)}</p>
-                            </div>
-                            <div>
-                                <QuantityBox use='cartPage' productID={item.id}/>
-                                <span onClick={()=>{ dispatch(removeItem({id: item.id}))}}>X</span>
-                            </div>
+                                <h3>{title}</h3>
+                                <div className={styles.info}>
+                                    <p><span>£</span>{(item.price*item.quantity).toFixed(2)}</p>
+                                    <QuantityBox use='cartPage' productID={item.id}/>
+                                    <span onClick={()=>{ dispatch(removeItem({id: item.id}))}}>Remove</span>
+                                    
+                                </div>
+                                {/* <h3>{title}</h3>
+                                
+                                <div className={styles.info}>
+                                    <p><span>£</span>{(item.price*item.quantity).toFixed(2)}</p>
+                                    <QuantityBox use='cartPage' productID={item.id}/>
+                                    <span onClick={()=>{ dispatch(removeItem({id: item.id}))}}>X</span>
+                                </div> */}
                         </div>
                         
                     </div>   
