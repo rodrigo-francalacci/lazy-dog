@@ -89,9 +89,16 @@ export const DragSlider = ({slides, aspectRatio, objectFit}: DragSliderProps) =>
     });
   },[imageIndex])
 
+  //Change the image ratio depending on the screen width
   useEffect(()=>{
-      if(window.screen.width < 680){setRatio({paddingTop: '75%'})}
-      if(window.screen.width < 500){setRatio({paddingTop: '100%'})}
+    if(window.screen.width >= 680){setRatio({paddingTop: aspectRatio})}
+    if(window.screen.width < 680){setRatio({paddingTop: '75%'})}
+    if(window.screen.width < 500){setRatio({paddingTop: '100%'})}
+      window.addEventListener('resize', ()=>{
+        if(window.screen.width >= 680){setRatio({paddingTop: aspectRatio})}
+        if(window.screen.width < 680){setRatio({paddingTop: '75%'})}
+        if(window.screen.width < 500){setRatio({paddingTop: '100%'})}
+      })
   },[])
 
   /* Aux Functions

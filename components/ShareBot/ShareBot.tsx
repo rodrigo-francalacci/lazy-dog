@@ -48,7 +48,7 @@ const ShareBot = ({title, text, className=''}: ShareBotProps) => {
   return (
       
     <div className={`${styles.container} ${className}`} onClick={handleShareClick}>
-        <BsFillShareFill size={25}/>
+        <BsFillShareFill size={20}/>
     </div>
   )
 }
