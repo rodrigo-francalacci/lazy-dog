@@ -1,7 +1,8 @@
 .container{
-    width: 100%; padding-top: 40%;
+    width: 100%; padding-top: 40%; margin: 0 auto;
     position: relative; z-index: 1; overflow: hidden; user-select: none;
     @media only screen and (max-width: 500px) { padding-top: 55%;}
+    @media only screen and (max-width: 450px) { width: 85vw; transform: scale(1.175);}
     
     .imageContainer{
         position: absolute; top: 0; left: 0;
