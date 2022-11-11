@@ -2,7 +2,7 @@
     
     .image_zoom_wrapper{
         width: 100%; ; overflow: hidden; display: block;
-        border-radius: 10%; overflow: hidden; user-select: none;
+        border-radius: 10%; overflow: hidden; 
         transition: box-shadow  .4s; /* Animation */
         &:hover{box-shadow: 0.2rem 0.2rem 0.6rem 0.2rem grey;}
     }
