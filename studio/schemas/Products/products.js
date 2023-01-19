@@ -57,6 +57,8 @@ export default {
         name: 'images',
         title: 'Images',
         type: 'array',
+        description: "The first image will be displayed in the products list and the last image will be the Checkout Thumbnail Image",
+        validation: Rule => Rule.required(),
         of: [{
           type: 'image',
           options: {

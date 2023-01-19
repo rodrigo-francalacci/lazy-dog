@@ -17,6 +17,36 @@ export default {
         type: 'text'
       },
 
+      //Products data source
+      {
+        name: 'productsSource',
+        title: 'Products Data Source',
+        description: 'Sets the API source for the products data',
+        type: 'string',
+        validation: Rule => Rule.required(),
+        options: {
+            list: ["Sanity", "Shopify"]
+        }
+      },
+
+      //Categories displayed in the navbar
+      {
+        name: 'categoriesList',
+        title: 'Categories List',
+        description: 'Categories displayed in the navigation bar',
+        type: 'array',
+        of: [
+        {
+          type: 'reference',
+          to: [
+            {type: 'categories'}
+          ]
+        }
+        ]
+      },
+
+
+
       //Contact list
       {
         name: 'contactsList',
@@ -46,7 +76,6 @@ export default {
         },
         ]
       },
-
 
       //Social Media
       {

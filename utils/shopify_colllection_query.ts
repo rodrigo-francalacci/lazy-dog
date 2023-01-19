@@ -134,17 +134,17 @@ return query;
 
 //This collection Type
 export type thisCollectionProps = {
-  descriptionPage: string;
+  descriptionPage: any;
   SEO_description: string,
   coverImageURL?: string;
-  shopifyHandle: string,
+  handle: string,
   title: string,
   id: string;   
 }
 
 export type productProps = {
   title: string;
-  shopifyHandle: string;
+  handle: string;
   thumbnail_URL: string;
   price: number | null;
   shortDescription: string;
@@ -166,7 +166,7 @@ export function formatCollectionPageQueryResponse(response: any){
     coverImageURL: response.data.collection.image?.url ? response.data.collection.image.url : null,
     
     SEO_description: response.data.collection.description,
-    shopifyHandle: response.data.collection.handle,
+    handle: response.data.collection.handle,
     title: response.data.collection.title,
     id: response.data.collection.id
   }
@@ -179,7 +179,7 @@ export function formatCollectionPageQueryResponse(response: any){
     products.push({
       
       title: item.node.title,
-      shopifyHandle: item.node.handle,
+      handle: item.node.handle,
 
       //if image, price or short description are empty we return null
       thumbnail_URL: item.node.images?.edges[0].node.url ? item.node.images.edges[0].node.url : null,
@@ -195,7 +195,7 @@ export function formatCollectionPageQueryResponse(response: any){
    function collectionID_Builder(collectionID_fromProduct: {value: string} | null){
     let id: string;
       //if we are in the homePage we will try to get the id of the collection this product belongs
-      if(thisCollection.shopifyHandle == "frontpage"){
+      if(thisCollection.handle == "frontpage"){
         //if the user has set the product collection in the metafield we take it
         if (collectionID_fromProduct){
          

@@ -9,7 +9,7 @@ import styles from './Buttom.module.scss'
 /* Types */
 type ButtomProps = {
     children: React.ReactNode,
-    bkgColor?: "bkg-green" | "bkg-gold" | "bkg-blue-velvet" | "bkg-orange" | "bkg-red" | "bkg-white";
+    bkgColor?: "bkg-green" | "bkg-gold" | "bkg-blue-velvet" | "bkg-orange" | "bkg-red" | "bkg-white" | "bkg-black";
     fontColor?: "font-black" | "font-white";
     size?: "small" | "big";
     className?: string;

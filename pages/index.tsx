@@ -17,33 +17,34 @@ import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 /* Queries */
 import {collectionPageQuery, formatCollectionPageQueryResponse} from '../utils/shopify_colllection_query' // collections query to fill the page
+import {productsShowcaseQuery, format_productsInCategory} from '../utils/sanity_queries' 
 import {list_of_postsQuery, format_List_of_posts} from '../utils/sanity_queries' 
-import {homeHero_and_showcase_Query, format_homeHero_and_showcase } from '../utils/sanity_queries';
+import {homeHero_Query, format_homeHero } from '../utils/sanity_queries';
 
 /* Types */
-import {thisCollectionProps, productProps} from '../utils/shopify_colllection_query' //queries Types
-import {list_of_postsProps, homeHero_and_showcaseProps} from '../utils/sanity_queries'
+import {productProps} from '../utils/shopify_colllection_query' //queries Types
+import {list_of_postsProps, homeHeroProps} from '../utils/sanity_queries'
 
-type ShopifyFormated = {
-  thisCollection: thisCollectionProps;
+
+type Props = {
   products: productProps[];
+  sanityHero: any;
+  sanityPostsList: any;
 }
 
 /* 
 PAGE COMPONENT
 +++++++++++++++++++++++++++++++++++++++*/
-const Home: NextPage<any> = ({shopifyResponse, sanityPostsList, sanityHeroAndProducts}: any) => {
-       
-      /*Prepare/format the response (typing and removing unnecessary objects and arrays and some other things)
-      The metatags informations we should fetch everytime we load a dynamic page (product, collections)
-      to ensure a good SEO, check this link (https://www.techomoro.com/render-dynamic-title-and-meta-tags-in-a-next-js-app/) */
-      const {thisCollection, products}: ShopifyFormated = formatCollectionPageQueryResponse(shopifyResponse);
+const Home: NextPage<Props> = ({products, sanityHero, sanityPostsList}: Props) => {
+      
+      console.log(products)
 
       //Format the list of posts
       const blogPosts: list_of_postsProps[] = format_List_of_posts(sanityPostsList);
 
       //Format Sanity Hero and showcase Products
-      const hero: homeHero_and_showcaseProps = format_homeHero_and_showcase(sanityHeroAndProducts)
+      const hero: homeHeroProps = format_homeHero(sanityHero)
+
       
 /* JSX Return 
 +++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -52,27 +53,27 @@ const Home: NextPage<any> = ({shopifyResponse, sanityPostsList, sanityHeroAndPro
         <div className={styles.container}>
 
             {/* Head and metatags generator */}
-            <SEO title={"Home"} description={thisCollection.SEO_description} /> 
+            <SEO title={"Home"} description={hero.homeDescription} /> 
             
-            {hero.heroTitle ? 
+            {hero.heroTitle 
+              ? 
               <div className={styles.hero}>
                 <Hero imgUrl={hero.heroImageURL} title={hero.heroTitle} description={hero.heroDescription}/> 
               </div>
               :
-              <h2 className={`worksans-h2  ${styles.h2_title}`}>{thisCollection.title}</h2>
+              <h2 className={`worksans-h2  ${styles.h2_title}`}>Home</h2>
             }
 
-            <p className={`worksans-paragraph`}>{thisCollection.descriptionPage}</p>
+            <p className={`worksans-paragraph`}>{hero.homeDescription}</p>
 
             
-
             <div className={styles.products_container}>
 
                 {/* Mapping the products */}
                 {products.map((item, index)=>{
                   return(
                     <motion.div 
-                        key={`${item.shopifyHandle}${index}`}
+                        key={`${item.handle}${index}`}
                         initial={{opacity: 0, y: -70}}
                         animate={{opacity: 1, y: 0}}
                         transition={{delay: 0.20 * index}}
@@ -82,10 +83,10 @@ const Home: NextPage<any> = ({shopifyResponse, sanityPostsList, sanityHeroAndPro
                               name={item.title} 
                               price={item.price} 
                               imgUrl={item.thumbnail_URL}
-                              productHandle={item.shopifyHandle}
+                              productHandle={item.handle}
                               collectionID={item.collectionID}/>
 
-                  </motion.div>
+                    </motion.div>
                   )
                 })}
 
@@ -154,24 +155,50 @@ import { mySanityClient } from '../lib/sanityClient';
 
 export async function getStaticProps() {
 
-    //FROM SHOPIFY
-    //Get the products that will be displayed in the home page
-    const shopifyResponse = await storefront(collectionPageQuery("frontpage"));
+    var products: productProps[] = null!;
 
-    //FROM SANITY
+    //Check if we are gonna take the PRODUCTS data from Sanity or from Shopofy
+    const source = await mySanityClient.fetch(`*[_type == 'siteSettings'][0]{productsSource}`);
+    
+        // IF FROM SANITY
+        if(source.productsSource === 'Sanity'){
+
+          //Get the products from the showcase in sanity
+          const sanityProducts = await mySanityClient.fetch(productsShowcaseQuery);
+
+          //Format the products
+          products = format_productsInCategory(sanityProducts);
+
+        }
+
+        // IF FROM SHOPIFY
+        else {
+
+          //Get the products that will be displayed in the home page
+          const shopifyResponse = await storefront(collectionPageQuery("frontpage"));
+          
+          /*Prepare/format the response (typing and removing unnecessary objects and arrays and some other things)
+          The metatags informations we should fetch everytime we load a dynamic page (product, collections)
+          to ensure a good SEO, check this link (https://www.techomoro.com/render-dynamic-title-and-meta-tags-in-a-next-js-app/) */
+          const shopifyFormated = formatCollectionPageQueryResponse(shopifyResponse);
+          products = shopifyFormated.products;
+
+        }
+  
+
+    //LIST OF POSTS FROM SANITY
     //Get the list of posts from sanity
     const sanityPostsList = await mySanityClient.fetch(list_of_postsQuery);
     
-    //Get hero and showcase products from sanity (we are not using the showcase products because we are getting them from shopify)
-    //However the environment for getting this products from sanity is already working
-    const sanityHeroAndProducts = await mySanityClient.fetch(homeHero_and_showcase_Query);
+    //GET HERO FROM SANITY
+    const sanityHero = await mySanityClient.fetch(homeHero_Query);
     
   
   return {
    props: {
-    shopifyResponse: shopifyResponse, 
+    products: products,
+    sanityHero: sanityHero,
     sanityPostsList: sanityPostsList,
-    sanityHeroAndProducts: sanityHeroAndProducts
   }
 
  }

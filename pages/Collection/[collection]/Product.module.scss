@@ -5,7 +5,7 @@
 * Browsers: last 4 version
 */
 
-.container {  
+/* .container {  
   display: -ms-grid;  display: grid;
   -ms-grid-columns: 2.3fr 0px 1.08fr 0px 1.08fr 0px 1fr;
   grid-template-columns: 2.3fr 1.08fr 1.08fr 1fr;
@@ -306,20 +306,21 @@
       grid-area: specifications; 
       text-align: center; -ms-grid-row-align: center; align-self: center;
     }
-}
+} */
     
 
 /* ORIGINAL SCSS CODE 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-/* .container {  display: grid;
+.container {  display: grid;
   grid-template-columns: 2.3fr 1.08fr 1.08fr 1fr;
-  grid-template-rows: auto auto 7rem auto;
+  grid-template-rows: auto auto 7rem auto auto;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
     "imageSlider imageSlider imageSlider imageSlider"
     "productName price price quantity"
     "dogsName . addToCart addToCart"
+    "variants variants variants variants"
     "details details details details"
     ;
 
@@ -375,6 +376,43 @@
 
 }
 
+.variantsContainer{
+  grid-area: variants;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
+  column-gap: 10%;
+  width: 100%;
+/*   margin-top: 1.3rem; margin-bottom: 0.5rem; */
+
+  .optionContainer{
+    width: fit-content;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 0.4rem; 
+    margin-top: 1rem; margin-bottom: 1rem; 
+    p{
+      font-size: 0.8em;
+      color: var(--black-light);
+    }
+    .options{
+      width: 100%;
+      display: flex; justify-content: center; align-items: center;
+      flex-wrap: wrap; column-gap: 1.3rem;
+      margin-top: 1rem;
+        .optionButtom{
+          width: fit-content;
+          padding: 0.4rem;
+          background-color: white; color: black; 
+          border: solid 1px grey; border-radius: 0.5rem;
+          font-size: 0.5em; cursor: pointer;
+          -webkit-user-select: none; /* Safari */
+          -ms-user-select: none; /* IE 10 and IE 11 */
+          user-select: none; /* Standard syntax */
+        }
+
+    }
+  }
+
+}
+
 .dogsName {
   justify-self: start;
   align-self: center;
@@ -409,8 +447,6 @@
   align-self: start;
   grid-area: details;
 
-
-
   margin-bottom: 2rem;
   font-size: max(16px, 0.6em);
   ul{font-weight: 400; line-height: 130%;}
@@ -424,11 +460,12 @@
   .container {
       display: grid; 
       grid-template-columns: 1fr 1fr; 
-      grid-template-rows: auto auto auto auto auto auto; 
+      grid-template-rows: auto auto auto auto auto auto auto; 
       gap: 0px 0px; 
       grid-template-areas: 
         "imageSlider imageSlider"
         "productName productName"
+        "variants variants"
         "dogsName dogsName"
         "price quantity"
         "addToCart addToCart"
@@ -494,4 +531,3 @@
     }
 }
     
- */

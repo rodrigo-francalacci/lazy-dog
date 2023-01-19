@@ -103,7 +103,7 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
   
              {/* Load the Home Link */}
             <li  onClick={handleClick} >
-                <Link  href="/"><a>{categoriesList && categoriesList[0].title}</a></Link>
+                <Link  href="/"><a>Home</a></Link>
             </li>
             <li  onClick={handleClick}>
               <Link href='/Cart/Cart'><a>{`Your Cart (${cartNumber})`}</a></Link>

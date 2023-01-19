@@ -19,20 +19,21 @@ export default {
                   {
                     name: "option",
                     title: "Option",
-                    type: "string"
+                    type: "string",
+                    validation: Rule => Rule.required()
                   },
                   {
                     name: "price",
-                    title: "Price (Pounds)",
+                    title: "Price Increment/Decrement (Pounds)",
                     type: "number",
-                    description: "If left blank, it will inherit the default price.",
-                    validation: Rule => Rule.min(0)
+                    description: "Set the price increment or decrement for this option.",
+                    validation: Rule => Rule.required()
                   },
                   {
                     name: "weight",
                     title: "Weight ( Kilograms)",
                     type: "number",
-                    description: "If left blank, it will inherit the default weight.",
+                    description: "Left it blank if this option does not affect the weight.",
                     validation: Rule => Rule.min(0)
                   },
                   {

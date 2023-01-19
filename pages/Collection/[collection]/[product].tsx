@@ -26,22 +26,21 @@ import { mySanityClient } from '../../../lib/sanityClient';
 import {collectionsListQuery, formatCollectionsListResponse} from '../../../utils/shopify_colllection_query' //to fill the navbar
 import {productsListQuery} from '../../../utils/shopify_colllection_query' //list of products
 import { productPageQuery, formatProductPageQuery } from '../../../utils/shopify_product_query'
+import { singleProductQuery, formatSanitySingleProduct } from '../../../utils/sanity_queries';
 
 /* Types */
 import {collectionsListProps} from '../../../utils/shopify_colllection_query'
 import {singleProductProps} from '../../../utils/shopify_product_query'; //Type for each indivdual product
-type PersonalizedProps = ['yes' | 'no', number, string | undefined, string]
+type WeightProps = {value: number; unit: string};
 
 
 /* 
 ===================================
 PAGE COMPONENT
 ==================================*/
-const Product = ({shopifyResponse}: any) => {
+const Product = ({product}: {product: singleProductProps}) => {
 
-        //Type and format the product query response
-        const product = formatProductPageQuery(shopifyResponse).prod
-
+    
         //We can't declare the dispatch variable inside a function or hook
         //Otherwise we can get "Error: Invalid hook call. Hooks can only be called inside of the body of a function component.""
         const dispatch = useAppDispatch()
@@ -49,7 +48,12 @@ const Product = ({shopifyResponse}: any) => {
         //States and Refs
         const ref_personalised = useRef<HTMLDivElement>(null!);
         const ref_dogsName = useRef<HTMLInputElement>(null!);
-        const [personalizedStatus, setPersonalizedStatus] = useState<PersonalizedProps>(['no', Number(product.priceRange.minVariantPrice.amount), undefined, product.shopifyID]);
+        const ref_variants = useRef<HTMLDivElement[][]>(new Array());
+        const variants = useRef<number[]>(new Array());
+        
+        /* const [variants, setVariants] = useState<number[]>(loadVariantsState()); */
+        const [price, setPrice] = useState<Number>(Number(product.priceRange.normalPrice.amount));
+        const [weight, setWeight] = useState<WeightProps>(product.weight[0]);
         const [count, setCount] = useState(1); // quantity selector
 
 /* USE EFFECTS
@@ -57,15 +61,30 @@ const Product = ({shopifyResponse}: any) => {
 
         useEffect(()=>{
 
-            if (product.options[0].name == "Personalized" ){
+            //Enables to type the dog's name if there is the 'Personalized' option
+            let __FOUND = product.options.findIndex(function(variant, index) {
+                if(variant.name == 'Personalized')
+                    return true;
+            });
+
+            if(__FOUND > -1){
                 ref_personalised.current.style.display = "block";
-            } else {
+            }else{
                 ref_personalised.current.style.display = "none";
+            }
+
+            //Select the first option for each variant
+            variants.current = loadVariantsState();
+            setPrice(recalcPrice());
+            for(let n = 0; n < ref_variants.current.length; n++){
+                selectedOptionsInDOM(n,0);
+                setWeight(product.options[n].values[0].weight ? {value: product.options[n].values[0].weight, unit: 'kg'} : weight) 
             }
 
            /* We need this dependency to make sure 
            this field is updated for every product */
-        },[product.shopifyHandle, product.options])
+        },[product.handle, product.options])
+        
 
 
 /* AUX FUNCTIONS */
@@ -80,40 +99,64 @@ const Product = ({shopifyResponse}: any) => {
             return output
         }
 
+        //Get the id for cart tracking combining all the options ID's
+        function idBuilder(){
+            let out: string = product.id;
+            product.options?.length > 0 && product.options.map((variant, n)=>{out = `${out}${variant.values[variants.current[n]].id}`});
+            return out
+        }
+
         function aux_addToCart(){
 
-            //creates a different ID for the personalized option to be used inside the cart to track the quantities
-            if(personalizedStatus[2] !== undefined){
-                personalizedStatus[3] = `${product.shopifyID}${personalizedStatus[2]}`}
-            else{        
-                personalizedStatus[3]=product.shopifyID
-            };
-            
+            //Get checkout thumbnail
+            function getThumbnail(){
+                if(product.checkoutThumbnailURL){
+                    return product.checkoutThumbnailURL //if we have a thumbnail
+                }else if(product.imagesURL.length > 1){
+                    return product.imagesURL[product.imagesURL.length-2]
+                }else{
+                    return product.imagesURL[0]
+                }
+            }
+
+            //Get title combining all the options selected
+            function titleBuilder(){
+                let opt: string = '';
+                product.options?.length > 0 && product.options.map((variant, n)=>{opt = `${opt} (${variant.name} - ${variant.values[variants.current[n]].option})`}); 
+                return opt
+            }
+
+
+            //Get personalized status
+            function getPersonalizedStatus(){
+                let __FOUND = product.options.findIndex(function(variant, index) {
+                    if(variant.name == 'Personalized')
+                        return true;
+                });
+
+                return product.options[__FOUND].values[variants.current[__FOUND]].option.toLowerCase();
+            }
+
+
             //Add the product to the cart
             dispatch(addToCart({
-            id: personalizedStatus[3], 
-            title: product.title, 
+            id: idBuilder(), 
+            title: `${product.title} ${titleBuilder()}`, 
             shortDetails: product.shortDescription, 
-            price: personalizedStatus[1], 
-            personalized: personalizedStatus[0], 
-            dogName: personalizedStatus[2],
-            imgURL: product.imagesURL.length > 1 ? product.imagesURL[product.imagesURL.length-2] : product.imagesURL[0],
+            price: Number(price), 
+            personalized: getPersonalizedStatus(), 
+            dogName: ref_dogsName.current.value.trim(),
+            imgURL: getThumbnail(),
             quantity: count
                 }))
             
             //Set the counter in the page (not the cart) = 1
             setCount(1)
 
-            toast.success(`${count} x ${product.title} was added to cart`);
+            toast.success(`${count} x ${product.title} ${titleBuilder()} was added to cart`);
         }
 
         function typingHandle(){
-
-                if(ref_dogsName.current.value.trim() === ""){
-                    setPersonalizedStatus(['no', Number(product.priceRange.minVariantPrice.amount), undefined, personalizedStatus[3]]);
-                } else {
-                    setPersonalizedStatus(['yes',Number(product.priceRange.maxVariantPrice.amount), ref_dogsName.current.value.trim(), personalizedStatus[3]]);
-                }
             
         }
 
@@ -126,7 +169,76 @@ const Product = ({shopifyResponse}: any) => {
             }
         }
 
-          
+        /* Check if detail should show up */
+        function display(item: any){
+            if(item?.length > 0){return {display: 'block'}}
+            else {return {display: 'none'}}
+        }
+
+/* AUX FUNCTIONS TO HANDLE VARIANTS AND OPTIONS OF THE PRODUCTS */
+//++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+        /* Dynamicaly creates a reference for each variant when they are mapped */
+        function addToRefs(el: any, variantIndex: number, optionIndex: number){
+
+            if(ref_variants.current.length-1 < variantIndex){
+                ref_variants.current[variantIndex] = [];
+            }
+            
+            if(el && !ref_variants.current[variantIndex].includes(el)){
+                ref_variants.current[variantIndex][optionIndex] = el;
+            }
+        }
+
+        /* Select the first option for each variant in the variant array */
+        function loadVariantsState(){
+        
+                let out: number[] = [];
+                for(let n = 0; n < product.options.length; n++){
+                out.push(0);
+                }
+                return out;
+        }
+
+        /* Update the state of the variants */
+        function updateVariantsState(variantIndex: number, optionIndex: number){
+           variants.current[variantIndex] = optionIndex
+        }
+
+        /* Recalculate the price */
+        function recalcPrice(){
+            let out: number = Number(product.priceRange.normalPrice.amount);
+            if(variants.current.length > 0){
+                for(let n=0; n < product.options.length; n++){
+                    out = out + product.options[n].values[variants.current[n]].price
+                }
+            }
+            return out
+        }
+
+        /* Select the options in the DOM */
+        function selectedOptionsInDOM(variantIndex: number, optionIndex: number){
+            ref_variants.current[variantIndex].forEach((element, n)=>{
+                if( n === optionIndex){
+                    element.style.backgroundColor = "black";
+                    element.style.border = "solid 1px grey";
+                    element.style.color = "white";
+                } else {
+                    element.style.backgroundColor = "white";
+                    element.style.border = "solid 1px grey";
+                    element.style.color = "black";
+                }
+            })
+        }
+
+        /* Switch variants when the client click on one option */
+        function handleVariantClick(event: React.MouseEvent, variantIndex: number, optionIndex: number){
+            event.preventDefault();
+            selectedOptionsInDOM(variantIndex, optionIndex);
+            updateVariantsState(variantIndex, optionIndex);
+            setWeight(product.options[variantIndex].values[optionIndex].weight ? {value: product.options[variantIndex].values[optionIndex].weight, unit: 'kg'} : weight) 
+            setPrice(recalcPrice());
+        }
 
   /* JSX PAGE RETURN 
 /++++++++++++++++++++++++++++++++++++++++++++++++++++*/
@@ -138,7 +250,7 @@ const Product = ({shopifyResponse}: any) => {
             
         {/* Temporary  message when the user clicks on "add to cart" 
         more information on https://react-hot-toast.com/*/}
-        <Toaster toastOptions={{ className: `worksans-toast ${styles.toast}`,  duration: 2000,  icon: '🐕'}}/>
+        <Toaster toastOptions={{ className: `worksans-toast ${styles.toast}`,  duration: 1500,  icon: '🐕'}}/>
 
         {/* The slider with the pictures */}
         <div className={styles.imageSlider}>
@@ -163,7 +275,7 @@ const Product = ({shopifyResponse}: any) => {
 
         {/* The price */}
         <div className={styles.price}>
-            Price <span>£</span>{personalizedStatus[1].toFixed(2)}
+            Price <span>£</span>{price.toFixed(2)}
         </div>
 
         {/* The Quantity Box */}
@@ -171,15 +283,47 @@ const Product = ({shopifyResponse}: any) => {
             <p>Quantity</p>
             <QuantityBox 
                 use='productPage' 
-                productID={personalizedStatus[3]} 
+                productID={variants.current.length > 0 ? idBuilder() : product.id} 
                 handleClick={handleClick}
                 counter={count}/>
+        </div>
+        
+        {/* Variants Options */}
+        <div className={styles.variantsContainer}>
+
+                {/* Mapping the variants */} 
+                {product.options?.length > 0 && product.options.map((option, variantIndex)=>{
+                    return(
+                        <div className={styles.optionContainer} key={option.name}>
+                            <p>{option.name}</p>
+                            <div className={styles.options}>
+
+                                {/* Mapping the options for this variant */}
+                                {option.values?.length > 0 && option.values.map((value: any, optionIndex: number)=>{
+                                    console.log(option)
+                                    return(
+                                    <button
+                                        type="button"
+                                        ref={(el) => addToRefs(el, variantIndex, optionIndex)} 
+                                        onClick={(event)=>{handleVariantClick(event, variantIndex, optionIndex)}}
+                                        className={styles.optionButtom}
+                                        key={value.option}
+                                        >
+                                        {value.option}
+                                    </button>
+                                    )
+                                })}
+
+                            </div>
+                        </div>
+                    )
+                })}
         </div>
 
         {/* The personalized field input */}
         <div className={styles.dogsName}>
             <div ref={ref_personalised} onChange={typingHandle}>
-                <p>Personalised</p>
+                {/* <p>Personalised</p> */}
                 <input 
                     type="text" 
                     placeholder="Enter your dog's name" 
@@ -214,8 +358,8 @@ const Product = ({shopifyResponse}: any) => {
         {/* Details */}
         <div className={`${styles.details}`}>
 
-            <h3>🐶 Details</h3>
-            <ul>{
+            <h3 style={display(product.details)}>🐶 Details</h3>
+            <ul style={display(product.details)}>{
                 product.details?.map((item, index)=>{
                     return(
                         <li key={`detail_${index}`}>▸ {item}</li>
@@ -223,8 +367,8 @@ const Product = ({shopifyResponse}: any) => {
                 })
                 }
             </ul>
-            <h3>🐶 Dimensions and Weight</h3>
-            <ul>{
+            <h3 style={display(product.dimensions)}>🐶 Dimensions and Weight</h3>
+            <ul style={display(product.dimensions)}>{
                 product.dimensions?.map((item, index)=>{
                     return(
                         <li key={`spec${index}`}>▸ {item}</li>
@@ -232,10 +376,10 @@ const Product = ({shopifyResponse}: any) => {
                 })
                 }
                 {/* The weight for the variant 0 */}
-                <li>▸ Weight: {product.weight[0].value} {product.weight[0].unit.toLowerCase()}</li>
+                <li>▸ Weight: {weight.value} {weight.unit.toLowerCase()}</li>
             </ul>
-            <h3>🐶 Content and Materials</h3>
-            <ul>{
+            <h3 style={display(product.contentMaterials)}>🐶 Content and Materials</h3>
+            <ul style={display(product.contentMaterials)}>{
                 product.contentMaterials?.map((item, index)=>{
                     return(
                         <li key={`spec${index}`}>▸ {item}</li>
@@ -243,8 +387,8 @@ const Product = ({shopifyResponse}: any) => {
                 })
                 }
             </ul>
-            <h3>🐶 Care Instructions</h3>
-            <ul>{
+            <h3 style={display(product.careInstructions)}>🐶 Care Instructions</h3>
+            <ul style={display(product.careInstructions)}>{
                 product.careInstructions?.map((item, index)=>{
                     return(
                         <li key={`spec${index}`}>▸ {item}</li>
@@ -271,38 +415,71 @@ DATA FETCHING
 /* Get the paths
 ---------------------- */
 export async function getStaticPaths() {
-    /* (1) Get the response of the query from our storefront() fetching function */
-    const productsListResponse = await storefront(productsListQuery);
+    /* (1) Set the variable paths */
+    let paths: pathProps = []
 
-    /* (2) Get the response of the query from our storefront() fetching function */
-     const collectionsListQueryResponse = await storefront(collectionsListQuery);
+    /* (2) Type the path variable output */
+    type pathProps = {
+        params: {
+            product: string;
+            collection: string
+        };
+    }[]
 
-    /* (3) Prepare/format the response (typing and removing unnecessary objects and arrays and some other things) */
-     const collectionsList: collectionsListProps[] = formatCollectionsListResponse(collectionsListQueryResponse.data.collections);
+    /* (3) Check if we are going to get the paths from Sanity or Shopify */
+   const source = await mySanityClient.fetch(`*[_type == 'siteSettings'][0]{productsSource}`);
 
-    /* (4) Type the path variable output */
-        type pathProps = {
-            params: {
-                product: string;
-                collection: string
-            };
-        }[]
-        let paths: pathProps = []
-   
-    /* (5) map the paths combinations */
-       productsListResponse.data.products.edges.map(((productItem: any) =>{
-           collectionsList.map((collectionItem=>{
-               paths.push({
-                   params: {
-                       //this variable has to match [product].tsx file for the dynamic routes to work
-                       product: productItem.node.handle,
-                       collection: collectionItem.id
-                   }
-               }) 
-           }))     
-       }))
+    /* (4) If from sanity */
+    if(source.productsSource === 'Sanity'){
 
-    /* (6) Return paths and fallback */
+        /* (4.A) Get the response of the query from our storefront() fetching function */
+        const productsListResponse = await mySanityClient.fetch(`*[_type == 'products']{slug{current}}`);
+      
+        /* (4.B) Get the response of the query from our storefront() fetching function */
+        const collectionsList = await mySanityClient.fetch(`*[_type == 'categories']{slug{current}}`);
+
+        /* (4.D) map the paths combinations */
+        productsListResponse.map(((productItem: any) =>{
+            collectionsList.map(((collectionItem: any)=>{
+                paths.push({
+                    params: {
+                        //this variable has to match [product].tsx file for the dynamic routes to work
+                        product: productItem.slug.current,
+                        collection: collectionItem.slug.current
+                    }
+                }) 
+            }))     
+        }))
+        
+    /* (4) If from shopify */
+    }else{
+
+        /* (4.A) Get the response of the query from our storefront() fetching function */
+        const productsListResponse = await storefront(productsListQuery);
+
+        /* (4.B) Get the response of the query from our storefront() fetching function */
+        const collectionsListQueryResponse = await storefront(collectionsListQuery);
+
+        /* (4.C) Prepare/format the response (typing and removing unnecessary objects and arrays and some other things) */
+        const collectionsList: collectionsListProps[] = formatCollectionsListResponse(collectionsListQueryResponse.data.collections);
+    
+        /* (4.D) map the paths combinations */
+        productsListResponse.data.products.edges.map(((productItem: any) =>{
+            collectionsList.map((collectionItem=>{
+                paths.push({
+                    params: {
+                        //this variable has to match [product].tsx file for the dynamic routes to work
+                        product: productItem.node.handle,
+                        collection: collectionItem.id
+                    }
+                }) 
+            }))     
+        }))
+
+    }
+    
+
+    /* (5) Return paths and fallback */
     return{
         paths,
         fallback: false,
@@ -316,14 +493,28 @@ export async function getStaticPaths() {
 ---------------------- */
 export const getStaticProps = async (context: any) => {
 const {params} = context;
+    var product: any = null!;
 
-       //FROM SHOPIFY
-       //Get the data about this product
-       const shopifyResponse =  await storefront(productPageQuery(params.collection, params.product ));
+    /* (1) Check if we are going to get the props from Sanity or Shopify */
+    const source = await mySanityClient.fetch(`*[_type == 'siteSettings'][0]{productsSource}`);
+
+    /* (2) If from Sanity - Get the data about this product */
+    if(source.productsSource === 'Sanity'){
+        const sanityResponse = await mySanityClient.fetch(singleProductQuery(params.collection, params.product));
+        //Type and format the product query response
+        product = formatSanitySingleProduct(sanityResponse);
+  
+
+    /* (2) If from Shopify - Get the data about this product*/
+    }else{
+        const shopifyResponse =  await storefront(productPageQuery(params.collection, params.product ));
+        //Type and format the product query response
+        product = formatProductPageQuery(shopifyResponse).prod
+    }
        
         return {
             props: {
-                shopifyResponse: shopifyResponse,
+                product: product,
             }
         };
 }

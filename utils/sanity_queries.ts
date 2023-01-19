@@ -1,9 +1,78 @@
+//Sanity Formating
 import { sanityUrlFor } from "../lib/sanityClient" //to get the url of an image
 import moment from 'moment';
+
+//Types
+import { productProps } from "./shopify_colllection_query";
+import { collectionsListProps } from "./shopify_colllection_query";
+
 /* Good GROQ reference for fetching data from sanity
 https://hdoro.dev/learn-groq 
 */
 
+/* QUERY FOR THE LIST OF CATEGORIES
+A list with the categories to fill up the navbar
+---------------------------------------------------------------------*/
+export const categoriesListQuery =`*[_type == 'siteSettings'][0]{
+  categoriesList[]->{title, slug{current}, _id}
+}`
+
+//Formating the response of the list of collections query
+export function formatCategoriesListResponse(input: any){
+let output: collectionsListProps[] = []
+
+if(input.categoriesList.length>0){
+    input.categoriesList.map((item: any, index: number) => {
+    
+    output.push(
+        {
+        position: index + 1,
+        title: item.title,
+        handle: item.slug.current,
+        id: item._id
+        }
+    )
+    })
+
+    output.sort((a, b) => (a.position > b.position) ? 1 : -1)
+    return output;
+
+} else {
+    return []
+}
+
+}
+
+/* THIS CATEGORY/COLLECTION QUERY
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+export function categoryPageQuery(category_slug: string){
+  return `*[_type == 'categories' && slug.current == "${category_slug}"][0]{
+    description,
+    SEO_description,
+    heroImage,
+    slug{current},
+    title,
+    _id
+  }`
+}
+
+//Get the type for the collection props, it has to be the same as in Shopify
+import { thisCollectionProps } from "./shopify_colllection_query";
+
+export function formatCategoryPageQueryResponse(input: any){
+  let output: thisCollectionProps;
+  
+  output = {
+    descriptionPage: input.description,
+    SEO_description: input.SEO_description,
+    coverImageURL: sanityUrlFor(input.heroImage),
+    handle: input.slug.current,
+    title: input.title,
+    id: input._id,
+  }
+
+  return output
+}
 
 /* QUERY LIST OF BLOG POSTS
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -34,39 +103,255 @@ export const list_of_postsQuery = `*[_type in ["post"]]| order(publishedAt){
       return output
     }
 
-/* HOME HERO AND SHOWCASE PRODUCTS QUERY
+/* HOME HERO  QUERY
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-//Query list of posts and order starting from the last post to displ
-export const homeHero_and_showcase_Query = `*[_type == 'showcase'][0]{
-  heroTitle,
-  heroDescription,
-  heroImage,
-  products[]->{title, price, images[0]}
+//Query to get the Home Hero 
+export const homeHero_Query = `{
+  'sitesettings': *[_type == 'siteSettings'][0]{
+    description
+  },  
+  'showcase': *[_type == 'showcase'][0]{
+    heroTitle,
+    heroDescription,
+    heroImage
+  }
 }`
     //Types
-    export type homeHero_and_showcaseProps = {
-      heroTitle: string, heroDescription: any, heroImageURL: string, products?: {title: string, price: number, thumbnailURL: string}[]
+    export type homeHeroProps = {
+      heroTitle: string, heroDescription: any, heroImageURL: string, homeDescription: string
     }
 
     //Formating and typing the output of sanity query
-    export function format_homeHero_and_showcase(input: any){
-      let output: homeHero_and_showcaseProps;
+    export function format_homeHero(input: any){
+      let output: homeHeroProps;
 
       output = {
-        heroTitle: input.heroTitle,
-        heroDescription: input.heroDescription,
-        heroImageURL: sanityUrlFor(input.heroImage),
-        products: input.products?.length > 0 && input.products.map((item: any)=>{
-          return{
-            title: item.title,
-            price: item.price,
-            thumbnailURL: sanityUrlFor(item.images)
-          }
-        })
+        heroTitle: input.showcase.heroTitle,
+        heroDescription: input.showcase.heroDescription,
+        heroImageURL: sanityUrlFor(input.showcase.heroImage),
+        homeDescription: input.sitesettings.description
       }
 
+      console.log('runded')
       return output
     }
+
+/*PRODUCTS IN CATEGORY
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+//Query to get the list of products in the home showcase
+export const productsShowcaseQuery = `*[_type == 'showcase'][0]{
+  products[]->{title, slug{current}, images[0], price, shortDescription, categories[0]->{_id, slug}}
+}`
+
+//Query to get the list of products from any other category
+export function productsInCategoryQuery(category: string){
+  return `*[_type == 'products' && '${category}' in categories[]->slug.current]{
+    title, slug{current}, images[0], price, shortDescription, categories[0]->{_id, slug} 
+  }`
+}
+
+//Formating and typing the output of sanity query
+export function format_productsInCategory(input: any){
+  
+
+  let output: productProps[];
+
+  output = input.products?.length > 0 && input.products.map((item: any)=>{
+      return{
+        title: item.title,
+        handle: item.slug.current,
+        thumbnail_URL: sanityUrlFor(item.images),
+        price: item.price,
+        shortDescription: item.shortDescription,
+        collectionID: item.categories.slug.current
+      }
+    })
+
+  return output
+}
+
+
+/*SINGLE PRODUCT
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+//Query to information about a single product
+export function singleProductQuery(category: string, product: string){
+  return `*[_type == 'products' && slug.current == '${product}' && '${category}' in categories[]->slug.current][0]{
+  categories[0]->{_id, slug, title, images, careIntructions, contentMaterials, dimensions, details},
+  title,                                    
+  careInstructions, contentMaterials, dimensions, details,
+  slug{current}, 
+  images, 
+  price,
+  weight,
+  variants,
+  shortDescription, SEO_description,  
+  _id  
+  }`
+}
+
+
+import { singleProductProps } from "./shopify_product_query";
+export function formatSanitySingleProduct(input: any){
+
+  function careInstructionsBuilder(){
+    let out: string[] = []
+    if(input.careInstructions){
+      out = input.careInstructions
+    } else {
+      if(input.categories.careIntructions){out = input.categories.careIntructions}
+    }
+    return out
+  }
+
+  function contentMaterialsBuilder(){
+    let out: string[] = []
+    if(input.contentMaterials){
+      out = input.contentMaterials
+    } else {
+      if(input.categories.contentMaterials){out = input.categories.contentMaterials}
+    }
+    return out
+  }
+
+  function dimensionsBuilder(){
+    let out: string[] = []
+    if(input.dimensions){
+      out = input.dimensions
+    } else {
+      if(input.categories.dimensions){out = input.categories.dimensions}
+    }
+    return out
+  }
+
+
+  function detailsBuilder(){
+    let out: string[] = [];
+
+    //get product details
+    input.details?.length > 0 && input.details.map((item: any)=>{
+      out.push(item)
+    })
+
+    //get category details
+    input.categories.details?.length > 0 && input.categories.details.map((item: any)=>{
+      out.push(item)
+    })
+
+    return out
+  }
+
+  function imagesURLBuilder(){
+
+    var output: string[] = [];
+
+    //add all images of this product
+    input.images?.length > 0 && input.images.map( (item: string) => {
+      output.push(sanityUrlFor(item))
+    })
+
+    //add the images of the category of this product that should show up in all products of this category
+    input.categories.images?.length > 0 && input.categories.images.map( (item: string) => {
+      output.push(sanityUrlFor(item))
+    })
+
+    //if images are missing we return a "missing image"
+    if(output.length === 0){
+      output.push('/images/image_missing.jpeg')
+    }
+
+    return output
+  }
+
+  function priceRangeBuilder(){
+
+      let prices: number[] = [];
+
+      /* if we have variants we will map all the variants and options
+      to get all the prices*/  
+      if(input.variants){
+
+        input.variants.map((variant: any)=>{
+          variant.options.map((option:any)=>{
+            prices.push(option.price)
+          })
+        })
+
+      /* if we don't have variants the min and max are the same
+      and we'll get them from the */
+      } else {
+        prices.push(input.price);
+        prices.push(input.price);
+      }
+
+      //Sort the prices to get the max and min
+      prices.sort(function(a, b){return a - b});
+
+      return {
+        maxVariantPrice: {
+            amount: (input.price + prices[prices.length-1]).toString(),
+        },
+        normalPrice:{
+            amount: input.price.toString(),
+        },
+        minVariantPrice: {
+            amount: (input.price + prices[0]).toString(),
+        },
+    }
+
+  }
+
+  function optionsBuilder(){
+
+    let output:{name: string, values: any}[] = [];
+    
+    //If we have variants
+    if(input.variants){
+
+      input.variants.map((variant: any)=>{
+        output.push({
+          name: variant.name,
+          values: variant.options.map((option: any)=>{
+            return {
+              option: option.option,
+              price: option.price,
+              weight: option.weight ? option.weight : null,
+              id: option._key
+            }
+          })
+        })
+      })
+      
+    } else {return []}
+
+    //If we don't have variants the array will remain empty
+
+    return output
+
+  }
+  
+
+  let prod: singleProductProps = {
+    collection: input.categories.title,
+    careInstructions: careInstructionsBuilder(),
+    contentMaterials: contentMaterialsBuilder(),
+    dimensions: dimensionsBuilder(),
+    shortDescription: input.shortDescription ? input.shortDescription : input.categories[0].title,
+    details: detailsBuilder(),
+    imagesURL: imagesURLBuilder(),
+    weight: [{value: input.weight, unit: 'kg'}],
+    SEO_description: input.SEO_description,
+    handle: input.slug.current,
+    id: input._id,
+    title: input.title,
+    priceRange: priceRangeBuilder(),
+    options: optionsBuilder(),
+    checkoutThumbnailURL: sanityUrlFor(input.images[input.images.length -1])
+}
+
+
+return prod
+}
+
     
 
 /* ABOUT US QUERY 
@@ -185,12 +470,11 @@ return output
 
 /* QUERY LIST LAYOUT PROPS (Banners, footer text, etc..) 
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
-
 export const layoutQuery = `{
 	'sitesettings': *[_type == 'siteSettings'][0]{
        title, description, 
        contactsList, socialMedias,
-       footerText,
+       footerText, productsSource
   },
   
   'banners': *[_type == 'banners']{
@@ -227,6 +511,7 @@ export const layoutQuery = `{
         title: string;
         description: string;
         footerText: string;
+        productsSource: string;
 
         contactsList: {
           type: string;
@@ -249,6 +534,7 @@ export const layoutQuery = `{
         title: input.title,
         description: input.description,
         footerText: input.footerText,
+        productsSource: input.productsSource,
 
         contactsList: input.contactsList.map((item: any)=>{
 

@@ -132,14 +132,17 @@ export function productPageQuery(shopifyCollectionID: string, productHandle: str
     //The description we are going to use in the meta tags 
     SEO_description: string,
     
-    shopifyHandle: string,
-    shopifyID: string,
+    handle: string,
+    id: string,
     title: string,
 
     //These two last types comes from the shopify data structure
     priceRange: {
         maxVariantPrice: {
         amount: string
+        }
+        normalPrice: {
+          amount: string
         }
         minVariantPrice: {
         amount: string
@@ -227,8 +230,8 @@ export function productPageQuery(shopifyCollectionID: string, productHandle: str
             imagesURL: imagesURLBuilder(),
             weight: weightBuilder(),
             SEO_description: productData.description,
-            shopifyHandle: productData.handle,
-            shopifyID: productData.id,
+            handle: productData.handle, //shopifyHandle
+            id: productData.id, //shopifyID
             title: productData.title,
             priceRange: productData.priceRange,
             options: productData.options,

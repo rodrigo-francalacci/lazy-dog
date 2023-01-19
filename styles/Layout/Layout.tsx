@@ -20,7 +20,6 @@ import { getLayoutProps } from '../../utils/layout_fetch_function'; //get the la
 to type and format the response of the following queries
 I am getting the queries response through pageProps (see _app.js)*/
 import {formatSiteSettings, formatBannerItems} from '../../utils/sanity_queries'
-import {formatCollectionsListResponse} from '../../utils/shopify_colllection_query' // collection query to fill the navbar
 
 /* Styles */
 import styles from './layout.module.scss';
@@ -32,7 +31,6 @@ import {bannerItemProps, siteSettingsProps} from '../../utils/sanity_queries'
 interface Props {
   children: React.ReactNode,
   layoutProps?: any,
-
 }
 
 //===========================================================================================================================
@@ -62,7 +60,7 @@ const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =
           const data = await getLayoutProps()
           setBanners(formatBannerItems(data.sanityLayoutItems.banners))
           setSiteSettings(formatSiteSettings(data.sanityLayoutItems.sitesettings))
-          setCategoriesList(formatCollectionsListResponse(data.shopifyCollectionsResponse.data.collections))
+          setCategoriesList(data.collectionsResponse)
         }
         
     }, [])
@@ -136,7 +134,7 @@ return (
   
              {/* Load the Home Link */}
             <li  >
-                <Link  href="/"><a>{categoriesList && categoriesList[0].title}</a></Link>
+                <Link  href="/"><a>Home</a></Link>
             </li>
         
               <hr/>{/* Divider */}
