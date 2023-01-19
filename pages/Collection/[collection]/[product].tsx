@@ -439,15 +439,8 @@ export async function getStaticPaths() {
                                                                         categories[]->{slug{current}}
                                                                     }`
                                                                 );
-      
-        /* (4.B) Get the response of the query from our storefront() fetching function */
-        /* const collectionsList = await mySanityClient.fetch(`*[_type == 'categories']{slug{current}}`); */
 
-        /* (4.D) map the paths combinations */
-/*         productsListResponse.map((productItem: any)=>{
-            productItem.map()
-        }) */
-
+        /* (4.B) map the paths combinations */
         productsListResponse.map(((productItem: any) =>{
             productItem.categories.map(((collectionItem: any)=>{
                 paths.push({
@@ -459,17 +452,6 @@ export async function getStaticPaths() {
                 }) 
             }))     
         }))
-/*         productsListResponse.map(((productItem: any) =>{
-            collectionsList.map(((collectionItem: any)=>{
-                paths.push({
-                    params: {
-                        //this variable has to match [product].tsx file for the dynamic routes to work
-                        product: productItem.slug.current,
-                        collection: collectionItem.slug.current
-                    }
-                }) 
-            }))     
-        })) */
         
     /* (4) If from shopify */
     }else{
