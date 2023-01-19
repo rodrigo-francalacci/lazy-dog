@@ -69,7 +69,7 @@ const Collection: NextPage<PageProps> = ({products, thisCollection, sanityPostsL
 
           {/* Mapping the products */}
           <div className={styles.products_container}>
-                {products.map((item, index)=>{
+                {products?.length > 0 && products.map((item, index)=>{
                 return(
                     <motion.div key={`${item.handle}${index}`} onClick={()=>{}}
                         initial={{opacity: 0, y: -70}}
