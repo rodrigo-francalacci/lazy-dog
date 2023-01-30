@@ -1,5 +1,6 @@
-import React from 'react'
+
 //React
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRef, useEffect } from 'react'
 
@@ -14,6 +15,9 @@ import Logo from '../Logo/Logo'
 import NavBarToggle from '../NavBar_Toggle/NavBar_Toggle'
 import {FaShoppingCart} from 'react-icons/fa'
 import {HiUser} from 'react-icons/hi'
+
+//Context and hooks
+import { useProfile } from '../../context/profile-context';
 
 //Styles
 import styles from './NavBar.module.scss'
@@ -30,7 +34,9 @@ type socialMedias = {
 export const NavBarClosed = () => {
     //HTML refs
     const ref_cartNumberContainer = useRef<HTMLSpanElement>(null!);
-    const cartNumber = useAppSelector(state => state.cart.numberOfItems)
+    const cartNumber = useAppSelector(state => state.cart.numberOfItems);
+    const currentUser = (useProfile().userData?.firstName) ? useProfile().userData?.firstName : useProfile().userData?.username;
+    const greeting = useProfile().greeting;
 
     useEffect(()=>{
       if(cartNumber === 0){
@@ -38,10 +44,12 @@ export const NavBarClosed = () => {
       } else {
         ref_cartNumberContainer.current.style.display = 'flex';
       }
+     
     },[cartNumber])
 
   //Aux Funcs
   const dispatch = useDispatch();
+  
 
   return (
     <div className={`${styles.navBarClosed_container}`}>
@@ -50,14 +58,22 @@ export const NavBarClosed = () => {
           <div className={styles.logo_container} onClick={()=>{dispatch(close())}}><Logo/></div>
         </Link>
         <div className={styles.member_cart_container}>
+            <div className={styles.userName}>
+              <span>{greeting && greeting}</span>
+              <span>{currentUser}</span>
+            </div>
             
-            <Link href={'/Cart/Cart'}>
-              <div className={styles.cart}>
+            <Link href={'/Cart/Cart'} >
+              <div className={styles.cart} onClick={()=>{dispatch(close())}}>
                 <FaShoppingCart size="1.4rem"/>
                 <span ref={ref_cartNumberContainer}>{cartNumber}</span>
               </div>
             </Link>
-            <div><HiUser size="1.4rem"/></div>
+            <Link href={'/Profile/Profile'}>
+              <div onClick={()=>{dispatch(close())}}>
+                <HiUser size="1.4rem"/>
+              </div>
+            </Link>
         </div>
     </div>
   )
@@ -73,6 +89,8 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
 
   //States
   const status = useSelector<RootState>(state => state.navbar_state.status);
+  const currentUser = (useProfile().userData?.firstName) ? useProfile().userData?.firstName : useProfile().userData?.username;
+  const greeting = useProfile().greeting;
   
   
   //UseEffect
@@ -100,16 +118,25 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
     <div className={styles.head_container}><NavBarClosed/></div>
       <nav className='worksans-navbar'>
           <ul>
-  
+            
              {/* Load the Home Link */}
             <li  onClick={handleClick} >
                 <Link  href="/"><a>Home</a></Link>
             </li>
-            <li  onClick={handleClick}>
-              <Link href='/Cart/Cart'><a>{`Your Cart (${cartNumber})`}</a></Link>
+
+            <hr/>{/* Divider */}
+            { (currentUser !== 'Guest') && <li><h3>{greeting} {currentUser}</h3></li>}
+
+            {/* Load the user Profile Page */}
+            <li onClick={handleClick}>
+                <Link  href="/Profile/Profile"><a>Account</a></Link>
+            </li>
+            {/* Load the wishlist  Page */}
+            <li onClick={handleClick}>
+                <Link  href="/Wishlist/Wishlist"><a>Wishlist</a></Link>
             </li>
             <li  onClick={handleClick}>
-              <Link href='/'><a>Profile</a></Link>
+              <Link href='/Cart/Cart'><a>{`Cart (${cartNumber})`}</a></Link>
             </li>
   
               <hr/>{/* Divider */}

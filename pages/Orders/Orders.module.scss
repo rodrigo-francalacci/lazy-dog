@@ -1,0 +1,47 @@
+.loading{
+    margin-top: 3rem; width: 100%; text-align: center;
+}
+
+.container{
+    margin-top: 1.5rem;
+    margin-bottom: 2rem;
+    hr{
+        width: 100%;
+        height: 0.15rem;
+        margin: 2rem auto;
+        background-color: var(--black-light);
+    }
+    h2{
+        width: 100%; text-align: center;
+    }
+}
+
+table.GeneratedTable {
+    width: 100%;
+    background-color: #ffffff;
+    border-collapse: collapse;
+    border-width: 2px;
+    border-color: var(--grey-dark);
+    border-style: solid;
+    color: #000000;
+    text-align: center;
+
+    a{
+        color: var(--blue-velvet);
+        font-weight: 800;
+        &:hover{
+            color: var(--red);
+        }
+    }
+  }
+  
+  table.GeneratedTable td, table.GeneratedTable th {
+    border-width: 2px;
+    border-color: var(--grey-dark);
+    border-style: solid;
+    padding: 0.3em;
+  }
+  
+  table.GeneratedTable thead {
+    background-color: var(--grey-dark);
+  }

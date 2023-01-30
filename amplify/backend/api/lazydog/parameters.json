@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "lazydog",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authlazydogfa93def4",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

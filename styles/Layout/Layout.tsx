@@ -133,8 +133,18 @@ return (
           <ul>
   
              {/* Load the Home Link */}
-            <li  >
+            <li>
                 <Link  href="/"><a>Home</a></Link>
+            </li>
+
+            {/* Load the user Profile Page */}
+            <li>
+                <Link  href="/Profile/Profile"><a>Account</a></Link>
+            </li>
+
+            {/* Load the wishlist  Page */}
+            <li>
+                <Link  href="/Wishlist/Wishlist"><a>My Wishlist</a></Link>
             </li>
         
               <hr/>{/* Divider */}

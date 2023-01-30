@@ -5,6 +5,9 @@ import type { AppProps } from 'next/app'
 import { store } from '../store'
 import { Provider } from 'react-redux'
 
+//Context
+import { ProfileProvider } from '../context/profile-context'
+
 //Styles
 import '../styles/resets.css'
 import '../styles/Theme/theme.scss'
@@ -12,6 +15,8 @@ import '../styles/globals.css'
 import Layout from '../styles/Layout/Layout'
 import Typography from '../styles/Typography/Typography'
 import ClampedClasses from '../styles/Clamp/ClampedClasses'
+
+
 
 
 
@@ -29,12 +34,15 @@ function MyApp({ Component, pageProps}: AppProps) {
         to the layout component. That way I can pass the properties to fill the navbar
         footer, and other parts of the layout. 
           */}
-        <Layout layoutProps={currentPage}>
-          <Component {...pageProps} />
-        </Layout>
+        
+        
+        <ProfileProvider>
+          <Layout layoutProps={currentPage}>
+            <Component {...pageProps} />
+          </Layout>
+        </ProfileProvider>
 
 
-      
     </Provider>
   )
 }

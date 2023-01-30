@@ -1,4 +1,3 @@
-
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 /* Types */
@@ -11,7 +10,6 @@ type PayloadType ={
   dogName: string | undefined;
   imgURL: string;
   quantity: number;
-  
 }
 
 type ItemCart = PayloadType;
@@ -69,6 +67,17 @@ const cartSlice = createSlice({
       state.numberOfItems = calcNumberOfItems(state.cart)
     },
 
+    /*addToCart --> Receives a cart state as a string. Parse the string and load
+    the whole state of the user cart . */
+    loadCart: (state, action: PayloadAction<string>) => {
+
+      const cartState: CartState = JSON.parse(action.payload);
+      state.cart = cartState.cart;
+      state.subtotal = cartState.subtotal;
+      state.numberOfItems = cartState.numberOfItems;
+
+    },
+    
     /*incrementQuantity --> Receives an item ID as payload, 
     used to find the item in the state using the find method and then increment its quantity by 1. */
     incrementQuantity: (state, action: PayloadAction<{id: string}>) => {
@@ -105,6 +114,7 @@ const cartSlice = createSlice({
 
 export const {
   addToCart,
+  loadCart,
   incrementQuantity,
   decrementQuantity,
   removeItem,

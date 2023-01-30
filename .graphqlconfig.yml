@@ -1,0 +1,15 @@
+projects:
+  lazydog:
+    schemaPath: graphql/schema.json
+    includes:
+      - utils/graphql/**/*.ts
+    excludes:
+      - ./amplify/**
+    extensions:
+      amplify:
+        codeGenTarget: typescript
+        generatedFileName: utils/API.ts
+        docsFilePath: utils/graphql
+extensions:
+  amplify:
+    version: 3

@@ -1,0 +1,18 @@
+.container{
+    background: rgb(255, 255, 255); /* The Fallback */
+    background: rgba(255, 255, 255, 0.25); 
+    display: flex; justify-content: center; align-items: center;
+    padding-top: 3px;
+    user-select: none; cursor: pointer;
+    width: 35px; height: 35px;
+    transition: 0.3s ease-out;
+    border-radius: 50%;
+
+    .empty{
+        color: black;
+    }
+
+    .fill{
+        color: var(--red);
+    }
+}

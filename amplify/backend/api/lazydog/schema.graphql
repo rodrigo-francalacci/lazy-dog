@@ -1,0 +1,79 @@
+# This "input" configures a global authorization rule to enable public access to
+# all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
+# FOR TESTING ONLY!
+# input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } 
+
+# HANDLING THE WISHLIST
+# -----------------------------------------------------
+type User
+  @model (subscriptions: null)
+    @auth(
+      rules:[
+        # only owner can see his orders
+        {allow: owner}
+        # allow admins to view orders
+        {allow: groups, groups: ["Admin"]}
+      ]
+    ) {
+  id: ID!
+  username: String! @index(name: "byUser")
+  firstName: String
+  lastName: String
+  adress: String
+  stripeOrders: [String]
+  stripeData: String
+  wishlist: [String]
+  cartState: String
+}
+
+
+
+# HANDLING THE ORDER
+# -----------------------------------------------------
+type Order 
+  @model (subscriptions: null)
+    @auth(
+      rules:[
+        # only owner can see his orders
+        {allow: owner}
+        # allow admins to view orders
+        {allow: groups, groups: ["Admin"]}
+      ]
+    ) {
+  id: ID!
+  stripeID: String!
+  user: String! @index(name: "byUser")
+  date: String
+  total: Float
+  billingAdress: String
+  shippingAdress: String
+  cartState: String
+  products: [String]
+}
+
+enum OrderStatus{
+  SUCCESS
+  FAILED
+}
+
+input CartItem{
+  id:ID!
+  title: String
+  image: String
+  price: Float
+  quantity: Int
+}
+
+input ProcessOrderInput {
+  id:ID!
+  cart: [CartItem]
+  total: Float!
+  token: String!
+  address: String
+}
+
+type Mutation {
+  processOrder(input: ProcessOrderInput!): OrderStatus
+    @function(name: "processPayment-${env}")
+    @function(name: "createOrder-${env}")
+}

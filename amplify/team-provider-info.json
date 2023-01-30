@@ -1,0 +1,23 @@
+{
+  "production": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-lazydog-production-184455-authRole",
+      "UnauthRoleArn": "arn:aws:iam::921724441066:role/amplify-lazydog-production-184455-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::921724441066:role/amplify-lazydog-production-184455-authRole",
+      "Region": "eu-west-2",
+      "DeploymentBucketName": "amplify-lazydog-production-184455-deployment",
+      "UnauthRoleName": "amplify-lazydog-production-184455-unauthRole",
+      "StackName": "amplify-lazydog-production-184455",
+      "StackId": "arn:aws:cloudformation:eu-west-2:921724441066:stack/amplify-lazydog-production-184455/6062eb50-9829-11ed-af12-0a61d16eaf14",
+      "AmplifyAppId": "d2l80ooquoqws0"
+    },
+    "categories": {
+      "auth": {
+        "lazydogfa93def4": {}
+      },
+      "api": {
+        "lazydog": {}
+      }
+    }
+  }
+}
