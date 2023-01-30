@@ -90,7 +90,8 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
 
   //States
   const status = useSelector<RootState>(state => state.navbar_state.status);
-  const currentUser = (useProfile().userData?.firstName) ? useProfile().userData?.firstName : useProfile().userData?.username;
+  const nameOfuser = useProfile().userData?.firstName; 
+    const username = useProfile().userData?.username;
   const greeting = useProfile().greeting;
   
   
@@ -126,7 +127,7 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
             </li>
 
             <hr/>{/* Divider */}
-            { (currentUser !== 'Guest') && <li><h3>{greeting} {currentUser}</h3></li>}
+            { (username) && <li><h3>{greeting} {(nameOfuser) ? nameOfuser : username}</h3></li>}
 
             {/* Load the user Profile Page */}
             <li onClick={handleClick}>
