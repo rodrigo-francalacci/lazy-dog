@@ -35,7 +35,8 @@ export const NavBarClosed = () => {
     //HTML refs
     const ref_cartNumberContainer = useRef<HTMLSpanElement>(null!);
     const cartNumber = useAppSelector(state => state.cart.numberOfItems);
-    const currentUser = (useProfile().userData?.firstName) ? useProfile().userData?.firstName : useProfile().userData?.username;
+    const nameOfuser = useProfile().userData?.firstName; 
+    const username = useProfile().userData?.username;
     const greeting = useProfile().greeting;
 
     useEffect(()=>{
@@ -60,7 +61,7 @@ export const NavBarClosed = () => {
         <div className={styles.member_cart_container}>
             <div className={styles.userName}>
               <span>{greeting && greeting}</span>
-              <span>{currentUser}</span>
+              <span>{(nameOfuser) ? nameOfuser : username}</span>
             </div>
             
             <Link href={'/Cart/Cart'} >

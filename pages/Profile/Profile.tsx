@@ -35,6 +35,7 @@ const Profile = () => {
   const user_address = user?.adress && JSON.parse(user?.adress!);
   const actionRunning = useProfile().actionRunning;
   const updateUser = useProfile().UpdateUser;
+  const signout = useProfile().signOutHandler;
   const [requiredFields, setRequiredFields] = useState({result: false, display: "none"})
   
   
@@ -247,7 +248,7 @@ const Profile = () => {
               <button
                 className={styles.signout}
                 type="button"
-                onClick={useProfile().signOutHandler}
+                onClick={signout}
               >
                 SignOut
               </button>
