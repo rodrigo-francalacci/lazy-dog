@@ -17,7 +17,7 @@ type ButtomProps = {
 }
 
 /* Component */
-const Buttom = ({bkgColor="bkg-orange", fontColor="font-black", size='small', className='', onClickAction, children }: ButtomProps) => {
+const Buttom = ({bkgColor="bkg-orange", fontColor="font-black", size='small', className='', children }: ButtomProps) => {
     
     //states and refs
     const ref_ = useRef<HTMLDivElement>(null!);
