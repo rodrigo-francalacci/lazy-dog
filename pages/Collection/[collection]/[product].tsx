@@ -81,16 +81,18 @@ const Product = ({ product }: { product: singleProductProps }) => {
     }
 
     //Select the first option for each variant
-    variants.current = loadVariantsState();
-    setPrice(recalcPrice());
-    for (let n = 0; n < ref_variants.current.length; n++) {
-      selectedOptionsInDOM(n, 0);
-      setWeight(
-        product.options[n].values[0].weight
-          ? { value: product.options[n].values[0].weight, unit: "kg" }
-          : weight
-      );
+    () =>{
+      setPrice(recalcPrice());
+      for (let n = 0; n < ref_variants.current.length; n++) {
+        selectedOptionsInDOM(n, 0);
+        setWeight(
+          product.options[n].values[0].weight
+            ? { value: product.options[n].values[0].weight, unit: "kg" }
+            : weight
+        );
+      }
     }
+    
 
     /* We need this dependency to make sure 
            this field is updated for every product */
