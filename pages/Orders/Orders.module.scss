@@ -27,7 +27,7 @@ table.GeneratedTable {
     text-align: center;
 
     a{
-        color: var(--blue-velvet);
+        color: var(--blue-sea);
         font-weight: 800;
         &:hover{
             color: var(--red);
@@ -43,5 +43,6 @@ table.GeneratedTable {
   }
   
   table.GeneratedTable thead {
-    background-color: var(--grey-dark);
+    background-color: var(--black);
+    color: white
   }

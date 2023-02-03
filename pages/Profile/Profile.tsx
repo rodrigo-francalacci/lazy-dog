@@ -12,10 +12,12 @@ import { useProfile } from "../../context/profile-context";
 
 /* Components */
 import CheckoutButton from "../ProceedCheckout/CheckoutButton";
+import Buttom from "../../components/Buttom/Buttom";
 
 /* Amplify */
 import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
 
 /* Amplify Configure */
 Amplify.configure(JSON.parse(process.env.NEXT_PUBLIC_AMPLIFY_EXPORTS!));
@@ -101,22 +103,57 @@ const Profile = () => {
     ++++++++++++++++++++++++++++++++++++++++++++++++++++*/
   return (
     <div className={styles.container}>
-      <h2 style={{display:`${ (action === "checkout") ? "none" : "block"}`}}>
+      {/* GREETING MESSAGE */}
+      <h2
+        /* Do not show this when this when the page is a step of the checkout  */
+        style={{ display: `${action === "checkout" ? "none" : "block"}` }}
+      >
         {greeting} {mode === "EDIT" ? user?.firstName : user?.username}
       </h2>
 
-      <div className={styles.userDataContainer} style={{display:`${ (action === "checkout") ? "none" : "flex"}`}}>
-        <div>
+      {/* USERNAME, EMAIL AND USER BUTTONS */}
+      <div
+        className={styles.userDataContainer}
+        /* Do not show this when this page is a step of the checkout */
+        style={{ display: `${action === "checkout" ? "none" : "flex"}` }}
+      >
+        <div className={styles.userDataInfo}>
           <p>Username: {user?.username}</p>
           <p>Email: {user?.email}</p>
         </div>
-        <Link href="/Orders/Orders">
-          <a>My Orders</a>
-        </Link>
+
+        <div className={styles.userButtons}>
+          <Link href="/Orders/Orders">
+            <a>
+              <Buttom bkgColor="bkg-green" fontColor="font-white" size="small">
+                My Orders
+              </Buttom>
+            </a>
+          </Link>
+
+          <Link href="/Wishlist/Wishlist">
+            <a>
+              <Buttom bkgColor="bkg-orange" fontColor="font-white" size="small">
+                Wish list
+              </Buttom>
+            </a>
+          </Link>
+        </div>
       </div>
 
+      {/* CHECKOUT INFO CHECK NOTICE */}
       <p
-        className={styles.notice}
+        /* Only show this when the page is a step of the checkout  */
+        style={{ display: `${action === "checkout" ? "block" : "none"}` }}
+        className={styles.notice_toProceedCheckout}
+      >
+        Please check your personal data before proceed to checkout
+      </p>
+
+      {/* REQUIRED FILEDS NOTICE */}
+      <p
+        className={styles.notice_fieldsRequired}
+        /* Only show this when the user don't fill required fields */
         style={{ display: `${requiredFields.display}` }}
         ref={ref_requiredNotice}
       >
@@ -124,107 +161,133 @@ const Profile = () => {
           "Please fill out all required fields!"}
       </p>
 
-      {/* Profile Form Container */}
+      {/* THE FORM CONTAINER */}
       <form className={styles.formContainer}>
         {/*  If you are unable to type in Input field issue in React [Solved] #
          - To solve the issue of being unable to type in an input field in React, 
          make sure to use the "defaultValue" prop instead of "value" 
          for uncontrolled input fields. */}
-        <label htmlFor="firstName">
-          First name <p style={{ color: `var(--red)` }}>{`(required)`}</p>
-        </label>
-        <input
-          type="text"
-          id="firstName"
-          tabIndex={-1}
-          defaultValue={user?.firstName}
-          ref={ref_firstName}
-        />
-
-        <label htmlFor="lastName">
-          Last name <p style={{ color: `var(--red)` }}>{`(required)`}</p>
-        </label>
-        <input
-          type="text"
-          id="lastName"
-          tabIndex={1}
-          defaultValue={user?.lastName}
-          ref={ref_lastName}
-        />
+         <h3>NAME</h3>
+        <div className={styles._2col_row}>
+          <div>
+            <label htmlFor="firstName">
+              First name <p style={{ color: `var(--red)` }}>{` * `}</p>
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              tabIndex={-1}
+              defaultValue={user?.firstName}
+              ref={ref_firstName}
+            />
+          </div>
+          <div>
+            <label htmlFor="lastName">
+              Last name <p style={{ color: `var(--red)` }}>{` * `}</p>
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              tabIndex={1}
+              defaultValue={user?.lastName}
+              ref={ref_lastName}
+            />
+          </div>
+        </div>
 
         <h3>Billing Address</h3>
 
-        <label htmlFor="city">
-          City <p style={{ color: `var(--red)` }}>{`(required)`}</p>
-        </label>
-        <input
-          type="text"
-          id="city"
-          tabIndex={2}
-          placeholder="City, district, suburb, town, or village"
-          defaultValue={user_address && user_address.city}
-          ref={ref_city}
-        />
+        <div className={styles._2col_row}>
+          <div>
+            <label htmlFor="city">
+              City <p style={{ color: `var(--red)` }}>{` * `}</p>
+            </label>
+            <input
+              type="text"
+              id="city"
+              tabIndex={2}
+              placeholder="City, district, suburb, town, or village"
+              defaultValue={user_address && user_address.city}
+              ref={ref_city}
+            />
+          </div>
+          <div>
+            <label htmlFor="postalCode">
+              Postal Code <p style={{ color: `var(--red)` }}>{` * `}</p>
+            </label>
+            <input
+              id="postalCode"
+              type="text"
+              tabIndex={5}
+              placeholder="ZIP or postal code"
+              defaultValue={
+                user_address?.postal_code && user_address?.postal_code
+              }
+              ref={ref_postal_code}
+            />
+          </div>
+        </div>
 
-        <label htmlFor="line1">
-          Address line 1 <p style={{ color: `var(--red)` }}>{`(required)`}</p>
-        </label>
-        <input
-          id="line1"
-          type="text"
-          tabIndex={3}
-          placeholder="e.g., street, PO Box, or company name"
-          defaultValue={user_address?.line1 && user_address?.line1}
-          ref={ref_line1}
-        />
+        <div className={styles._1col_row}>
+          <div>
+            <label htmlFor="line1">
+              Address line 1 <p style={{ color: `var(--red)` }}>{` * `}</p>
+            </label>
+            <input
+              id="line1"
+              type="text"
+              tabIndex={3}
+              placeholder="e.g., street, PO Box, or company name"
+              defaultValue={user_address?.line1 && user_address?.line1}
+              ref={ref_line1}
+            />
+          </div>
 
-        <label htmlFor="line2">
-          Address line 2 <p>{`(optional)`}</p>
-        </label>
-        <input
-          id="line2"
-          type="text"
-          tabIndex={4}
-          placeholder="apartment, suite, unit, or building"
-          defaultValue={user_address?.line2 && user_address?.line2}
-          ref={ref_line2}
-        />
+          <div>
+            <label htmlFor="line2">
+            Address line 2 <p>{`(optional)`}</p>
+                    </label>
+                    <input
+            id="line2"
+            type="text"
+            tabIndex={4}
+            placeholder="apartment, suite, unit, or building"
+            defaultValue={user_address?.line2 && user_address?.line2}
+            ref={ref_line2}
+                    />
+          </div>
+        </div>
 
-        <label htmlFor="postalCode">
-          Postal Code <p style={{ color: `var(--red)` }}>{`(required)`}</p>
-        </label>
-        <input
-          id="postalCode"
-          type="text"
-          tabIndex={5}
-          placeholder="ZIP or postal code"
-          defaultValue={user_address?.postal_code && user_address?.postal_code}
-          ref={ref_postal_code}
-        />
+        
 
-        <label htmlFor="state">
-          State <p>{`(optional)`}</p>
-        </label>
-        <input
-          id="state"
-          type="text"
-          tabIndex={6}
-          placeholder="State, county, province, or region"
-          defaultValue={user_address?.state && user_address?.state}
-          ref={ref_state}
-        />
-
-        <label htmlFor="phone">
-          Phone <p>{`(optional)`}</p>
-        </label>
-        <input
-          id="phone"
-          type="text"
-          tabIndex={7}
-          placeholder="A valid phone number without country code"
-          defaultValue={user_address?.phone && user_address?.phone}
-          ref={ref_phone}
-        />
+        <div className={styles._2col_row}>
+          <div>
+            <label htmlFor="state">
+              State <p>{`(optional)`}</p>
+            </label>
+            <input
+              id="state"
+              type="text"
+              tabIndex={6}
+              placeholder="State, county, province, or region"
+              defaultValue={user_address?.state && user_address?.state}
+              ref={ref_state}
+            />
+          </div>
+          <div>
+            <label htmlFor="phone">
+              Phone <p>{`(optional)`}</p>
+            </label>
+            <input
+              id="phone"
+              type="text"
+              tabIndex={7}
+              placeholder="A valid phone number without country code"
+              defaultValue={user_address?.phone && user_address?.phone}
+              ref={ref_phone}
+            />
+          </div>
+        </div>
 
         <div className={styles.buttonsContainer}>
           {/* Select the buttons according to the action (profile or checkout) */}
@@ -237,20 +300,24 @@ const Profile = () => {
             <>
               <button
                 type="submit"
-                className={styles.submit}
                 onClick={(event) => {
                   handleUpdate(event);
                 }}
               >
-                {actionRunning === false ? "Update" : "Updating..."}
+                <Buttom bkgColor="bkg-red" fontColor="font-white" size="small">
+                  {actionRunning === false ? "Update" : "Updating..."}
+                </Buttom>
               </button>
 
-              <button
-                className={styles.signout}
-                type="button"
-                onClick={signout}
-              >
-                SignOut
+              <button  type="button"
+                onClick={signout}>
+                <Buttom
+                  bkgColor="bkg-black"
+                  fontColor="font-white"
+                  size="small"
+                >
+                  Sign Out
+                </Buttom>
               </button>
             </>
           )}

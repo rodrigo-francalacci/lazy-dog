@@ -109,10 +109,11 @@
     text-align: center; font-family: var(--font-gooddog);
     display: flex; align-items: center; justify-content: center;
     a{
-        transition: color 0.2s ease-out;
-        &:hover{
-            color: var(--salmon);
-        }
+        transition: color 0.1s ease-out;
+        @media (hover: hover) {
+            &:hover{
+                color: var(--salmon);;
+            }
+            }
     }
 }
-

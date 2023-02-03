@@ -273,6 +273,7 @@ const ProfileProvider = ({ children }: { children: React.ReactNode }) => {
   Sign the iser out and call the functions to 
   clear data and redirect to the home page*/
   async function signOutHandler() {
+    console.log("rolleig")
     try {
       await Auth.signOut();
       console.log("SingOut => Cleaning data...");
@@ -597,7 +598,7 @@ const ProfileProvider = ({ children }: { children: React.ReactNode }) => {
 
   //List Stripe User Sessions Checkouts
   async function listStripeUserCheckouts() {
-    
+    setActionRunning(true)
       
     if(mode === 'EDIT'){
     
@@ -611,11 +612,13 @@ const ProfileProvider = ({ children }: { children: React.ReactNode }) => {
       return;
     }
     console.log("List of the costumer's checkouts has been loaded")
+    setActionRunning(false)
   
     return response;
 
     }
 
+    
  
     
   };

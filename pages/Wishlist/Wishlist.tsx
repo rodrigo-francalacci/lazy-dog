@@ -38,8 +38,8 @@ const Wishlist = () => {
     <div className={styles.container}>
       {/* Head and metatags generator */}
       <SEO
-        title={`${firstName} ${lastName} 'Wishlist'`}
-        description={"Wishlist page"}
+        title={`${firstName} ${lastName} 'Wish list'`}
+        description={`Wish list of ${firstName} ${lastName}`}
       />
 
       <h2 className={`worksans-h2  ${styles.h2_title}`}>Wishlist</h2>

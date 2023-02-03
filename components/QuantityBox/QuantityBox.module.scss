@@ -24,9 +24,7 @@
          .decrementBotCartPage{
             
              cursor: pointer;
-             &:hover{
-                color: var(--red);
-             }}
+            }
 
          .incrementBot{
             
@@ -40,10 +38,7 @@
          .incrementBotCartPage{
             
              cursor: pointer;
-             @media (hover: hover) {
-             &:hover{
-                 color: var(--red);
-             }}
+
             }
 
 

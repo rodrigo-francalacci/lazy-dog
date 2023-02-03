@@ -58,7 +58,6 @@ const Product = ({ product }: { product: singleProductProps }) => {
   const ref_variants = useRef<HTMLDivElement[][]>(new Array());
   const variants = useRef<number[]>(new Array());
 
-  /* const [variants, setVariants] = useState<number[]>(loadVariantsState()); */
   const [price, setPrice] = useState<Number>(
     Number(product.priceRange.normalPrice.amount)
   );
@@ -73,29 +72,27 @@ const Product = ({ product }: { product: singleProductProps }) => {
     let __FOUND = product.options.findIndex(function (variant, index) {
       if (variant.name == "Personalized") return true;
     });
-
+  
     if (__FOUND > -1) {
       ref_personalised.current.style.display = "block";
     } else {
       ref_personalised.current.style.display = "none";
     }
-
+  
     //Select the first option for each variant
-    () =>{
-      setPrice(recalcPrice());
-      for (let n = 0; n < ref_variants.current.length; n++) {
-        selectedOptionsInDOM(n, 0);
-        setWeight(
-          product.options[n].values[0].weight
-            ? { value: product.options[n].values[0].weight, unit: "kg" }
-            : weight
-        );
-      }
+    variants.current = loadVariantsState();
+    setPrice(recalcPrice());
+    for (let n = 0; n < ref_variants.current.length; n++) {
+      selectedOptionsInDOM(n, 0);
+      setWeight(
+        product.options[n].values[0].weight
+          ? { value: product.options[n].values[0].weight, unit: "kg" }
+          : weight
+      );
     }
-    
-
+  
     /* We need this dependency to make sure 
-           this field is updated for every product */
+   this field is updated for every product */
   }, [product.handle, product.options]);
 
   /* AUX FUNCTIONS */
@@ -281,6 +278,14 @@ const Product = ({ product }: { product: singleProductProps }) => {
         : weight
     );
     setPrice(recalcPrice());
+    //Enables/Disable field to type dog's name
+    if( product.options[variantIndex].name === "Personalized" ){
+      if(product.options[variantIndex].values[optionIndex].option === "No"){
+        ref_personalised.current.style.display = "none"
+      } else{
+        ref_personalised.current.style.display = "block"
+      }
+    }
   }
 
   /* JSX PAGE RETURN 

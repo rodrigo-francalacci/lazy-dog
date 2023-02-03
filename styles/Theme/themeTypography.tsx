@@ -44,14 +44,14 @@ const ThemeTypography = (): JSX.Element => {
             )}
           
             ${fontBuilder(//NAVBAR
-              ".worksans-navbar", 19, 1440, 22, 39,
+              ".worksans-navbar", 18, 1440, 21, 32,
               {
                 fontFamily: "var(--font-worksans)",
-                fontWeight: "400", lineHeight: "130%",
+                fontWeight: "400", lineHeight: "120%",
               }
             )}
 
-            ${fontBuilder(//NAVBAR
+            ${fontBuilder(//SIDEBAR
               ".worksans-sidebar", 15, 1440, 18, 32,
               {
                 fontFamily: "var(--font-worksans)",
@@ -143,7 +143,7 @@ const ThemeTypography = (): JSX.Element => {
             )}
 
             ${fontBuilder(//CART ITEMS
-              ".worksans-cart-items", (13), 1440, 15, (15*b),
+              ".worksans-cart-items", (15), 1440, 15, (15*b),
               {
                 fontFamily: "var(--font-worksans)",
                 fontWeight: "700",

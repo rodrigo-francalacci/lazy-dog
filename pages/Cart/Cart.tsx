@@ -55,7 +55,7 @@ const Cart = () => {
                       layout="fill"
                       objectFit="cover"
                       alt={item.title}
-                    />
+                    /> 
                   </div>
                 </Box>
                 <div className={styles.text_info}>
@@ -83,14 +83,22 @@ const Cart = () => {
       {/*     Col2 - Summary and buttons */}
       <div className={`worksans-cart-summary ${styles.col2}`}>
         <div className={styles.summary_top_buttoms}>
-          <Buttom bkgColor="bkg-green" size="small" fontColor="font-white">
-            <p>Delivery</p>
-            <p>Method</p>
-          </Buttom>
-          <Buttom bkgColor="bkg-gold" size="small" fontColor="font-black">
-            <p>Continue</p>
-            <p>Shopping</p>
-          </Buttom>
+          <Link href="/Profile/Profile">
+            <a>
+              <Buttom bkgColor="bkg-green" size="small" fontColor="font-white">
+                <p>CHECK MY</p>
+                <p>PROFILE</p>
+              </Buttom>
+            </a>
+          </Link>
+          <Link href="/">
+            <a>
+              <Buttom bkgColor="bkg-gold" size="small" fontColor="font-black">
+                <p>Continue</p>
+                <p>Shopping</p>
+              </Buttom>
+            </a>
+          </Link>
         </div>
 
         {/* Summary box */}
@@ -100,7 +108,7 @@ const Cart = () => {
           className={styles.summary}
         >
           <div className={styles.summary_top}>
-            <p>Delivery Charge</p>
+            <p>Shipping Rate</p>
             <p>GBP 2.95</p>
             <div></div>
           </div>

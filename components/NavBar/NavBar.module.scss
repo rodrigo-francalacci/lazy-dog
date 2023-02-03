@@ -34,7 +34,7 @@
             cursor: pointer;
 
             span{
-                position: absolute; right: -0.5rem ; bottom: -0.2rem; display: flex;
+                position: absolute; right: -0.5rem ; bottom: -0.2rem; display: none;
                 font-size: 0.8rem;
                 justify-content: center; align-items: center;
                 height: 1rem; width: 1rem;
@@ -121,10 +121,6 @@
           
           
         }
-
-/* ===== Scrollbar CSS ===== */
-
-        
 
 }
 
