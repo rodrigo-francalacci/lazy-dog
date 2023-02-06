@@ -176,7 +176,7 @@ DATA FETCHING
         //RETURN THE PATHS 
         return{
             paths,
-            fallback: false,
+            fallback: 'blocking'
         }
         // Nice tutorial on how to use geStaticPaths https://www.youtube.com/watch?v=NaYs1Gdg4AE   
     }
