@@ -335,7 +335,8 @@
   position: relative;; z-index: 0;
   grid-area: imageSlider;
   margin: 2rem auto; width: min(90%, 1000px); 
-  @media screen and (max-width: 450px) {width: 100%}
+  @media screen and (max-width: 500px) {margin: 0 auto;}
+  @media screen and (max-width: 450px) {width: 100%;}
 /*   @media screen and (max-width: 450px) {width: 85vw; scale: 1.17; margin: 2.2rem auto 3.5rem auto;} */
 
   
@@ -539,5 +540,16 @@
       grid-area: specifications; 
       text-align: center; align-self: center;
     }
+}
+
+.small_image{
+  position: relative; width: 21.2%; padding-top: 17%;
+  margin: 1%;
+  cursor: pointer;
+  border: none;
+  opacity: 0.5;
+  //we must specify opacity in the transition so as 
+  //to prevent the div to shake 
+  transition: opacity 0.3s linear; 
 }
     

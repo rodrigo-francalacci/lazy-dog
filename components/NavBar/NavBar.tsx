@@ -91,7 +91,7 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
   //States
   const status = useSelector<RootState>(state => state.navbar_state.status);
   const nameOfuser = useProfile().userData?.firstName; 
-    const username = useProfile().userData?.username;
+  const username = useProfile().userData?.username;
   const greeting = useProfile().greeting;
   
   
@@ -103,8 +103,8 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
 
     } else {
       ref_navBarOpened_container.current.style.transform = "translateX(-100%)"
-
     }
+
 
   }, [status] )
 

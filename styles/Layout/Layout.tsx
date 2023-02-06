@@ -35,6 +35,7 @@ interface Props {
 
 //===========================================================================================================================
 const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =>{
+  
  
 /* 
 - I could have grabbed the data from the layoutProps property, 
@@ -51,6 +52,20 @@ const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =
     const [siteSettings, setSiteSettings] = useState<siteSettingsProps>(null!)
     const [categoriesList, setCategoriesList] = useState<collectionsListProps[]>(null!)
     const [banners, setBanners] = useState<bannerItemProps[]>(null!)
+   
+    
+useEffect(()=>{
+
+  const productPage = layoutProps.product ? true : false
+  if(productPage){
+    ref_main.current.style.paddingLeft = "0rem";
+    ref_main.current.style.paddingRight = "0rem";
+  } else {
+    ref_main.current.style.paddingLeft = "1.3rem";
+    ref_main.current.style.paddingRight = "1.3rem";
+  }
+
+},[layoutProps])
 
     useEffect(() => {
 
@@ -71,6 +86,7 @@ const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =
    //HTML refs
    const ref_overlay = useRef<HTMLDivElement>(null!);
    const ref_top = useRef<HTMLDivElement>(null!);
+   const ref_main = useRef<HTMLDivElement>(null!);
 
 
    //States
@@ -204,7 +220,7 @@ return (
         </div>
 
         {/* Page content */}
-        <main>
+        <main ref={ref_main}>
             {children}
         </main>
 

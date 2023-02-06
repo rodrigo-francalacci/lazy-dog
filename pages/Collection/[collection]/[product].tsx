@@ -1,7 +1,8 @@
 /* React */
-import React from "react";
+import React, { Children } from "react";
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 /* Redux */
 import { useAppDispatch, useAppSelector } from "../../../hooks";
@@ -18,6 +19,9 @@ import toast, { Toaster } from "react-hot-toast";
 import ShareBot from "../../../components/ShareBot/ShareBot";
 import { DragSlider } from "../../../styles/DragSlider/DragSlider";
 import AddToWishlist from "../../../components/AddToWishlist/AddToWishlist";
+import Swiper from "../../../styles/Swiper/Swiper"
+
+
 
 /* API */
 import { storefront } from "../../../utils/shopify_fetch_function";
@@ -51,6 +55,7 @@ const Product = ({ product }: { product: singleProductProps }) => {
   //We can't declare the dispatch variable inside a function or hook
   //Otherwise we can get "Error: Invalid hook call. Hooks can only be called inside of the body of a function component.""
   const dispatch = useAppDispatch();
+
 
   //States and Refs
   const ref_personalised = useRef<HTMLDivElement>(null!);
@@ -309,11 +314,14 @@ const Product = ({ product }: { product: singleProductProps }) => {
       <div className={styles.imageSlider}>
         {/* The buildImagesArray() function will put the image url and the img alt
             in the same object fo the image slider component to use */}
-        <DragSlider
+        {/* <DragSlider
           slides={buildImagesArray(product)}
           aspectRatio="66%"
           objectFit="contain"
-        />
+        /> */}
+
+
+        <Swiper items={buildImagesArray(product)} />
 
         <ShareBot
           title={`${product.title} - Lazy Dog Company`}
@@ -321,7 +329,7 @@ const Product = ({ product }: { product: singleProductProps }) => {
           className={styles.shareBot}
         />
 
-          <AddToWishlist sanitySlug={product.handle} className={styles.likeBot}/>
+        <AddToWishlist sanitySlug={product.handle} className={styles.likeBot} />
 
         {/*  <ImageSlider slides={buildImagesArray(product)} aspectRatio={'63%'} objectFit={'contain'}/> */}
       </div>
@@ -581,3 +589,4 @@ export const getStaticProps = async (context: any) => {
     },
   };
 };
+
