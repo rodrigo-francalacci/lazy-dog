@@ -62,10 +62,7 @@
     transition: 1s; overflow-x: hidden;
     border-right: solid 0.2rem var(--grey);
     background-color: var(--white);
-    .is_changin_page {
-      transition: none;
-    }
-
+    
      .head_container{
         position: sticky; top: 0; padding-top: 3%; width: 90%; margin: 0 auto; z-index: 1; background-color: white;
      }
@@ -125,6 +122,10 @@
           
         }
 
+}
+
+.is_changin_page {
+  transition: none;
 }
 
 

@@ -325,7 +325,7 @@ const Product = ({ product }: { product: singleProductProps }) => {
           items={buildImagesArray(product)} 
           objectFit='contain' 
           Aratio={[
-            {up_to_screen_width: "500px", aspectRatio: "1/1"},
+            {up_to_screen_width: "500px", aspectRatio: "9/10"},
             {up_to_screen_width: "680px", aspectRatio: "3/4"},
             {up_to_screen_width: "8000px", aspectRatio: "2/3"},
 
