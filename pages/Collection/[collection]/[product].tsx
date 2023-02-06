@@ -321,7 +321,17 @@ const Product = ({ product }: { product: singleProductProps }) => {
         /> */}
 
 
-        <Swiper items={buildImagesArray(product)} />
+        <Swiper 
+          items={buildImagesArray(product)} 
+          aspectRatio="70%" 
+          objectFit='contain' 
+          Aratio={[
+            {up_to_screen_width: "500px", aspectRatio: "1/1"},
+            {up_to_screen_width: "680px", aspectRatio: "3/4"},
+            {up_to_screen_width: "8000px", aspectRatio: "2/3"},
+
+          ]}
+          />
 
         <ShareBot
           title={`${product.title} - Lazy Dog Company`}

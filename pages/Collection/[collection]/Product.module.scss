@@ -354,6 +354,7 @@
   justify-self: start;
   align-self: start;
   font-size: 1.05em;
+  margin-left: 0.7rem; margin-right: 0.7rem;
   grid-area: productName;
 
   margin-top: 0.7rem;
@@ -395,7 +396,7 @@
     width: fit-content;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     padding: 0.4rem; 
-    margin-top: 1rem; margin-bottom: 1rem; 
+    margin-top: 1rem; 
     p{
       font-size: 0.9em;
       color: var(--black-light);
@@ -410,7 +411,7 @@
           padding: 0.4rem;
           background-color: white; color: black; 
           border: solid 1px grey; border-radius: 0.5rem;
-          font-size: 0.5em; cursor: pointer;
+          font-size: max(0.5em, 14px); cursor: pointer;
           -webkit-user-select: none; /* Safari */
           -ms-user-select: none; /* IE 10 and IE 11 */
           user-select: none; /* Standard syntax */
@@ -424,10 +425,11 @@
 .dogsName {
   justify-self: start;
   align-self: center;
-  font-size: 1.12em;
+  font-size: max(1.12em, 14px);
   grid-area: dogsName;
   line-height: 1.5em;
   text-align: center;
+  margin-left: 0.7rem; margin-right: 0.7rem;
 
   div{display: none;}
   p{font-size: 1em; font-weight: 500; font-family: var(--font-gooddog);}
@@ -460,9 +462,9 @@
 
   margin-bottom: 2rem;
   font-size: max(16px, 0.6em);
-  ul{font-weight: 400; line-height: 130%;}
+  ul{font-weight: 400; line-height: 130%; padding-left: 1.3rem; padding-right: 1.3rem;}
   li{padding-top: 0.6rem; padding-bottom: 0.6rem;}
-  h3{margin-top: 1.5rem; margin-bottom: 0.7rem; font-size: 1.15em;}
+  h3{margin-top: 1.5rem; margin-left: 0.5rem; margin-bottom: 0.7rem; font-size: 1.15em;}
 }
 
 

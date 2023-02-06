@@ -7,7 +7,8 @@ import { useStateRef, getRefValue } from "./lib/hooks";
 import { getTouchEventData } from './lib/dom'; //To apply the same logic for mobile
 
 /* Styles */
-import styles from "./Swiper.module.css";
+import styles from "./Swiper.module.scss";
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
 /* Types */
 export type SwiperProps = {
@@ -15,7 +16,10 @@ export type SwiperProps = {
       url: string;
       alt: string;
     }[],
-    aspectRatio?: `${number}%`,
+    Aratio: {
+        up_to_screen_width: `${number}px`,
+        aspectRatio: `${number}/${number}`,
+    }[],
     objectFit?: 'cover' | 'contain',
   };
 
@@ -23,29 +27,28 @@ const MIN_SWIPE_REQUIRED = 30;
 
 /* COMPONENT
 ================================================================================= */
-function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps) {
-  
+function Swiper({ items, objectFit ='cover', Aratio  }: SwiperProps) {
   //Refs
   const containerRef = useRef<HTMLUListElement>(null);
   const minOffsetXRef = useRef(0);
   const currentOffsetXRef = useRef(0);
   const startXRef = useRef(0);
-  const ref_slides = useRef<HTMLDivElement[]>(new Array()); //all the miniature images 
-  
+  const ref_slides = useRef<HTMLDivElement[]>(new Array()); //all the miniature images
+
   //States
   const [offsetX, setOffsetX, offsetXRef] = useStateRef(0);
   const [isSwiping, setIsSwiping] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
-  const [ratio, setRatio] = useState<any>({ paddingTop: aspectRatio });
-  
-  
- /*===================================================================================
+  const [ratio, setRatio] = useState<any>(null!);
+
+  /*===================================================================================
                                     USE EFFECTS
 ===================================================================================== */
 
   //Change the image ratio depending on the screen width
   useEffect(() => {
-    if (window.screen.width >= 680) {
+    setAspectRatio();
+    /* if (window.screen.width >= 680) {
       setRatio({ paddingTop: aspectRatio });
     }
     if (window.screen.width < 680) {
@@ -53,10 +56,11 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     }
     if (window.screen.width < 500) {
       setRatio({ paddingTop: "100%" });
-    }
+    } */
     window.addEventListener("resize", () => {
       onTouchEnd();
-      if (window.screen.width >= 680) {
+      setAspectRatio();
+      /*  if (window.screen.width >= 680) {
         setRatio({ paddingTop: aspectRatio });
       }
       if (window.screen.width < 680) {
@@ -64,9 +68,31 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
       }
       if (window.screen.width < 500) {
         setRatio({ paddingTop: "100%" });
-      }
+      } */
     });
   }, []);
+
+  function setAspectRatio() {
+    const currentScreen = window.screen.width;
+    //reverse sorted
+    const sortedRatios = Aratio?.sort((a, b) =>
+      a.up_to_screen_width < b.up_to_screen_width ? 1 : -1
+    );
+
+    //check the screen size to set the padding top
+    sortedRatios?.forEach(function (item, idx) {
+      let thisSize = Number(item.up_to_screen_width.replace("px", ""));
+      let nextSize =
+        idx === sortedRatios.length - 1
+          ? 0
+          : Number(sortedRatios[idx + 1].up_to_screen_width.replace("px", ""));
+      let paddingTop = `${(eval(item.aspectRatio) * 100).toFixed(1)}%`;
+
+      if (currentScreen <= thisSize && currentScreen > nextSize) {
+        setRatio({ paddingTop: paddingTop });
+      }
+    });
+  }
 
   //Select the active miniature image by changing the opacity and adding a border
   useEffect(() => {
@@ -81,7 +107,7 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     });
   }, [currentIdx]);
 
- /*===================================================================================
+  /*===================================================================================
                             MOUSE AND TOUCH EVENTS HANDLERS
 ===================================================================================== */
 
@@ -139,7 +165,7 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     if (Math.abs(diff) > MIN_SWIPE_REQUIRED) {
       if (diff > 0) {
         // swipe to the right if diff is positive
-        newOffsetX = Math.floor((newOffsetX) / containerWidth!) * containerWidth!;
+        newOffsetX = Math.floor(newOffsetX / containerWidth!) * containerWidth!;
       } else {
         // swipe to the left if diff is negative
         newOffsetX = Math.ceil(newOffsetX / containerWidth!) * containerWidth!;
@@ -156,7 +182,6 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     window.removeEventListener("mouseup", onMouseUp);
     window.removeEventListener("mousemove", onMouseMove);
   };
-
 
   //Touch start
   const onTouchStart = (
@@ -207,7 +232,7 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     if (Math.abs(diff) > MIN_SWIPE_REQUIRED) {
       if (diff > 0) {
         // swipe to the right if diff is positive
-        newOffsetX = Math.floor((newOffsetX) / containerWidth!) * containerWidth!;
+        newOffsetX = Math.floor(newOffsetX / containerWidth!) * containerWidth!;
       } else {
         // swipe to the left if diff is negative
         newOffsetX = Math.ceil(newOffsetX / containerWidth!) * containerWidth!;
@@ -235,9 +260,27 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
   const indicatorOnClick = (idx: number) => {
     const containerEl = getRefValue(containerRef);
     const containerWidth = containerEl.offsetWidth;
+    calcNewOffset();
 
-    setCurrentIdx(idx);
-    setOffsetX(-(containerWidth * idx));
+    function calcNewOffset() {
+      let newOffset: number;
+      if (containerWidth * idx >= containerRef.current?.scrollWidth!) {
+        newOffset = -(containerWidth * (idx - 1));
+        setCurrentIdx(Math.abs(newOffset / containerWidth!));
+        setOffsetX(newOffset);
+        return;
+      }
+
+      if (containerWidth * idx < 0) {
+        setOffsetX(0);
+        setCurrentIdx(0);
+        return;
+      }
+
+      newOffset = -(containerWidth * idx);
+      setCurrentIdx(idx);
+      setOffsetX(newOffset);
+    }
   };
 
   //Dynamicly creates a reference for each image miniature when they are mapped
@@ -247,7 +290,7 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     }
   }
 
-/*===================================================================================
+  /*===================================================================================
                                      JSX RETURN
 ===================================================================================== */
   return (
@@ -259,7 +302,9 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
       {/* Items list */}
       <ul
         ref={containerRef}
-        className={`${styles.swiper_list} ${isSwiping ? styles.is_swiping : ""}`}
+        className={`${styles.swiper_list} ${
+          isSwiping ? styles.is_swiping : ""
+        }`}
         style={{ transform: `translate3d(${offsetX}px, 0, 0)` }}
       >
         {/* Mapping images */}
@@ -309,7 +354,9 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
               key={index}
               className={styles.small_image}
               ref={addToRefs} //apply the ref to the div
-              onClick={() => {indicatorOnClick(index);}}
+              onClick={() => {
+                indicatorOnClick(index);
+              }}
             >
               <Image
                 src={item.url}
@@ -341,6 +388,18 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
             </div>
           );
         })}
+      </div>
+
+      {/* Navigation Arrows */}
+      <div className={`${styles.next}`} style={ratio}>
+        <div onClick={() => indicatorOnClick(currentIdx + 1)}>
+          <AiOutlineArrowRight />
+        </div>
+      </div>
+      <div className={styles.prev} style={ratio}>
+        <div onClick={() => indicatorOnClick(currentIdx - 1)}>
+          <AiOutlineArrowLeft />
+        </div>
       </div>
     </div>
   );

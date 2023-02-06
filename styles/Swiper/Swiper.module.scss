@@ -53,3 +53,33 @@
   border: solid 1px grey
 }
 
+.next, .prev{
+  position: absolute; z-index: 2;
+  font-size: 1.3rem;
+  width: 2rem; height: 2rem;
+  /* padding-top: 63%; passed as prop to the component*/
+  top: 0;
+  div{
+    position: absolute;
+    display: flex; justify-content: center; align-items: center;
+    user-select: none; cursor: pointer;
+    top: calc(50% - 0.5rem);
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 2rem; height: 2rem;
+    border-radius: 50%;
+    transition: 0.3s ease-out;
+    @media (hover: hover) {
+    &:hover{background-color: var(--blue-sky);}
+    }
+    
+  }
+}
+
+.next{
+  right: 1%
+}
+
+.prev {
+  left: 1%;
+}
+

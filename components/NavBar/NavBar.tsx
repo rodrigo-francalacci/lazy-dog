@@ -90,6 +90,7 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
 
   //States
   const status = useSelector<RootState>(state => state.navbar_state.status);
+  const isChangingPage = useSelector<RootState>(state => state.navbar_state.loadingPage);
   const nameOfuser = useProfile().userData?.firstName; 
   const username = useProfile().userData?.username;
   const greeting = useProfile().greeting;
@@ -116,7 +117,7 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
 
   //Return
   return (
-    <div className={`navbar-opened-width ${styles.navBarOpened_container}`} ref={ref_navBarOpened_container}>
+    <div className={`navbar-opened-width ${styles.navBarOpened_container} ${isChangingPage ? styles.is_changin_page : ""}`} ref={ref_navBarOpened_container}>
     <div className={styles.head_container}><NavBarClosed/></div>
       <nav className='worksans-navbar'>
           <ul>
