@@ -323,7 +323,6 @@ const Product = ({ product }: { product: singleProductProps }) => {
 
         <Swiper 
           items={buildImagesArray(product)} 
-          aspectRatio="70%" 
           objectFit='contain' 
           Aratio={[
             {up_to_screen_width: "500px", aspectRatio: "1/1"},
