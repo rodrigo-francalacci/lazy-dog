@@ -560,6 +560,10 @@ export async function getStaticPaths() {
   return {
     paths,
     fallback: false,
+    // Next.js will attempt to re-generate the page:
+    // - When a request comes in
+    // - At most once every 10 seconds
+    revalidate: 10, // In seconds
   };
   // Nice tutorial on how to use geStaticPaths https://www.youtube.com/watch?v=NaYs1Gdg4AE
 }
