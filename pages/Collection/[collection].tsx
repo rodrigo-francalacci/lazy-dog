@@ -226,7 +226,11 @@ DATA FETCHING
         thisCollection: thisCollection,
         sanityPostsList: sanityPostsList,
         source: source.productsSource 
-      }
+      },
+      // Next.js will attempt to re-generate the page:
+      // - When a request comes in
+      // - At most once every 10 seconds
+      revalidate: 10, // In seconds
     };
     }
 
