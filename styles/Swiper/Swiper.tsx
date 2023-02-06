@@ -19,7 +19,7 @@ export type SwiperProps = {
     objectFit?: 'cover' | 'contain',
   };
 
-const MIN_SWIPE_REQUIRED = 40;
+const MIN_SWIPE_REQUIRED = 30;
 
 /* COMPONENT
 ================================================================================= */
@@ -132,7 +132,6 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     const currentOffsetX = getRefValue(currentOffsetXRef);
     const containerWidth = containerRef.current?.offsetWidth;
     let newOffsetX = getRefValue(offsetXRef);
-    newOffsetX = Math.round(newOffsetX / containerWidth!) * containerWidth!;
 
     const diff = currentOffsetX - newOffsetX;
 
@@ -201,7 +200,6 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     const currentOffsetX = getRefValue(currentOffsetXRef);
     const containerWidth = containerRef.current?.clientWidth;
     let newOffsetX = getRefValue(offsetXRef);
-    newOffsetX = Math.round(newOffsetX / containerWidth!) * containerWidth!;
 
     const diff = currentOffsetX - newOffsetX;
 
@@ -209,7 +207,7 @@ function Swiper({ items, aspectRatio = "63%", objectFit ='cover'  }: SwiperProps
     if (Math.abs(diff) > MIN_SWIPE_REQUIRED) {
       if (diff > 0) {
         // swipe to the right if diff is positive
-        newOffsetX = Math.floor(newOffsetX / containerWidth!) * containerWidth!;
+        newOffsetX = Math.floor((newOffsetX) / containerWidth!) * containerWidth!;
       } else {
         // swipe to the left if diff is negative
         newOffsetX = Math.ceil(newOffsetX / containerWidth!) * containerWidth!;
