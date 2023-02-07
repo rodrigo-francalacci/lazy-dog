@@ -76,7 +76,6 @@ useEffect(()=>{
           setBanners(formatBannerItems(data.sanityLayoutItems.banners))
           setSiteSettings(formatSiteSettings(data.sanityLayoutItems.sitesettings))
           setCategoriesList(data.collectionsResponse)
-          console.log(data)
         }
         
     }, [])

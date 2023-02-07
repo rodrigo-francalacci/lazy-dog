@@ -15,7 +15,6 @@ const Blog = ({sanityPostsList}: any) => {
 
     const posts: list_of_postsProps[] = format_List_of_posts(sanityPostsList);
 
-
   return (
     <div className={styles.blogContainer}>
         {/* Head and metatags generator */}

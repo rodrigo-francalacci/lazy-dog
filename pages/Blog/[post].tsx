@@ -4,6 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { PortableText } from '@portabletext/react'
 
+/* API */
+import { mySanityClient } from '../../lib/sanityClient';
+import { singlePostQuery, list_of_postsQuery } from '../../utils/sanity_queries'
+
 /* Styles */
 import styles from './Post.module.scss'
 
@@ -97,10 +101,6 @@ export default Blog
 DATA FETCHING
 ==================================================================================
 */
-
-    /* API */
-    import { mySanityClient } from '../../lib/sanityClient';
-    import { singlePostQuery, list_of_postsQuery } from '../../utils/sanity_queries'
 
     //GETTING THE PATHS
     export async function getStaticPaths() {

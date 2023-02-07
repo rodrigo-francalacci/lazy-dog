@@ -8,14 +8,7 @@ import styles from "./Cart.module.scss";
 
 /* Redux */
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { removeItem, loadCart } from "../../redux/slices/cartSlice";
-
-/* Stripe */
-import getStripe from "../../lib/getStripe";
-import { fetchPostJSON } from "../../utils/stripe-api-helpers";
-
-/* Context */
-import { useProfile } from "../../context/profile-context";
+import { removeItem } from "../../redux/slices/cartSlice";
 
 /* Components */
 import Box from "../../components/Box/Box";
@@ -23,15 +16,11 @@ import Buttom from "../../components/Buttom/Buttom";
 import QuantityBox from "../../components/QuantityBox/QuantityBox";
 
 
-
 const Cart = () => {
   /* Get items from redux */
   const cartItems = useAppSelector((state) => state.cart.cart);
   const subtotal = useAppSelector((state) => state.cart.subtotal);
-  const customer_id = useProfile().userData?.stripeData
   const dispatch = useAppDispatch();
-
-
 
   return (
     <div className={styles.wrapper}>

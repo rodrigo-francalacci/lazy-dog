@@ -2,20 +2,18 @@
 import * as React from 'react';
 import type { NextPage } from 'next'
 
-/* Sanity Formating */
-import { PortableText } from '@portabletext/react'
-
 /* Components */
 import ProductCard from '../../components/ProductCard/ProductCard'
-import Carousel from '../../styles/Carousel/Carousel'
+import Carousel from '../../components/Carousel/Carousel'
 import ArticleCard from '../../components/ArticleCard/ArticleCard'
 import SEO from '../../components/SEO/SEO';
 
 /* Style */
 import styles from './Collection.module.scss'
-import { motion } from 'framer-motion';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 
+/* Sanity Formating */
+import { PortableText } from '@portabletext/react'
 
 /* API */
 import { storefront } from '../../utils/shopify_fetch_function'
@@ -51,68 +49,82 @@ const Collection: NextPage<PageProps> = ({products, thisCollection, sanityPostsL
 /* JSX RETURN
 ==============================================*/
 
-      return ( 
-       
-      <div className={styles.container}>
-
+      return (
+        <div className={styles.container}>
           {/* Head and metatags generator */}
-        <SEO title={thisCollection.title} description={thisCollection.SEO_description} /> 
+          <SEO
+            title={thisCollection.title}
+            description={thisCollection.SEO_description}
+          />
 
-          <h2 className={`worksans-h2  ${styles.h2_title}`}>{thisCollection.title}</h2>
-          
+          <h2 className={`worksans-h2  ${styles.h2_title}`}>
+            {thisCollection.title}
+          </h2>
+
           {/* If Sanity is the source we return a portable text, if is Shopify, we return a simple paragraph */}
-          {source === "Sanity" 
-              ? <PortableText value={thisCollection.descriptionPage}/> 
-              : <p className={`worksans-paragraph`}>{thisCollection.descriptionPage}</p>
-          }
-          
+          {source === "Sanity" ? (
+            <PortableText value={thisCollection.descriptionPage} />
+          ) : (
+            <p className={`worksans-paragraph`}>
+              {thisCollection.descriptionPage}
+            </p>
+          )}
 
           {/* Mapping the products */}
           <div className={styles.products_container}>
-                {products?.length > 0 && products.map((item, index)=>{
-                return(
-                    <motion.div key={`${item.handle}${index}`} onClick={()=>{}}
-                        initial={{opacity: 0, y: -70}}
-                        animate={{opacity: 1, y: 0}}
-                        transition={{delay: 0.20 * index}}
-                        >
-                          <ProductCard 
-                              name={item.title}
-                              price={item.price}
-                              imgUrl={item.thumbnail_URL}
-                              collectionID={item.collectionID}
-                              productHandle={item.handle}
-                              />
-                </motion.div>
-                )
-                })}    
+            {products?.length > 0 &&
+              products.map((item, index) => {
+                return (
+                  <div key={`${item.handle}${index}`}>
+                    <ProductCard
+                      name={item.title}
+                      price={item.price}
+                      imgUrl={item.thumbnail_URL}
+                      collectionID={item.collectionID}
+                      productHandle={item.handle}
+                    />
+                  </div>
+                );
+              })}
           </div>
 
           {/* Articles secction title */}
           <h2 className={`worksans-h2  ${styles.h2_article}`}>Articles</h2>
 
           <div className={styles.articles_wrapper}>
-          
-          <div className={`article-arrow-div-height ${styles.left_arrow}`}><div><AiOutlineArrowLeft/></div></div>
-              <div className={styles.carousel_container}>
-                <Carousel>
-
-                  {/* mapping articles */}
-                    {blogPosts?.length > 0 && blogPosts.map((item, index)=>{
-                      return(
-                        <div key={index} className={`article-card-width ${styles.slider_item}`}>
-                          <ArticleCard thumbnail_URL={item.thumbnail_url} title={item.title} slug={item.slug}/>
-                        </div>
-                      )
-                    })}
-
-                </Carousel>
+            <div className={`article-arrow-div-height ${styles.left_arrow}`}>
+              <div>
+                <AiOutlineArrowLeft />
               </div>
-              <div className={`article-arrow-div-height ${styles.right_arrow}`}><div><AiOutlineArrowRight/></div></div>
-
+            </div>
+            <div className={styles.carousel_container}>
+              <Carousel>
+                {/* mapping articles */}
+                {blogPosts?.length > 0 &&
+                  blogPosts.map((item, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className={`article-card-width ${styles.slider_item}`}
+                      >
+                        <ArticleCard
+                          thumbnail_URL={item.thumbnail_url}
+                          title={item.title}
+                          slug={item.slug}
+                        />
+                      </div>
+                    );
+                  })}
+              </Carousel>
+            </div>
+            <div className={`article-arrow-div-height ${styles.right_arrow}`}>
+              <div>
+                <AiOutlineArrowRight />
+              </div>
+            </div>
           </div>
-
-      </div> )
+        </div>
+      );
     }
 
     export default Collection

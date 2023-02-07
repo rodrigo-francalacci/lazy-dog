@@ -5,7 +5,7 @@ import Link from "next/link";
 
 /* Components */
 import ProductCard from "../components/ProductCard/ProductCard";
-import Carousel from "../styles/Carousel/Carousel";
+import Carousel from "../components/Carousel/Carousel";
 import ArticleCard from "../components/ArticleCard/ArticleCard";
 import SEO from "../components/SEO/SEO";
 import Hero from "../components/Hero/Hero";

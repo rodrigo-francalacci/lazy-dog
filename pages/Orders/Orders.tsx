@@ -1,5 +1,5 @@
 /* React */
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 
 /* Style */
@@ -10,7 +10,7 @@ import "@aws-amplify/ui-react/styles.css";
 import { useProfile } from "../../context/profile-context";
 
 /* Amplify */
-import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
 
 /* Amplify Configure */

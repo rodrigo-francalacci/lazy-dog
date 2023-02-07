@@ -1,315 +1,5 @@
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.4.14,
-* Autoprefixer: v10.4.7
-* Browsers: last 4 version
-*/
-
-/* .container {  
-  display: -ms-grid;  display: grid;
-  -ms-grid-columns: 2.3fr 0px 1.08fr 0px 1.08fr 0px 1fr;
-  grid-template-columns: 2.3fr 1.08fr 1.08fr 1fr;
-  -ms-grid-rows: auto 0px auto 0px 7rem 0px auto;
-  grid-template-rows: auto auto 7rem auto;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-      grid-template-areas:
-    "imageSlider imageSlider imageSlider imageSlider"
-    "productName price price quantity"
-    "dogsName . addToCart addToCart"
-    "details details details details"
-    ;
-
-    width: 80%; margin: 0 auto;
-    @media screen and (max-width: 690px) {width: 100%}
-    
-}
-
-
-.imageSlider {
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  -ms-grid-row: 1;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 7;
-  -ms-grid-column-align: center;
-      justify-self: center;
-  -ms-grid-row-align: start;
-      align-self: start;
-  position: relative;; z-index: 0;
-  grid-area: imageSlider;
-
-  margin: 2rem auto; width: min(90%, 1000px); 
-  .shareBot{
-    position: absolute; top: 16px; right: 1%; z-index: 2;
-  }
-
-
-}
-
-.productName {
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  -ms-grid-row: 3;
-  -ms-grid-column: 1;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-grid-row-align: start;
-      align-self: start;
-  font-size: 1.05em;
-  grid-area: productName;
-
-  margin-top: 0.7rem;
-  h1{margin-bottom: 0.22em;}
-  p{font-size: max(16px, 0.6em); color: var(--grey-dark); font-weight: 400;}
-}
-
-.price {
-  -ms-grid-row: 7;
-  -ms-grid-column: 1;
-  -ms-grid-row: 3;
-  -ms-grid-column: 3;
-  -ms-grid-column-span: 3;
-  -ms-grid-column-align: center;
-      justify-self: center;
-  -ms-grid-row-align: start;
-      align-self: start; margin-top: 1.25em;
-  
-
-  grid-area: price;
-  span{font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif}
-  @media screen and (max-width: 560px){margin-left: 2rem; margin-top: 1.2rem;}
-  @media screen and (max-width:380px) { margin-left: 1rem;}
-  @media screen and (max-width:352px) { margin-left: 0;}
-}
-
-.quantity {
-  -ms-grid-row: 7;
-  -ms-grid-column: 3;
-  -ms-grid-row: 3;
-  -ms-grid-column: 7;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-grid-row-align: start;
-      align-self: start;
-  grid-area: quantity;
-  p{font-size: 0.59em;}
-  @media screen and (max-width: 560px){margin-right: 2rem;}
-  @media screen and (max-width:380px) { margin-right: 1rem;}
-  @media screen and (max-width:352px) { margin-right: 0;}
-
-}
-
-.dogsName {
-  -ms-grid-row: 5;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  -ms-grid-row: 5;
-  -ms-grid-column: 1;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-grid-row-align: center;
-      align-self: center;
-  font-size: 1.15em;
-  grid-area: dogsName;
-  
-
-  div{display: none;}
-  p{font-size: 1em; font-weight: 500; font-family: var(--font-gooddog);}
-  input{
-      color: var(--orange); font-weight: 500;
-      font-size: max(16px, 0.7em);
-      outline: none;
-      &::-webkit-input-placeholder{ color: var(--orange)}
-      &::-moz-placeholder{ color: var(--orange)}
-      &:-ms-input-placeholder{ color: var(--orange)}
-      &::-ms-input-placeholder{ color: var(--orange)}
-      &::placeholder{ color: var(--orange)}
-    }
-}
-
-.addToCart {
-  -ms-grid-row: 9;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  -ms-grid-row: 5;
-  -ms-grid-column: 5;
-  -ms-grid-column-span: 3;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-grid-row-align: center;
-      align-self: center; 
-  grid-area: addToCart;
-  :nth-child(2){display: none;}
-}
-
-.toast{
-  border: solid 1px var(--black);
-}
-
-
-.details {
-  -ms-grid-row: 11;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 3;
-  -ms-grid-row: 7;
-  -ms-grid-column: 1;
-  -ms-grid-column-span: 7;
-  -ms-grid-column-align: start;
-      justify-self: start;
-  -ms-grid-row-align: start;
-      align-self: start;
-  grid-area: details;
-
-
-
-  margin-bottom: 2rem;
-  font-size: max(16px, 0.6em);
-  ul{font-weight: 400; line-height: 130%;}
-  li{padding-top: 0.6rem; padding-bottom: 0.6rem;}
-  h3{margin-top: 1.5rem; margin-bottom: 0.7rem; font-size: 1.15em;}
-}
-
-
-//Mobile version
-@media screen and (max-width: 560px) {
-  .container {
-      display: -ms-grid;
-      display: grid; 
-      -ms-grid-columns: 1fr 0px 1fr; 
-      grid-template-columns: 1fr 1fr; 
-      -ms-grid-rows: auto 0px auto 0px auto 0px auto 0px auto 0px auto; 
-      grid-template-rows: auto auto auto auto auto auto; 
-      gap: 0px 0px; 
-          grid-template-areas: 
-        "imageSlider imageSlider"
-        "productName productName"
-        "dogsName dogsName"
-        "price quantity"
-        "addToCart addToCart"
-        "details details"
-
-    }
-    .imageSlider {
-      -ms-grid-row: 1;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 3;
-      -ms-grid-row: 1;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 7;
-      -ms-grid-column-align: center;
-          justify-self: center; 
-      -ms-grid-row-align: start; 
-          align-self: start; 
-      grid-area: imageSlider;
-      width: 100%;
-      @media screen and (max-width:450px) {width: 85vw; transform: scale(1.17); margin: 1.6rem auto 3.5rem auto;}
-
-      
-    }
-    .productName {
-      -ms-grid-row: 3;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 3;
-      -ms-grid-row: 3;
-      -ms-grid-column: 1;
-      -ms-grid-column-align: center;
-          justify-self: center; 
-      -ms-grid-row-align: start; 
-          align-self: start; 
-      grid-area: productName;
-      text-align: center;
-    }
-    .dogsName {
-      -ms-grid-row: 5;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 3;
-      -ms-grid-row: 5;
-      -ms-grid-column: 1;
-      -ms-grid-column-align: center;
-          justify-self: center; 
-      -ms-grid-row-align: center; 
-          align-self: center;
-      padding-top: 1em;
-      grid-area: dogsName; 
-      text-align: center;
-      input{text-align: center;}
-    }
-    .price {
-      -ms-grid-row: 7;
-      -ms-grid-column: 1;
-      -ms-grid-row: 3;
-      -ms-grid-column: 3;
-      -ms-grid-column-span: 3;
-      -ms-grid-column-align: start;
-          justify-self: start; 
-      -ms-grid-row-align: center; 
-          align-self: center; 
-      grid-area: price;
-
-    }
-    .quantity {
-      -ms-grid-row: 7;
-      -ms-grid-column: 3;
-      -ms-grid-row: 3;
-      -ms-grid-column: 7;
-      -ms-grid-column-align: end;
-          justify-self: end; 
-      -ms-grid-row-align: center; 
-          align-self: center;
-      padding-top: 1em; padding-bottom: 1em;
-      grid-area: quantity;
-     
-    }
-
-    .addToCart {
-      -ms-grid-row: 9;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 3;
-      -ms-grid-row: 5;
-      -ms-grid-column: 5;
-      -ms-grid-column-span: 3;
-      -ms-grid-column-align: center;
-          justify-self: center;
-      -ms-grid-row-align: center;
-          align-self: center; 
-      grid-area: addToCart;
-      
-      :nth-child(n){padding: 0.5rem 0.8rem;}
-      :nth-child(2){display: block;}
-      display: -webkit-box;
-      display: -ms-flexbox;
-      display: flex; -ms-flex-pack: distribute; justify-content: space-around; width: 100%;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-      
-
-    }
-
-    .details {
-      -ms-grid-row: 11;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 3;
-      -ms-grid-row: 7;
-      -ms-grid-column: 1;
-      -ms-grid-column-span: 7;
-      -ms-grid-column-align: start;
-          justify-self: start; 
-      grid-area: details;
-      text-align: center; margin: 0.7em auto 2em auto; 
-    }
-    .specifications {
-      -ms-grid-column-align: center;
-          justify-self: center; 
-      grid-area: specifications; 
-      text-align: center; -ms-grid-row-align: center; align-self: center;
-    }
-} */
-    
-
-/* ORIGINAL SCSS CODE 
+/* ORIGINAL SCSS CODE
+if needed make use of https://autoprefixer.github.io
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
 .container {  display: grid;
   grid-template-columns: 2.3fr 1.08fr 1.08fr 1fr;
@@ -333,13 +23,12 @@
   justify-self: center;
   align-self: start;
   position: relative;; z-index: 0;
-  grid-area: imageSlider;
   margin: 2rem auto; width: min(90%, 1000px); 
+  grid-area: imageSlider;
+  
   @media screen and (max-width: 500px) {margin: 0 auto;}
   @media screen and (max-width: 450px) {width: 100%;}
-/*   @media screen and (max-width: 450px) {width: 85vw; scale: 1.17; margin: 2.2rem auto 3.5rem auto;} */
 
-  
   .shareBot{
     position: absolute; top: 5px; right: 5px; z-index: 2;
   }
@@ -365,9 +54,8 @@
 .price {
   justify-self: center;
   align-self: start; margin-top: 1.25em;
-  
-
   grid-area: price;
+  
   span{font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif}
   @media screen and (max-width: 560px){margin-left: 2rem; margin-top: 1.2rem;}
   @media screen and (max-width:380px) { margin-left: 1rem;}
@@ -378,6 +66,7 @@
   justify-self: start;
   align-self: start;
   grid-area: quantity;
+  
   p{font-size: 0.59em;}
   @media screen and (max-width: 560px){margin-right: 2rem;}
   @media screen and (max-width:380px) { margin-right: 1rem;}
@@ -390,7 +79,6 @@
   display: flex; flex-wrap: wrap; align-items: center; justify-content: center;
   column-gap: 10%;
   width: 100%;
-/*   margin-top: 1.3rem; margin-bottom: 0.5rem; */
 
   .optionContainer{
     width: fit-content;

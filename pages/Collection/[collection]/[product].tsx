@@ -1,8 +1,7 @@
 /* React */
-import React, { Children } from "react";
+import React  from "react";
 import { useRef, useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 /* Redux */
 import { useAppDispatch } from "../../../redux/hooks";
@@ -17,30 +16,18 @@ import Buttom from "../../../components/Buttom/Buttom";
 import SEO from "../../../components/SEO/SEO";
 import toast, { Toaster } from "react-hot-toast";
 import ShareBot from "../../../components/ShareBot/ShareBot";
-import { DragSlider } from "../../../styles/DragSlider/DragSlider";
 import AddToWishlist from "../../../components/AddToWishlist/AddToWishlist";
 import Swiper from "../../../styles/Swiper/Swiper"
-
-
 
 /* API */
 import { storefront } from "../../../utils/shopify_fetch_function";
 import { mySanityClient } from "../../../lib/sanityClient";
 
 /* Queries */
-import {
-  collectionsListQuery,
-  formatCollectionsListResponse,
-} from "../../../utils/shopify_colllection_query"; //to fill the navbar
+import { collectionsListQuery, formatCollectionsListResponse,} from "../../../utils/shopify_colllection_query"; //to fill the navbar
 import { productsListQuery } from "../../../utils/shopify_colllection_query"; //list of products
-import {
-  productPageQuery,
-  formatProductPageQuery,
-} from "../../../utils/shopify_product_query";
-import {
-  singleProductQuery,
-  formatSanitySingleProduct,
-} from "../../../utils/sanity_queries";
+import { productPageQuery, formatProductPageQuery } from "../../../utils/shopify_product_query";
+import { singleProductQuery, formatSanitySingleProduct } from "../../../utils/sanity_queries";
 
 /* Types */
 import { collectionsListProps } from "../../../utils/shopify_colllection_query";
@@ -56,16 +43,14 @@ const Product = ({ product }: { product: singleProductProps }) => {
   //Otherwise we can get "Error: Invalid hook call. Hooks can only be called inside of the body of a function component.""
   const dispatch = useAppDispatch();
 
-
-  //States and Refs
+  //Refs
   const ref_personalised = useRef<HTMLDivElement>(null!);
   const ref_dogsName = useRef<HTMLInputElement>(null!);
   const ref_variants = useRef<HTMLDivElement[][]>(new Array());
   const variants = useRef<number[]>(new Array());
 
-  const [price, setPrice] = useState<Number>(
-    Number(product.priceRange.normalPrice.amount)
-  );
+  //States
+  const [price, setPrice] = useState<Number>(Number(product.priceRange.normalPrice.amount));
   const [weight, setWeight] = useState<WeightProps>(product.weight[0]);
   const [count, setCount] = useState(1); // quantity selector
 
@@ -312,17 +297,11 @@ const Product = ({ product }: { product: singleProductProps }) => {
 
       {/* The slider with the pictures */}
       <div className={styles.imageSlider}>
-        {/* The buildImagesArray() function will put the image url and the img alt
-            in the same object fo the image slider component to use */}
-        {/* <DragSlider
-          slides={buildImagesArray(product)}
-          aspectRatio="66%"
-          objectFit="contain"
-        /> */}
-
-
-        <Swiper 
-          items={buildImagesArray(product)} 
+       
+        <Swiper
+          /* The buildImagesArray() function will put the image url and the img alt
+          in the same object fo the image Swiper component to use */
+          items={buildImagesArray(product)}  
           objectFit='contain' 
           Aratio={[
             {up_to_screen_width: "500px", aspectRatio: "9/10"},
@@ -340,7 +319,6 @@ const Product = ({ product }: { product: singleProductProps }) => {
 
         <AddToWishlist sanitySlug={product.handle} className={styles.likeBot} />
 
-        {/*  <ImageSlider slides={buildImagesArray(product)} aspectRatio={'63%'} objectFit={'contain'}/> */}
       </div>
 
       {/* The main info: name, description... */}
@@ -405,7 +383,6 @@ const Product = ({ product }: { product: singleProductProps }) => {
       {/* The personalized field input */}
       <div className={styles.dogsName}>
         <div ref={ref_personalised} onChange={typingHandle}>
-          {/* <p>Personalised</p> */}
           <input
             type="text"
             placeholder="Enter your dog's name"
@@ -514,8 +491,7 @@ export async function getStaticPaths() {
     const productsListResponse = await mySanityClient.fetch(
       `*[_type == 'products']{slug{current},categories[]->{slug{current}}}`
     );
-console.log("============================================")
-console.log(productsListResponse)
+
     /* (4.B) map the paths combinations */
     productsListResponse.map((productItem: any) => {
       productItem.categories.map((collectionItem: any) => {
@@ -561,7 +537,7 @@ console.log(productsListResponse)
   /* (5) Return paths and fallback */
   return {
     paths,
-    fallback: 'blocking'
+    fallback: false
   };
   // Nice tutorial on how to use geStaticPaths https://www.youtube.com/watch?v=NaYs1Gdg4AE
 }
@@ -601,6 +577,6 @@ export const getStaticProps = async (context: any) => {
     // Next.js will attempt to re-generate the page:
     // - When a request comes in
     // - At most once every 10 seconds
-    revalidate: 10, // In seconds
+    /* revalidate: 10, */ // In seconds
   };
 };

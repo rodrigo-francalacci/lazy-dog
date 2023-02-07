@@ -18,6 +18,7 @@ export async function getLayoutProps() {
     //If products data are comming from sanity
     if (sanityLayoutItems.sitesettings.productsSource === 'Sanity'){
       const sanityCollectionsResponse = await mySanityClient.fetch(categoriesListQuery);
+      console.log(sanityCollectionsResponse)
       
       collectionsResponse = formatCategoriesListResponse(sanityCollectionsResponse)
 

@@ -12,11 +12,6 @@ const Contact = ({sanityContacts}: any) => {
 //Format, Type and sort the contacts List
 const contacts: contactListProps[] = format_contactList(sanityContacts).sort((a, b) => (a.type < b.type) ? 1 : -1);
 
-/* Aux Fuctions
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-
-
-
   return (
     <div className={`worksans-contacts ${styles.container}`}>
        {/*  Mapping and grouping the contacts by type (email, phone number, etc...) */}
