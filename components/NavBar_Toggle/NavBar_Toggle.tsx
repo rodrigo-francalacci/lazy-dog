@@ -5,8 +5,8 @@ import styles from './NavBar_Toggle.module.scss'
 
 /* Redux */
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../store' //to get the correct types
-import { open, close } from '../../slices/navbarSlice';
+import { RootState } from '../../redux/store' //to get the correct types
+import { open, close } from '../../redux/slices/navbarSlice';
 
 //===========================================================================================================================
 //COMPONENT => NavBar ToggleButton

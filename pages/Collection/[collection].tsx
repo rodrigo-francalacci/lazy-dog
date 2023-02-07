@@ -176,12 +176,10 @@ DATA FETCHING
         //RETURN THE PATHS 
         return{
             paths,
-            fallback: 'blocking'
+            fallback: 'blocking' //https://spacejelly.dev/posts/how-to-update-static-content-in-next-js-automatically-with-incremental-static-regeneration-isr/
         }
         // Nice tutorial on how to use geStaticPaths https://www.youtube.com/watch?v=NaYs1Gdg4AE   
     }
-
-
 
 
     //GETTING THE PROPS ---------------------------------
@@ -230,7 +228,7 @@ DATA FETCHING
       // Next.js will attempt to re-generate the page:
       // - When a request comes in
       // - At most once every 10 seconds
-      revalidate: 10, // In seconds
+      revalidate: 10, // https://spacejelly.dev/posts/how-to-update-static-content-in-next-js-automatically-with-incremental-static-regeneration-isr/
     };
     }
 

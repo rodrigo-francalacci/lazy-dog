@@ -10,8 +10,8 @@ import { getUser, listUsers } from "../utils/graphql/queries";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/auth";
 
 /* Redux */
-import { useAppSelector, useAppDispatch } from "../hooks";
-import { loadCart } from "../slices/cartSlice";
+import { useAppSelector, useAppDispatch } from "../redux/hooks";
+import { loadCart } from "../redux/slices/cartSlice";
 
 /* Sanity */
 import { format_productsInCategory } from "../utils/sanity_queries";
@@ -19,7 +19,7 @@ import { mySanityClient } from "../lib/sanityClient";
 
 /* Stripe */
 import getStripe from "../lib/getStripe";
-import { fetchPostJSON, fetchGetJSON } from "../utils/api-helpers";
+import { fetchPostJSON, fetchGetJSON } from "../utils/stripe-api-helpers";
 
 /* Types */
 import { productProps } from "../utils/shopify_colllection_query";

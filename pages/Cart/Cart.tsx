@@ -7,12 +7,12 @@ import Link from "next/link";
 import styles from "./Cart.module.scss";
 
 /* Redux */
-import { useAppSelector, useAppDispatch } from "../../hooks";
-import { removeItem, loadCart } from "../../slices/cartSlice";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { removeItem, loadCart } from "../../redux/slices/cartSlice";
 
 /* Stripe */
 import getStripe from "../../lib/getStripe";
-import { fetchPostJSON } from "../../utils/api-helpers";
+import { fetchPostJSON } from "../../utils/stripe-api-helpers";
 
 /* Context */
 import { useProfile } from "../../context/profile-context";

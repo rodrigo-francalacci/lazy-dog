@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import { fetchGetJSON } from "../../utils/api-helpers";
+import { fetchGetJSON } from "../../utils/stripe-api-helpers";
 
 /* Styles */
 import styles from "./Success.module.scss";
@@ -11,8 +11,8 @@ import styles from "./Success.module.scss";
 import { useProfile } from "../../context/profile-context";
 
 /* Redux */
-import { useAppDispatch } from "../../hooks";
-import { loadCart } from "../../slices/cartSlice";
+import { useAppDispatch } from "../../redux/hooks";
+import { loadCart } from "../../redux/slices/cartSlice";
 
 
 const Success: NextPage = () => {

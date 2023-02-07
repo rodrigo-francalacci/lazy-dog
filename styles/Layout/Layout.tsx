@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 
 /* Redux */
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { open, close } from '../../slices/navbarSlice';
+import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { open, close } from '../../redux/slices/navbarSlice';
 
 /* Components */
 import { NavBarOpened, NavBarClosed } from '../../components/NavBar/NavBar';

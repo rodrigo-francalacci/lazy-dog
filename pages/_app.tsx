@@ -2,7 +2,7 @@
 import type { AppProps } from 'next/app'
 
 //Redux
-import { store } from '../store'
+import { store } from '../redux/store'
 import { Provider } from 'react-redux'
 
 //Context

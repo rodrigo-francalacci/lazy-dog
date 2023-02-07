@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 
 /* Redux */
-import { useAppDispatch, useAppSelector } from "../../../hooks";
-import { addToCart } from "../../../slices/cartSlice";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { addToCart } from "../../../redux/slices/cartSlice";
 
 /* Style */
 import styles from "./Product.module.scss";

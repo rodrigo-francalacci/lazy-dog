@@ -5,8 +5,8 @@ import React from 'react'
 import styles from './QuantityBox.module.scss'
 
 /* Redux */
-import {useAppSelector, useAppDispatch} from '../../hooks';
-import { incrementQuantity, decrementQuantity } from '../../slices/cartSlice';
+import {useAppSelector, useAppDispatch} from '../../redux/hooks';
+import { incrementQuantity, decrementQuantity } from '../../redux/slices/cartSlice';
 
 /* Components */
 import Box from '../Box/Box'

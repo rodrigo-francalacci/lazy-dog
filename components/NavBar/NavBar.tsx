@@ -5,10 +5,10 @@ import Link from 'next/link'
 import { useRef, useEffect } from 'react'
 
 //Redux
-import { useAppSelector, useAppDispatch } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../store' //to get the correct types
-import { open, close } from '../../slices/navbarSlice';
+import { RootState } from '../../redux/store' //to get the correct types
+import { open, close } from '../../redux/slices/navbarSlice';
 
 //Components
 import Logo from '../Logo/Logo' 

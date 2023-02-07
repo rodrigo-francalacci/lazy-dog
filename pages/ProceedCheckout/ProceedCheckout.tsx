@@ -15,11 +15,11 @@ import Buttom from "../../components/Buttom/Buttom";
 import { useProfile } from "../../context/profile-context";
 
 /* Redux */
-import { useAppSelector } from "../../hooks";
+import { useAppSelector } from "../../redux/hooks";
 
 /* Stripe */
 import getStripe from "../../lib/getStripe";
-import { fetchPostJSON } from "../../utils/api-helpers";
+import { fetchPostJSON } from "../../utils/stripe-api-helpers";
 
 /* Amplify */
 import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";

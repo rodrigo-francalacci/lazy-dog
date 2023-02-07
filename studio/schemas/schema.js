@@ -23,7 +23,6 @@ import post from './Blog/posts'
 import dogFriend from './DogsFriends/dogFriend'
 
 //Objects
-import vendor from './vendor'
 import blockContent from './Objects/blockContent'
 import simpleBlockContent from './Objects/simpleBlockContent'
 import variant from './Objects/variants'
@@ -59,6 +58,6 @@ export default createSchema({
     simpleBlockContent,
     variant,
     
-    vendor
+    
   ]),
 })
