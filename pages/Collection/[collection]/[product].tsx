@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 /* Redux */
-import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { useAppDispatch } from "../../../redux/hooks";
 import { addToCart } from "../../../redux/slices/cartSlice";
 
 /* Style */
@@ -514,10 +514,12 @@ export async function getStaticPaths() {
     const productsListResponse = await mySanityClient.fetch(
       `*[_type == 'products']{slug{current},categories[]->{slug{current}}}`
     );
-
+console.log("============================================")
+console.log(productsListResponse)
     /* (4.B) map the paths combinations */
     productsListResponse.map((productItem: any) => {
       productItem.categories.map((collectionItem: any) => {
+        console.log(productItem == "Double Duvet & 2 Pillows" && true)
         paths.push({
           params: {
             //this variable has to match [product].tsx file for the dynamic routes to work
@@ -602,4 +604,3 @@ export const getStaticProps = async (context: any) => {
     revalidate: 10, // In seconds
   };
 };
-

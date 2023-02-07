@@ -1,5 +1,5 @@
-import client from 'part:@sanity/base/client'
 
+import sanityClient from 'part:@sanity/base/client'
 /**
  * THIS SCRIPT DELETES DATA!
  *
@@ -13,9 +13,10 @@ import client from 'part:@sanity/base/client'
  * See docs:https://www.sanity.io/docs/http-api/http-mutations#deleting-multiple-documents-by-query
  */
 
+const client = sanityClient.withConfig({apiVersion: '2021-06-07'})
 
 client
-  .delete({query: '*[_type == "showcase"][0]'})
+  .delete({query: '*[_type == "products" && slug == null]'})
   .then(console.log)
   .catch(console.error)
 
