@@ -94,7 +94,6 @@ const Orders = () => {
           : `${user?.username} Orders`}
       </h2>
 
-      <hr/>
       <table className={styles.GeneratedTable}>
         <thead>
           <tr>
@@ -107,7 +106,7 @@ const Orders = () => {
             orders.map((item: Order) => {
               return (
                 <tr key={item.id}>
-                  <td><Link href={item.link}><a>{item.date}</a></Link></td>
+                  <td><Link href={item.link}><a>📄 {item.date}</a></Link></td>
                   <td>{item.total}</td>
                 </tr>
               );
