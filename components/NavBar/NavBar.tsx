@@ -188,7 +188,7 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
                   )
                 })}
   
-              <li  onClick={handleClick}>
+              <li onClick={handleClick} className={styles.lastItem}>
                 <Link href="/Contact/Contact"><a>Contact</a></Link>
               </li>
 

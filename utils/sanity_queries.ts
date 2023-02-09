@@ -131,8 +131,7 @@ export const homeHero_Query = `{
         heroImageURL: sanityUrlFor(input.showcase.heroImage),
         homeDescription: input.sitesettings.description
       }
-
-      console.log('runded')
+      
       return output
     }
 

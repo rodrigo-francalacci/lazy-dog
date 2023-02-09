@@ -16,16 +16,18 @@ type Pages = {current: number, total: number}
 const Pages = ({products }:PagesProps) => {
 
 /* States and Refs */
-const containerRef = useRef<HTMLDivElement>(null);
-const page_list_ref = useRef<HTMLDivElement>(null);
+const [prevWidth, setPrevWidth] = useState<number>(null!)
+const containerRef = useRef<HTMLDivElement>(null!);
+const page_list_ref = useRef<HTMLDivElement>(null!);
 const ref_slides = useRef<HTMLDivElement[]>(new Array());
 const [pages, setPages] = useState<Pages>(null!);
 const [jsxPages, setJSX_pages] = useState<JSX.Element[]>(null!);
 const [itensPerPage, setItensPerPage] = useState(10);
 
-useEffect(()=>{
-    console.log(`setting items per page = ${itensPerPage}`)
 
+useEffect(()=>{
+
+  if(document){setPrevWidth(document.documentElement.clientWidth)}
     //calc number of pages
     let nPages: number;
     //If the number of products is smaller them items per page => we have 1 page
@@ -42,20 +44,28 @@ useEffect(()=>{
         }  
     }
 
-    window.addEventListener("resize", () => {
-        indicatorOnClick(pages?.current ? pages?.current : 1)
+      /* Changes the state "prevWidth" on resize, a change in this state 
+       triggers the useEffect bellow to recalculate the slideshow width */
+      window.addEventListener("resize", () => {
+        setPrevWidth(document.documentElement.clientWidth)
       });
 
-    console.log(`setting Page total = ${nPages}`)
+
     setPages({current: 1, total: nPages});
     
 
 },[itensPerPage, products])
 
+//Happens whenever the width changes
 useEffect(()=>{
-    console.log(`building pages...`)
+ if(pages){ indicatorOnClick(pages?.current ? pages.current : 1)}
+},[prevWidth])
+
+useEffect(()=>{
     pagesBuilder();
 },[pages?.total])
+
+
 
 
 //Pages Builder
@@ -67,13 +77,13 @@ function pagesBuilder(){
     for (let index = 1; index <= pages?.total; index++) {
         let pageItemsArray = selectPageItems(index);
 
-        console.log(`Mapping page ${index}`)
+
         pagesArray.push(
         <div className={styles.single_page} ref={addToRefs} key={`page_${index}`}>
             {
             pageItemsArray?.length > 0 && pageItemsArray?.map((item: JSX.Element, index)=>{
                 if(item) {
-                    console.log(`item: ${index}` )
+
                     return(item)
                 }})
             }
