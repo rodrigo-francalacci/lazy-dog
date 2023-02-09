@@ -1,5 +1,6 @@
 .loading{
     margin-top: 3rem; width: 100%; text-align: center;
+    height: 100vh;
 }
 
 .container{
@@ -21,7 +22,7 @@ table.GeneratedTable {
     text-align: center;
 
     a{
-        display: inline-block; width: 100%; margin-left: 1rem;
+        display: inline-block; width: 100%; padding-left: 1rem;
         color: var(--black-light);
         font-weight: 800; text-align: left;
         &:hover{
