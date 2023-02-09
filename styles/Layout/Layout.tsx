@@ -12,7 +12,7 @@ import { open, close } from '../../redux/slices/navbarSlice';
 import { NavBarOpened, NavBarClosed } from '../../components/NavBar/NavBar';
 import { PromoBar } from '../../components/PromoBar/PromoBar';
 import Footer from '../../components/Footer/Footer';
-import Loading from '../../components/Loading/Loading';
+import Loading from '../../components/LoadingPage/LoadingPage';
 
 /* Queries */
 import { getLayoutProps } from '../../utils/layout_fetch_function'; //get the layout props, site settings, promo top bar banners
@@ -47,7 +47,6 @@ const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =
 
   /* Fetch layout data using useEffect and useState
 ++++++++++++++++++++++++++++++++++ */
-console.log(layoutProps)
   const [siteSettings, setSiteSettings] = useState<siteSettingsProps>(null!);
   const [categoriesList, setCategoriesList] = useState<collectionsListProps[]>(null!);
   const [banners, setBanners] = useState<bannerItemProps[]>(null!);

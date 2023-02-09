@@ -1,11 +1,12 @@
 /* React */
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 /* Style */
 import "@aws-amplify/ui-react/styles.css";
 
 /* Components */
-import Buttom from "../../components/Buttom/Buttom";
+import Buttom from "../Buttom/Buttom";
+import LoadingSpinner from "../LoadingSpinner/LoadingSpinner";
 
 /* Custom Hooks */
 import { useProfile } from "../../context/profile-context";
@@ -32,6 +33,8 @@ const CheckoutButton = ({
   //States
   const customer_id = useProfile().userData?.stripeData;
   const cartItems = useAppSelector((state) => state.cart.cart);
+  const [redirecting, setRedirecting] = useState<boolean>(false);
+
 
   /* HANDLE CHECKOUT FUNCTION
   We're gonna make an API request to our own next.js backend!!*/
@@ -39,6 +42,7 @@ const CheckoutButton = ({
     e
   ) => {
     e.preventDefault();
+    setRedirecting(true);
 
     if ((checkForm()) && (cartItems.length > 0)) {
       // Update the customer data
@@ -68,6 +72,7 @@ const CheckoutButton = ({
       // using `error.message`.
       console.warn(error.message);
     }
+    setRedirecting(false);
   };
 
   /* JSX PAGE RETURN 
@@ -75,7 +80,7 @@ const CheckoutButton = ({
   return (
     <button onClick={handleSubmit} type="submit">
     <Buttom bkgColor="bkg-blue-velvet" size="big" fontColor="font-white">
-        Checkout
+        {redirecting ? <LoadingSpinner size="20%"/> : "Checkout"}
     </Buttom>
     </button>
   );

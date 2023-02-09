@@ -7,6 +7,7 @@ import ProductCard from '../../components/ProductCard/ProductCard'
 import Carousel from '../../components/Carousel/Carousel'
 import ArticleCard from '../../components/ArticleCard/ArticleCard'
 import SEO from '../../components/SEO/SEO';
+import Pages from '../../components/Pages/Pages';
 
 /* Style */
 import styles from './Collection.module.scss'
@@ -45,6 +46,37 @@ const Collection: NextPage<PageProps> = ({products, thisCollection, sanityPostsL
 
     //Format the list of posts
     const blogPosts: list_of_postsProps[] = format_List_of_posts(sanityPostsList);
+  
+
+/* AUX FUNCTIONS
+==============================================*/
+function sortItems({array, basedOn}:{array: productProps[], basedOn: "handle" | "price"}){
+  let output = array;
+    if(basedOn === "handle"){ output = array.sort((a, b) => (a.handle! > b.handle!) ? 1 : -1)};
+    if(basedOn === "price"){ output = array.sort((a, b) => (a.price! > b.price!) ? 1 : -1)};
+  return output
+}
+
+function itemsToPages(productsItems: productProps[]){
+  let itemsToPage: JSX.Element[] = [];
+  productsItems?.length > 0 &&
+    sortItems({array: productsItems, basedOn: "handle"}).map((item, index) => {
+      itemsToPage.push(
+        <div key={`${item.handle}${index}`}>
+          <ProductCard
+            name={item.title}
+            price={item.price}
+            imgUrl={item.thumbnail_URL}
+            collectionID={item.collectionID}
+            productHandle={item.handle}
+          />
+        </div>
+      )
+    })
+return itemsToPage
+}
+
+
 
 /* JSX RETURN
 ==============================================*/
@@ -72,20 +104,9 @@ const Collection: NextPage<PageProps> = ({products, thisCollection, sanityPostsL
 
           {/* Mapping the products */}
           <div className={styles.products_container}>
-            {products?.length > 0 &&
-              products.map((item, index) => {
-                return (
-                  <div key={`${item.handle}${index}`}>
-                    <ProductCard
-                      name={item.title}
-                      price={item.price}
-                      imgUrl={item.thumbnail_URL}
-                      collectionID={item.collectionID}
-                      productHandle={item.handle}
-                    />
-                  </div>
-                );
-              })}
+
+            <Pages products={itemsToPages(products)} />
+  
           </div>
 
           {/* Articles secction title */}

@@ -76,10 +76,10 @@ const ThemeTypography = (): JSX.Element => {
             )}
 
             ${fontBuilder(//SMALL BUTTOM
-              ".worksans-small-buttom", 13, 1440, 14, 17,
+              ".worksans-small-buttom", 14, 1440, 15, 18,
               {
                 fontFamily: "var(--font-worksans)",
-                fontWeight: "700", lineHeight: "120%",
+                fontWeight: "700", lineHeight: "150%",
                 textTransform: "uppercase", letterSpacing: "0.2px",
               }
             )}
@@ -121,7 +121,7 @@ const ThemeTypography = (): JSX.Element => {
               ".worksans-product-card", 14, 1440, 18, 24,
               {
                 fontFamily: "var(--font-worksans)",
-                fontWeight: "600", lineHeight: "87%",
+                fontWeight: "600", lineHeight: "110%",
                 textTransform: "capitalize",
               }
             )}

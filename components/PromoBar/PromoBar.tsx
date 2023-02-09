@@ -2,7 +2,7 @@
 import React from 'react'
 
 //Components
-import SlideShow  from '../../styles/SlideShow/SlideShow'
+import SlideShow  from '../SlideShow/SlideShow'
 
 //Style
 import styles from './promoBar.module.scss'

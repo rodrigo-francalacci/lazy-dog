@@ -13,7 +13,6 @@ import { open, close, setTransitionOn } from '../../redux/slices/navbarSlice';
 const NavBarToggle = () => {
 
     //States
-    /* const [open, setOpen] = useState<boolean>(false); */
     const status = useSelector<RootState>(state => state.navbar_state.status);
     const dispatch = useDispatch();
     var statusClass = "";

@@ -17,7 +17,7 @@ import SEO from "../../../components/SEO/SEO";
 import toast, { Toaster } from "react-hot-toast";
 import ShareBot from "../../../components/ShareBot/ShareBot";
 import AddToWishlist from "../../../components/AddToWishlist/AddToWishlist";
-import Swiper from "../../../styles/Swiper/Swiper"
+import Swiper from "../../../components/Swiper/Swiper"
 
 /* API */
 import { storefront } from "../../../utils/shopify_fetch_function";

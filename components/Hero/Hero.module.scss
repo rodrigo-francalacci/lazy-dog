@@ -6,7 +6,7 @@
     
     .imageContainer{
         position: absolute; top: 0; left: 0;
-        width: 100%; height: 100%; z-index: -1;
+        width: 100%; height: 100%; z-index: -1; 
     }
     
     .content{
@@ -16,14 +16,17 @@
         width: 100%; height: 100%;z-index: 1;
         display: flex; flex-direction: column ; align-items:stretch; justify-content: center;
         padding: 0.5em;
+        
 
         h1{
-            color: white; /* font-family: var(--font-gooddog); */
-            width: 100%; text-align: left; margin-bottom: 1.3em;
+            color: white; 
+            width: 100%; text-align: left; margin-bottom: 1.3em; 
         }
 
         p{
-            color: white; letter-spacing: 0.05em; font-weight: 600;
-            margin-top: 0.5em; width: 100%; text-align: center; }
+            color: white; letter-spacing: 0.05em; font-weight: 600;  
+            margin-top: 0.5em; width: 100%; text-align: center; 
+        }
     }
 }
+

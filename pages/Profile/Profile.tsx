@@ -11,7 +11,7 @@ import "@aws-amplify/ui-react/styles.css";
 import { useProfile } from "../../context/profile-context";
 
 /* Components */
-import CheckoutButton from "../ProceedCheckout/CheckoutButton";
+import CheckoutButton from "../../components/CheckoutButton/CheckoutButton";
 import Buttom from "../../components/Buttom/Buttom";
 
 /* Amplify */
@@ -315,7 +315,7 @@ const Profile = () => {
                   fontColor="font-white"
                   size="small"
                 >
-                  Sign Out
+                  Sign Out 
                 </Buttom>
               </button>
             </>
