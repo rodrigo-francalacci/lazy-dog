@@ -16,18 +16,9 @@ import { motion } from "framer-motion";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 
 /* Queries */
-import {
-  collectionPageQuery,
-  formatCollectionPageQueryResponse,
-} from "../utils/shopify_colllection_query"; // collections query to fill the page
-import {
-  productsShowcaseQuery,
-  format_productsInCategory,
-} from "../utils/sanity_queries";
-import {
-  list_of_postsQuery,
-  format_List_of_posts,
-} from "../utils/sanity_queries";
+import { collectionPageQuery, formatCollectionPageQueryResponse } from "../utils/shopify_colllection_query"; // collections query to fill the page
+import { productsShowcaseQuery, format_productsInCategory } from "../utils/sanity_queries";
+import { list_of_postsQuery,format_List_of_posts} from "../utils/sanity_queries";
 import { homeHero_Query, format_homeHero } from "../utils/sanity_queries";
 
 /* Types */

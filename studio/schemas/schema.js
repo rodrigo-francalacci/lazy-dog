@@ -7,7 +7,7 @@ import siteSettings from './SiteSettings/siteSettings'
 
 //Store Settings Section
 import categories from './StoreSettings/categories'
-import banner from './StoreSettings/banners'
+import banners from './StoreSettings/banners'
 import giftCards from './StoreSettings/giftCards'
 import showcase from './StoreSettings/showcase'
 
@@ -38,9 +38,8 @@ export default createSchema({
     //Store Settings
     categories,
     showcase,
-    banner,
+    banners,
     giftCards,
-
 
     //Products
     products,

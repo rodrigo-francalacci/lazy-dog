@@ -1,5 +1,5 @@
 /* React */
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
@@ -22,7 +22,7 @@ import getStripe from "../../lib/getStripe";
 import { fetchPostJSON } from "../../utils/stripe-api-helpers";
 
 /* Amplify */
-import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
 
 /* Amplify Configure */

@@ -46,7 +46,6 @@ export default {
       },
 
 
-
       //Contact list
       {
         name: 'contactsList',

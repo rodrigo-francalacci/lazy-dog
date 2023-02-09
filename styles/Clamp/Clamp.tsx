@@ -68,7 +68,6 @@ export type clampPropsArray = [cssProps, min, max, rangeMin?, rangeMax?];
 
 
 
-
 //===========================================================================================================================
 //returns a style element to be used inside inline inside the style property style={Here goes the function}//
 //the input is an array of properties so it's possible to clamp many properties in one go 
@@ -274,7 +273,6 @@ var output: string = `clamp(${minPX}, ${x.toFixed(4)}px ${signal} ${Math.abs(y).
 return output
 
 }
-
 
 
 //===========================================================================================================================

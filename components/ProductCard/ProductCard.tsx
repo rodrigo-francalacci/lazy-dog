@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 /* Redux */
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import {setLoading} from '../../redux/slices/navbarSlice';
 
 /* Style */

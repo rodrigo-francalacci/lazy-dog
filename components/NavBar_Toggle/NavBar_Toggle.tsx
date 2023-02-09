@@ -1,12 +1,12 @@
 /* React */
 import React from 'react'
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import styles from './NavBar_Toggle.module.scss'
 
 /* Redux */
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store' //to get the correct types
-import { open, close } from '../../redux/slices/navbarSlice';
+import { open, close, setTransitionOn } from '../../redux/slices/navbarSlice';
 
 //===========================================================================================================================
 //COMPONENT => NavBar ToggleButton
@@ -34,9 +34,11 @@ const NavBarToggle = () => {
 
       if(status == 'opened' ){
         ref_icon.current.className = styles.hamburger__icon;
+        dispatch(setTransitionOn());
         dispatch(close())
       } else {
         ref_icon.current.className = styles.hamburger__icon2;
+        dispatch(setTransitionOn());
         dispatch(open());
       }
 

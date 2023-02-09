@@ -1,5 +1,5 @@
 import React from "react"
-import { ClampX_Builder, clampY_Builder, ClampXY, FluidX } from "../Clamp/Clamp"
+import { FluidX } from "../Clamp/Clamp"
 
 
 const ThemeTypography = (): JSX.Element => {

@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { Amplify, Auth, API, graphqlOperation } from "aws-amplify";
 import { Hub } from "aws-amplify";
 import { createUser, updateUser } from "../utils/graphql/mutations";
-import { getUser, listUsers } from "../utils/graphql/queries";
+import { getUser } from "../utils/graphql/queries";
 import { GRAPHQL_AUTH_MODE } from "@aws-amplify/auth";
 
 /* Redux */
@@ -18,7 +18,6 @@ import { format_productsInCategory } from "../utils/sanity_queries";
 import { mySanityClient } from "../lib/sanityClient";
 
 /* Stripe */
-import getStripe from "../lib/getStripe";
 import { fetchPostJSON, fetchGetJSON } from "../utils/stripe-api-helpers";
 
 /* Types */

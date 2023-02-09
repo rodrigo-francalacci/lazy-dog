@@ -17,9 +17,6 @@ import Typography from '../styles/Typography/Typography'
 import ClampedClasses from '../styles/Clamp/ClampedClasses'
 
 
-
-
-
 function MyApp({ Component, pageProps}: AppProps) {
 
   const currentPage: any = pageProps;

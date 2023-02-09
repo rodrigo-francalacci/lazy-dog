@@ -156,10 +156,3 @@ export function NewClampClass(className: string, middleScreen: number, props: cl
   
   return output;
 }
-
-
-/* ${clampY_Builder({maxScreenHeight: 2160, minScreenHeight: 640, minValue: 15, maxValue: 400}) */
-/* @media screen and (orientation:portrait){
-  .mainDimensions{
-    width: 100%;
-  } */

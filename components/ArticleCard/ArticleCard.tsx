@@ -2,7 +2,6 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useState, useRef } from 'react'
 
 /* Style */
 import styles from './ArticleCard.module.scss'

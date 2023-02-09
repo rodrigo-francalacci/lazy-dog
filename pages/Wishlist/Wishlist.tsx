@@ -1,6 +1,5 @@
 /* React */
 import React from "react";
-import { useState, useEffect } from "react";
 
 /* Components */
 import ProductCard from "../../components/ProductCard/ProductCard";
@@ -14,7 +13,7 @@ import { motion } from "framer-motion";
 import { useProfile } from "../../context/profile-context";
 
 /* Amplify */
-import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
 
 /* Amplify Configure */

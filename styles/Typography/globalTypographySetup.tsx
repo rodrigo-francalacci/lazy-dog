@@ -32,20 +32,15 @@ export function GlobalTypographySetup() {
     var sFont =  16 * B; /* smallest font size in pixels */
     var bFont = 16 * A; /* largest font size in pixels */
   
-    
-
       var fontDiff = bFont - sFont;
       var xUp = (sFont * screenDiff) - (fontDiff * smallerScreen);
       var x = xUp/(16 * screenDiff);
       var y = 100 * (fontDiff / screenDiff)
 
-
-
     var  minREM: string = String(B) + "rem"
     var  maxREM: string = String(A) + "rem"
     var  middle: string = String(x.toFixed(4)) + "rem" + " + " + String(y.toFixed(4)) + "vw"
     var  clampOut: string = "clamp(" + minREM + ", " + middle + ", " + maxREM + ")"
-    /* var calcMid: string = `calc(${middle})` */
 
     return clampOut
 

@@ -385,7 +385,7 @@ const Product = ({ product }: { product: singleProductProps }) => {
         <div ref={ref_personalised} onChange={typingHandle}>
           <input
             type="text"
-            placeholder="Enter your dog's name"
+            placeholder="Your dog's name"
             maxLength={10}
             spellCheck={false}
             ref={ref_dogsName}

@@ -15,9 +15,8 @@ import CheckoutButton from "../ProceedCheckout/CheckoutButton";
 import Buttom from "../../components/Buttom/Buttom";
 
 /* Amplify */
-import { Authenticator, withAuthenticator } from "@aws-amplify/ui-react";
+import { withAuthenticator } from "@aws-amplify/ui-react";
 import { Amplify } from "aws-amplify";
-import { AiOutlineEyeInvisible } from "react-icons/ai";
 
 /* Amplify Configure */
 Amplify.configure(JSON.parse(process.env.NEXT_PUBLIC_AMPLIFY_EXPORTS!));

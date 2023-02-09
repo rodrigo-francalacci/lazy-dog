@@ -135,7 +135,7 @@
 //Scroll Bar
 /* width */
 .navBarOpened_container::-webkit-scrollbar {
-    width: 0.7vw;
+    width: max(0.7vw, 7px);
   }
   
 

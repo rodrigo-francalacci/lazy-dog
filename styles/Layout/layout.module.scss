@@ -87,6 +87,11 @@
                 bottom: 0;
                 height: 30%;
               }
+
+              //class displayed on the link when the layout path detects the current page
+              .active{
+                font-weight: 700; color: var(--blue-sea);
+              }
               
               
             }

@@ -1,4 +1,3 @@
-
 //React
 import React, { useState } from 'react'
 import Link from 'next/link'
@@ -8,7 +7,7 @@ import { useRef, useEffect } from 'react'
 import { useAppSelector, useAppDispatch } from '../../redux/hooks';
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store' //to get the correct types
-import { open, close } from '../../redux/slices/navbarSlice';
+import { open, close,setTransitionOn, setTransitionOff } from '../../redux/slices/navbarSlice';
 
 //Components
 import Logo from '../Logo/Logo' 
@@ -56,7 +55,7 @@ export const NavBarClosed = () => {
     <div className={`${styles.navBarClosed_container}`}>
         <div className={styles.toggle_container}><NavBarToggle/></div>
         <Link href={'/'}>
-          <div className={styles.logo_container} onClick={()=>{dispatch(close())}}><Logo/></div>
+          <div className={styles.logo_container} onClick={()=>{dispatch(setTransitionOff()); dispatch(close())}}><Logo/></div>
         </Link>
         <div className={styles.member_cart_container}>
             <div className={styles.userName}>
@@ -65,13 +64,13 @@ export const NavBarClosed = () => {
             </div>
             
             <Link href={'/Cart/Cart'} >
-              <div className={styles.cart} onClick={()=>{dispatch(close())}}>
+              <div className={styles.cart} onClick={()=>{dispatch(setTransitionOff()); dispatch(close())}}>
                 <FaShoppingCart size="1.4rem"/>
                 <span ref={ref_cartNumberContainer}>{cartNumber}</span>
               </div>
             </Link>
             <Link href={'/Profile/Profile'}>
-              <div onClick={()=>{dispatch(close())}}>
+              <div onClick={()=>{dispatch(setTransitionOff()); dispatch(close())}}>
                 <HiUser size="1.4rem"/>
               </div>
             </Link>
@@ -90,7 +89,7 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
 
   //States
   const status = useSelector<RootState>(state => state.navbar_state.status);
-  const isChangingPage = useSelector<RootState>(state => state.navbar_state.loadingPage);
+  const transition =  useSelector<RootState>(state => state.navbar_state.transition);
   const nameOfuser = useProfile().userData?.firstName; 
   const username = useProfile().userData?.username;
   const greeting = useProfile().greeting;
@@ -112,12 +111,13 @@ export const NavBarOpened = ({categoriesList, socialMedias}:{categoriesList: col
   //Aux Funcs
   const dispatch = useDispatch();
   function handleClick(){
-    dispatch(close())
+    dispatch(setTransitionOff());
+    dispatch(close());
   }
 
   //Return
   return (
-    <div className={`navbar-opened-width ${styles.navBarOpened_container} ${isChangingPage ? styles.is_changin_page : ""}`} ref={ref_navBarOpened_container}>
+    <div className={`navbar-opened-width ${styles.navBarOpened_container} ${transition ? "" : styles.is_changin_page }`} ref={ref_navBarOpened_container}>
     <div className={styles.head_container}><NavBarClosed/></div>
       <nav className='worksans-navbar'>
           <ul>
