@@ -268,7 +268,7 @@ function pagesBuilder(){
 }
 
 useEffect(()=>{
-  if(jsxPages?.length > 0){indicatorOnClick(1);}
+  if(jsxPages?.length > 0){indicatorOnClick(0);}
 },[jsxPages])
 
 
