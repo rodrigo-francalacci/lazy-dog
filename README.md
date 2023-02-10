@@ -2,7 +2,7 @@
 
 ## Overview
 This project aimed to create an Ecommerce for Lazy Dog Company based in Swindon UK. The idea was to create a fast website with a good SEO performance. To do this it has been used Next JS due to its ability to render the pages on the server making them visible to search engines. Using dynamic routes we can managed to make each product visible to the search engine. 
-This is a dynamic page, since the user can login and save personal data, however, the data of the static part of the site is stored in Sanity while the dynamic part is stored in a DynamoDB table from Amazon AWS, and Stripe. The application is also equipped to import data from Shopify, in case the site administrator prefers to store his products there or instead of in Sanity.
+This is a dynamic page, since the user can login and save personal data, however, the data of the static part of the site is stored in Sanity while the dynamic part is stored in a DynamoDB table from Amazon AWS, and Stripe. The application is also equipped to import data from Shopify, in case the site administrator prefers to store his products there instead of in Sanity.
 The checkout system is all handled by Stripe. This makes the site very reliable for payment systems.
 The authentication system is Cognito from Amazon AWS.
 Typescript was used to ensure consistency and agility in maintenance. 
