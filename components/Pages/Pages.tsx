@@ -13,7 +13,7 @@ type PagesProps = {
 }
 
 type Pages = {total: number}
-const MIN_SWIPE_REQUIRED = 30;
+const MIN_SWIPE_REQUIRED = 60;
 
 /* Component
 ============================================ */
@@ -225,7 +225,7 @@ useEffect(()=>{
 
 //Happens whenever the width changes
 useEffect(()=>{
- if(pages){ indicatorOnClick(currentIdx ? currentIdx : 1)}
+ if(pages){ indicatorOnClick(currentIdx ? currentIdx : 0)}
 },[prevWidth])
 
 useEffect(()=>{
