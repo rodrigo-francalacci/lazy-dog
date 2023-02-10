@@ -42,10 +42,10 @@ const Loading = () => {
                   <span className={styles.vibe6}>o</span>
                   <span className={styles.vibe7}>g</span>
               </div>
-              <div className={styles.loader}>
+{/*               <div className={styles.loader}>
                   <div/>
                   <div/>
-              </div>
+              </div> */}
           </div>
       </div>
   )
