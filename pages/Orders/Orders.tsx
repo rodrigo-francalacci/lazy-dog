@@ -6,6 +6,9 @@ import Link from "next/link";
 import styles from "./Orders.module.scss";
 import "@aws-amplify/ui-react/styles.css";
 
+/* Components */
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+
 /* Custom Hooks */
 import { useProfile } from "../../context/profile-context";
 
@@ -82,7 +85,7 @@ const Orders = () => {
  
 
 
-  if(actionRunning){ return <div className={`${styles.loading} worksans-h2`}>Loading...</div>}
+  if(actionRunning){ return <div className={`${styles.loading} worksans-h2`}><div><LoadingSpinner size="100%"/></div></div>}
 
   /* JSX PAGE RETURN 
     ++++++++++++++++++++++++++++++++++++++++++++++++++++*/

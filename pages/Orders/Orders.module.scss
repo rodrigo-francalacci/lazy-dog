@@ -1,6 +1,10 @@
 .loading{
-    margin-top: 3rem; width: 100%; text-align: center;
-    height: 100vh;
+    margin: 0 auto; width: 80%; 
+    display: flex; justify-content: center; align-items: center;
+    height: 50vh;
+    & > div{
+        width: 30%; 
+    }
 }
 
 .container{
