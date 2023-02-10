@@ -1,5 +1,4 @@
 import Head from "next/head";
-import { Helmet } from "react-helmet"
 
 const DOMAIN = "https://lazy-dog.vercel.app/";
 const DEFAULT_OG_IMAGE = '/images/logo.PNG';
