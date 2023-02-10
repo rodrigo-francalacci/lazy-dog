@@ -1,6 +1,6 @@
 .container{
-    margin: 0 auto; width: 100%; 
-
+    margin: 0 auto; width: 100%;
+   
 
     .header{
         display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center;
@@ -30,7 +30,7 @@
     }
 
     .pages_container{
-        width: 100%;
+        width: 100%; height: auto;
         max-width: 100%;
         overflow:hidden;
         touch-action: pan-y; /* prevent browser's default behavior on swiping horizontally */
@@ -41,12 +41,15 @@
             flex-direction: row;
             padding: 0;
             margin: 0;
+            transition: transform 0.3s ease-out;
 
             .single_page{
                 width: 100%; height: fit-content;
                 flex-shrink: 0;
                 overflow-wrap:normal;
-                transition: transform 0.3s ease-out;
+                -webkit-user-select: none; /* Safari */
+                -ms-user-select: none; /* IE 10 and IE 11 */
+                user-select: none; /* Standard syntax */
                 display: flex; flex-wrap: wrap; justify-content: center; row-gap: 1.2rem; column-gap: 1rem;
             }
         }
@@ -76,3 +79,7 @@
         }
     }
 }
+
+.is_swiping {
+    transition: none;
+  }

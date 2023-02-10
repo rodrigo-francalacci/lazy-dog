@@ -1,7 +1,8 @@
 import Head from "next/head";
+import { Helmet } from "react-helmet"
 
-const DOMAIN = "https://www.lazydogcompany.co.uk";
-const DEFAULT_OG_IMAGE = '/images/OG_IMG.png';
+const DOMAIN = "https://lazy-dog.vercel.app/";
+const DEFAULT_OG_IMAGE = '/images/logo.PNG';
 
 
 /* 
@@ -9,7 +10,7 @@ https://www.jimraptis.com/blog/access-canonical-url-in-next-js
 https://www.jimraptis.com/blog/seo-component-for-next-js-react
 */
 export default function SEO({
-  title = "Lazy Dog Company ",
+  title = "Lazy Dog Company",
   description = "",
   siteName = "Lazy Dog Company",
   canonical = DOMAIN,

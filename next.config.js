@@ -5,6 +5,10 @@ const nextConfig = {
   images: {
     domains: ['cdn.shopify.com', 'cdn.sanity.io'],
   },
+  i18n: {
+    locales: ["en-GB"],
+    defaultLocale: "en-GB",
+  },
 }
 
 

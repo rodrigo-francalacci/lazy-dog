@@ -62,13 +62,14 @@ function itemsToPages(productsItems: productProps[]){
   productsItems?.length > 0 &&
     sortItems({array: productsItems, basedOn: "handle"}).map((item, index) => {
       itemsToPage.push(
-        <div key={`${item.handle}${index}`}>
+        <div key={`${item.handle}${index}`} draggable={false}>
           <ProductCard
             name={item.title}
             price={item.price}
             imgUrl={item.thumbnail_URL}
             collectionID={item.collectionID}
             productHandle={item.handle}
+            
           />
         </div>
       )

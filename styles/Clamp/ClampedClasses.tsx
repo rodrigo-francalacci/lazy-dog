@@ -58,8 +58,8 @@ const ClampedClasses = (): JSX.Element => {
         ${NewClampClass(//buttom component
           ".small-buttom-dimensions", 1440, 
           [
-            {cssProp: "width", min: (124*0.83), mid: 124, max: (124*1.4)},
-            {cssProp: "min-height", min: (28*0.83), mid: 28, max: (28*1.4)},
+            {cssProp: "width", min: (135*0.83), mid: 135, max: (135*1.4)},
+            {cssProp: "min-height", min: (33*0.83), mid: 33, max: (33*1.4)},
           ]
         )}
 

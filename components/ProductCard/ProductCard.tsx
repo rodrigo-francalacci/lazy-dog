@@ -28,8 +28,8 @@ const ProductCard = ({name, price, imgUrl, collectionID, productHandle}: Product
       
         {/* Image */}
         <Link  href={`/Collection/${collectionID}/${productHandle}`} >
-        <a className={styles.image_zoom_wrapper}>
-          <div className={`${styles.image_container}`} 
+        <a draggable={false} className={styles.image_zoom_wrapper}>
+          <div draggable={false} className={`${styles.image_container}` } 
                 onClick={()=>{dispatch(setLoading())}} //turn on the parent page loading component
                 >
               <Image 
@@ -37,6 +37,7 @@ const ProductCard = ({name, price, imgUrl, collectionID, productHandle}: Product
                 layout='fill' 
                 objectFit='cover' 
                 alt={`${name} - Lazy Dog Company`}
+                draggable={false}
                 
                 /* The smaller screen overrides the bigger, 
                 but if a bigger sized is already loaded, nextJS will keep the better image
@@ -56,11 +57,11 @@ const ProductCard = ({name, price, imgUrl, collectionID, productHandle}: Product
         </Link>
 
         {/* Title */}
-        <h3>{name}</h3>
+        <h3 draggable={false}>{name}</h3>
         
         {/* price */}
         {/* If price is null we retunr "--" */}
-        <p>Price <span>£</span>{`${price ? price.toFixed(2) : "--"}`} </p>
+        <p draggable={false}>Price <span>£</span>{`${price ? price.toFixed(2) : "--"}`} </p>
 
 
     </div>

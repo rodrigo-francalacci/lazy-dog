@@ -48,27 +48,10 @@ function Swiper({ items, objectFit ='cover', Aratio  }: SwiperProps) {
   //Change the image ratio depending on the screen width
   useEffect(() => {
     setAspectRatio();
-    /* if (window.screen.width >= 680) {
-      setRatio({ paddingTop: aspectRatio });
-    }
-    if (window.screen.width < 680) {
-      setRatio({ paddingTop: "75%" });
-    }
-    if (window.screen.width < 500) {
-      setRatio({ paddingTop: "100%" });
-    } */
+
     window.addEventListener("resize", () => {
       onTouchEnd();
       setAspectRatio();
-      /*  if (window.screen.width >= 680) {
-        setRatio({ paddingTop: aspectRatio });
-      }
-      if (window.screen.width < 680) {
-        setRatio({ paddingTop: "75%" });
-      }
-      if (window.screen.width < 500) {
-        setRatio({ paddingTop: "100%" });
-      } */
     });
   }, []);
 
