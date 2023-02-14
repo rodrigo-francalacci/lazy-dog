@@ -1,33 +1,6 @@
-.swiper_container {
-    width: 100%;
-    max-width: 100%;
-    overflow: hidden;
-    touch-action: pan-y; /* prevent browser's default behavior on swiping horizontally */
-  }
-  
-  .swiper_list {
-    min-width: 100%;
-    display: flex;
-    flex-direction: row;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    transition: transform 0.3s ease-out;
-  }
-
-  .swiper_item {
+.swiper_item {
     width: 100%; padding-top: 66%; position: relative;
-    flex-shrink: 0;
-    overflow-wrap:normal;
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
-    user-select: none; /* Standard syntax */
-    width: 100%; margin: 0 auto
-  }
-
-  
-  .swiper_list.is_swiping {
-    transition: none;
+    margin: 0 auto;
   }
 
   .small_images_container{
@@ -46,12 +19,15 @@
     /* //we must specify opacity in the transition so as 
     //to prevent the div to shake  */
     transition: opacity 0.3s linear; 
+
+    
 }
 
-.small_image:first-of-type{
-  opacity: 1;
-  border: solid 1px grey
+.navActive{
+    opacity: 1;
+    border: solid 1px grey
 }
+
 
 .next, .prev{
   position: absolute; z-index: 2;
@@ -82,4 +58,3 @@
 .prev {
   left: 1%;
 }
-

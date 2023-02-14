@@ -1,0 +1,36 @@
+.container{
+    width: 100%;
+    margin-top: 0.5rem;
+    border-bottom: 1px solid black;
+    
+    .list{
+        width: 100%;
+        display: flex; flex-wrap: nowrap; 
+        margin-top: 1rem; margin-bottom: 1rem;
+        
+
+        .list_item{
+            font-size: max(14px, 0.8em); height: fit-content;
+            
+            span{
+                padding-left: 1rem; padding-right: 1rem; padding-top: 0.3rem; padding-bottom: 0.3rem; 
+                margin-left: 1rem; margin-right: 1rem;
+                border: 1px solid black; border-radius: 15px;
+                cursor: pointer;
+            }
+
+            .active{
+                background-color: var(--orange); color: white;
+            }
+
+            .inactive{
+                background-color: var(--black-light); color: white
+            }
+
+            .allTags{
+                background-color: var(--blue-velvet); color: white
+            }
+
+        }
+    }
+}

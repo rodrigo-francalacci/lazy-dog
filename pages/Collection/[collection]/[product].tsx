@@ -17,7 +17,7 @@ import SEO from "../../../components/SEO/SEO";
 import toast, { Toaster } from "react-hot-toast";
 import ShareBot from "../../../components/ShareBot/ShareBot";
 import AddToWishlist from "../../../components/AddToWishlist/AddToWishlist";
-import Swiper from "../../../components/Swiper/Swiper"
+import ImageSwiper from "../../../components/ImageSwiper/ImageSwiper";
 
 /* API */
 import { storefront } from "../../../utils/shopify_fetch_function";
@@ -172,8 +172,6 @@ const Product = ({ product }: { product: singleProductProps }) => {
     );
   }
 
-  function typingHandle() {}
-
   /* Getting "count" value from the child (QuantityBox component) */
   function handleClick(action: "add" | "subtract") {
     if (action === "add") {
@@ -298,7 +296,7 @@ const Product = ({ product }: { product: singleProductProps }) => {
       {/* The slider with the pictures */}
       <div className={styles.imageSlider}>
        
-        <Swiper
+        <ImageSwiper
           /* The buildImagesArray() function will put the image url and the img alt
           in the same object fo the image Swiper component to use */
           items={buildImagesArray(product)}  
@@ -382,7 +380,7 @@ const Product = ({ product }: { product: singleProductProps }) => {
 
       {/* The personalized field input */}
       <div className={styles.dogsName}>
-        <div ref={ref_personalised} onChange={typingHandle}>
+        <div ref={ref_personalised}>
           <input
             type="text"
             placeholder="Your dog's name"
@@ -422,13 +420,13 @@ const Product = ({ product }: { product: singleProductProps }) => {
 
       {/* Details */}
       <div className={`${styles.details}`}>
-        <h3 style={display(product.details)}>🐶 Details</h3>
+        <h3 style={display(product.details)}><span>🐶</span> Details</h3>
         <ul style={display(product.details)}>
           {product.details?.map((item, index) => {
             return <li key={`detail_${index}`}>▸ {item}</li>;
           })}
         </ul>
-        <h3 style={display(product.dimensions)}>🐶 Dimensions and Weight</h3>
+        <h3 style={display(product.dimensions)}><span>🐶</span> Dimensions and Weight</h3>
         <ul style={display(product.dimensions)}>
           {product.dimensions?.map((item, index) => {
             return <li key={`spec${index}`}>▸ {item}</li>;
@@ -439,14 +437,14 @@ const Product = ({ product }: { product: singleProductProps }) => {
           </li>
         </ul>
         <h3 style={display(product.contentMaterials)}>
-          🐶 Content and Materials
+          <span>🐶</span> Content and Materials
         </h3>
         <ul style={display(product.contentMaterials)}>
           {product.contentMaterials?.map((item, index) => {
             return <li key={`spec${index}`}>▸ {item}</li>;
           })}
         </ul>
-        <h3 style={display(product.careInstructions)}>🐶 Care Instructions</h3>
+        <h3 style={display(product.careInstructions)}><span>🐶</span> Care Instructions</h3>
         <ul style={display(product.careInstructions)}>
           {product.careInstructions?.map((item, index) => {
             return <li key={`spec${index}`}>▸ {item}</li>;

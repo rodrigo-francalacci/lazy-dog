@@ -1,5 +1,6 @@
 /* React */
 import * as React from 'react';
+import { useState } from 'react';
 import type { NextPage } from 'next'
 
 /* Components */
@@ -7,7 +8,7 @@ import ProductCard from '../../components/ProductCard/ProductCard'
 import Carousel from '../../components/Carousel/Carousel'
 import ArticleCard from '../../components/ArticleCard/ArticleCard'
 import SEO from '../../components/SEO/SEO';
-import Pages from '../../components/Pages/Pages';
+import {CategoryFilter} from '../../components/CategoryFilter/CategoryFilter';
 
 /* Style */
 import styles from './Collection.module.scss'
@@ -26,7 +27,7 @@ import {collectionsListQuery, formatCollectionsListResponse} from '../../utils/s
 import {categoriesListQuery, formatCategoriesListResponse } from '../../utils/sanity_queries';
 import {categoryPageQuery, formatCategoryPageQueryResponse } from '../../utils/sanity_queries';
 import {productsInCategoryQuery, format_productsInCategory } from '../../utils/sanity_queries';
-import {list_of_postsQuery, format_List_of_posts} from '../../utils/sanity_queries' 
+import {list_of_postsQuery, format_List_of_posts} from '../../utils/sanity_queries'; 
 
 /* Types */
 import {thisCollectionProps, productProps} from '../../utils/shopify_colllection_query' //queries Types
@@ -44,6 +45,8 @@ PAGE COMPONENT
 ==============================================*/
 const Collection: NextPage<PageProps> = ({products, thisCollection, sanityPostsList, source}: PageProps) => {
 
+    const [filtered_products, setProducts] = useState(products)
+
     //Format the list of posts
     const blogPosts: list_of_postsProps[] = format_List_of_posts(sanityPostsList);
   
@@ -56,28 +59,6 @@ function sortItems({array, basedOn}:{array: productProps[], basedOn: "handle" | 
     if(basedOn === "price"){ output = array.sort((a, b) => (a.price! > b.price!) ? 1 : -1)};
   return output
 }
-
-function itemsToPages(productsItems: productProps[]){
-  let itemsToPage: JSX.Element[] = [];
-  productsItems?.length > 0 &&
-    sortItems({array: productsItems, basedOn: "handle"}).map((item, index) => {
-      itemsToPage.push(
-        <div key={`${item.handle}${index}`} draggable={false}>
-          <ProductCard
-            name={item.title}
-            price={item.price}
-            imgUrl={item.thumbnail_URL}
-            collectionID={item.collectionID}
-            productHandle={item.handle}
-            
-          />
-        </div>
-      )
-    })
-return itemsToPage
-}
-
-
 
 /* JSX RETURN
 ==============================================*/
@@ -103,11 +84,28 @@ return itemsToPage
             </p>
           )}
 
+          <div className={styles.filter}>
+            <CategoryFilter products={products} setProducts={setProducts}/>
+          </div>
+
           {/* Mapping the products */}
           <div className={styles.products_container}>
-
-            <Pages products={itemsToPages(products)} />
-  
+            {filtered_products?.length > 0 &&
+              filtered_products.map(
+                (item, index) => {
+                  return (
+                    <div key={`${item.handle}${index}`} draggable={false}>
+                      <ProductCard
+                        name={item.title}
+                        price={item.price}
+                        imgUrl={item.thumbnail_URL}
+                        collectionID={item.collectionID}
+                        productHandle={item.handle}
+                      />
+                    </div>
+                  );
+                }
+              )}
           </div>
 
           {/* Articles secction title */}

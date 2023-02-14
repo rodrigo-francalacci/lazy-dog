@@ -1,0 +1,31 @@
+.swiper_container {
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    touch-action: pan-y; /* prevent browser's default behavior on swiping horizontally */
+  }
+  
+  .swiper_list {
+    min-width: 100%;
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .swiper_item {
+    flex-shrink: 0;
+    overflow-wrap:normal;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+  }
+
+  
+  .swiper_list.is_swiping {
+    transition: none;
+  }
+
+  
+

@@ -81,11 +81,14 @@ export const list_of_postsQuery = `*[_type in ["post"]]| order(publishedAt){
     slug{current},
     title,
     thumbnail,
+    tags[]->{
+      title
+    }
   }
   `
     //Type for each posts in the list
     export type list_of_postsProps = {
-      slug: string; title: string; thumbnail_url: string;
+      slug: string; title: string; thumbnail_url: string; tags: string[];
     }
 
     //Formating and typing the output of sanity query
@@ -97,6 +100,7 @@ export const list_of_postsQuery = `*[_type in ["post"]]| order(publishedAt){
           slug: item.slug.current,
           title: item.title,
           thumbnail_url: sanityUrlFor(item.thumbnail),
+          tags: item.tags.map((item: any)=>{return item.title})
         })
       })
 
@@ -145,7 +149,7 @@ export const productsShowcaseQuery = `*[_type == 'showcase'][0]{
 //Query to get the list of products from any other category
 export function productsInCategoryQuery(category: string){
   return `*[_type == 'products' && '${category}' in categories[]->slug.current]{
-    title, slug{current}, images[0], price, shortDescription, categories[0]->{_id, slug} 
+    title, slug{current}, images[0], price, shortDescription, categories[0]->{_id, slug}, variants 
   }`
 }
 
@@ -155,6 +159,31 @@ export function format_productsInCategory(input: any){
 
   let output: productProps[];
 
+  function optionsBuilder(e: any){
+
+    let output:{name: string, values: any}[] = [];
+    
+    //If we have variants
+    if(e.variants){
+
+      e.variants.map((variant: any)=>{
+        output.push({
+          name: variant.name,
+          values: variant.options.map((option: any)=>{
+            return {
+              option: option.option,
+            }
+          })
+        })
+      })
+      
+    } else {return []}
+
+    //If we don't have variants the array will remain empty
+    return output
+
+  }
+
   output = input.products?.length > 0 && input.products.map((item: any)=>{
       return{
         title: item.title,
@@ -162,7 +191,8 @@ export function format_productsInCategory(input: any){
         thumbnail_URL: sanityUrlFor(item.images),
         price: item.price,
         shortDescription: item.shortDescription,
-        collectionID: item.categories.slug.current
+        collectionID: item.categories.slug.current,
+        options: optionsBuilder(item)
       }
     })
 
@@ -323,7 +353,6 @@ export function formatSanitySingleProduct(input: any){
     } else {return []}
 
     //If we don't have variants the array will remain empty
-
     return output
 
   }

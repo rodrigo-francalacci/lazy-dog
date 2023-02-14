@@ -52,6 +52,8 @@ const Layout: React.FunctionComponent<Props> = ({children, layoutProps}:Props) =
   const [banners, setBanners] = useState<bannerItemProps[]>(null!);
   const route = useRouter().asPath;
 
+
+
   //This useEfffect loads the Layout Data
   useEffect(() => {
     loadData();

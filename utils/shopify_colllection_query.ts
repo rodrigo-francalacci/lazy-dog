@@ -149,6 +149,10 @@ export type productProps = {
   price: number | null;
   shortDescription: string;
   collectionID: string; 
+  options: {
+    name: string;
+    values: any;
+}[];
 }
 
 
@@ -185,7 +189,7 @@ export function formatCollectionPageQueryResponse(response: any){
       thumbnail_URL: item.node.images?.edges[0].node.url ? item.node.images.edges[0].node.url : null,
       price: item.node.priceRange.minVariantPrice?.amount ? Number(item.node.priceRange.minVariantPrice.amount) : null,
       shortDescription: item.node.shortDescription?.value ?  item.node.shortDescription.value: null,
-      collectionID: collectionID_Builder(item.node.collectionID) 
+      collectionID: collectionID_Builder(item.node.collectionID), options: [],
 
     })
   })
