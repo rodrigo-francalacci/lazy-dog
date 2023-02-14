@@ -233,7 +233,7 @@ function recursiveMap(children: React.ReactNode, fn: any): React.ReactNode {
     }
 
     if (child.props.children) {
-      child = React.cloneElement(child, {
+      child = React.cloneElement(child as React.ReactElement, {
         children: recursiveMap(child.props.children, fn)
       });
     }
@@ -248,20 +248,20 @@ function changeChild(child: React.ReactNode): React.ReactNode {
        let type = JSON.parse(child.props.datatype);
        switch (type[0]) { 
          case "slides-container":
-           return React.cloneElement(child, {
+           return React.cloneElement(child as React.ReactElement, {
              ref: containerRef, draggable: false,
              className:`${styles.swiper_list} ${isSwiping ? styles.is_swiping : ""} ${child.props.className ? child.props.className : ""}` ,
              style: { transform: `translate3d(${offsetX}px, 0, 0)`, transition: `transform ${transition_time} ${transition_style}` },
              }); break;
 
          case "slide":
-           return React.cloneElement(child, { 
+           return React.cloneElement(child as React.ReactElement, { 
             className: `${child.props.className ? child.props.className : ""} ${styles.swiper_item}`,
             draggable: false,
             }); break;
 
          case "nav-item":
-           return React.cloneElement(child, { 
+           return React.cloneElement(child as React.ReactElement, { 
             draggable: false,
             className: `${child.props.className ? child.props.className : ""} ${(currentIdx === Number(type[1])) ? type[2] : type[3]}`,
             onClick: () => {
@@ -270,27 +270,27 @@ function changeChild(child: React.ReactNode): React.ReactNode {
             ); break;
          
         case "nav-arrow-right":
-           return React.cloneElement(child, { 
+           return React.cloneElement(child as React.ReactElement, { 
             draggable: false,
             onClick: () => indicatorOnClick(currentIdx + 1)
               }
             ); break;
         
         case "nav-arrow-left":
-           return React.cloneElement(child, {
+           return React.cloneElement(child as React.ReactElement, {
             draggable: false,
             onClick: () => indicatorOnClick(currentIdx - 1)
               }
             ); break;
 
          default:
-          return React.cloneElement(child, {
+          return React.cloneElement(child as React.ReactElement, {
             draggable: false,
               }
             ); break;
        }
      } else {
-      return React.cloneElement(child, {
+      return React.cloneElement(child as React.ReactElement, {
         draggable: false,
           }
         );
