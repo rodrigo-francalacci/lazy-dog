@@ -71,8 +71,8 @@ export const BlogFilter = ({posts, setPosts}:BlogFilterProps) => {
            <ul datatype={A(["slides-container"])} className={css.list}>
                <li datatype={A(["slide"])} className={css.list_item}>
                <span 
-                            className={css.allTags}
-                            onClick={()=>{setPosts(posts); setCurrentTag(null!)}}>All Posts</span>
+                  className={css.allTags}
+                  onClick={()=>{setPosts(posts); setCurrentTag(null!)}}>All Posts</span>
                </li>
 
              {tags?.length > 0  && tags.map((item, idx)=>{

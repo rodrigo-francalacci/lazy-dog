@@ -39,8 +39,9 @@ export const CategoryFilter = ({products, setProducts}: FilterProps) => {
   ================================================================ */
 
   useEffect(()=>{
-    setVariants(getVariants())
-    setProducts(products)
+    setVariants(getVariants());
+    resetVariantArray();
+    setProducts(products);
 
   },[products])
 
@@ -89,7 +90,37 @@ export const CategoryFilter = ({products, setProducts}: FilterProps) => {
 
   /* AUX Functions
   ================================================================ */
+  function A(item: any){
+    return JSON.stringify(item)
+  }
   
+  function resetVariantArray() {
+    if (variants) {
+      var copyVariants =
+        variants?.length > 0 &&
+        variants.map((variant) => {
+          return {
+            name: variant.name,
+            filterActive: false,
+            options:
+              variant?.options &&
+              variant.options.map((opt) => {
+                return {
+                  name: opt.name,
+                  state: true,
+                };
+              }),
+          };
+        });
+
+      if (copyVariants) {
+        setVariants(copyVariants);
+        if (currentVariant) {
+          setCurrentVariant(null!);
+        }
+      }
+    }
+  }
   
   function handleSelection({event, value, optIndex}:{event: any ,value: string, optIndex: number}){
     /* event.preventDefault(); */
@@ -152,15 +183,15 @@ export const CategoryFilter = ({products, setProducts}: FilterProps) => {
     <div className={css.container}>
          <SwiperLogic transition_time="300ms" transition_style="ease-out" snap_in={false} min_swipe_required={30}>
            {/* Items list */}
-           <ul datatype={`["slides-container"]`} className={css.list}>
-             <li datatype={JSON.stringify(["slide", 0])} className={css.list_item}>
-               <span className={css.showAll} onClick={()=>{setProducts(products); setShowSelector(false); }}>Show All Products</span>
+           <ul datatype={A(["slides-container"])} className={css.list}>
+             <li datatype={A(["slide", 0])} className={css.list_item}>
+               <span className={css.showAll} onClick={()=>{setProducts(products); setShowSelector(false); resetVariantArray()}}>Show All Products</span>
               </li>
-             <li datatype={JSON.stringify(["slide", 1])} className={css.list_item}>or filter by:</li>
+             <li datatype={A(["slide", 1])} className={css.list_item}>or filter by:</li>
              {variants?.length > 0  && variants.map((item, idx)=>{
                return (
                  <li 
-                    datatype={JSON.stringify(["slide", idx+1])} 
+                    datatype={A(["slide", idx+1])} 
                     key={idx+1} 
                     className={css.list_item}>
                    <span onClick={()=>{handleVariantClick({thisItem: item, index: idx})}}
@@ -207,8 +238,7 @@ export const CategoryFilter = ({products, setProducts}: FilterProps) => {
 
                <button onClick={()=>{setShowSelector(false)}} className={css.collapse}>
                  <HiOutlineArrowNarrowUp/>
-                 </button>
-
+               </button>
              </div>
 
             
