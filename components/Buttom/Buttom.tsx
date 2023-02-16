@@ -13,11 +13,12 @@ type ButtomProps = {
     fontColor?: "font-black" | "font-white";
     size?: "small" | "big";
     className?: string;
+    onClick?: React.MouseEventHandler<HTMLDivElement> | undefined;
 
 }
 
 /* Component */
-const Buttom = ({bkgColor="bkg-orange", fontColor="font-black", size='small', className='', children }: ButtomProps) => {
+const Buttom = ({bkgColor="bkg-orange", fontColor="font-black", size='small', className='', children, onClick }: ButtomProps) => {
     
     //states and refs
     const ref_ = useRef<HTMLDivElement>(null!);
@@ -46,7 +47,9 @@ const Buttom = ({bkgColor="bkg-orange", fontColor="font-black", size='small', cl
 
   return (
     <div className={`${sizeClass} ${bkgColor} ${fontColor} ${fontSize} ${styles.container} ${className}`} 
-         ref={ref_}>
+         ref={ref_}
+         onClick={onClick}
+         >
         {children}
     </div>
   )

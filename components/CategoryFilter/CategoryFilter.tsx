@@ -227,15 +227,12 @@ export const CategoryFilter = ({products, setProducts}: FilterProps) => {
 
              <div className={css.selector_bots_container}>
                <Buttom
+                onClick={()=>{handleApplyThisFilter({variantIndex: currentVariant.index, filterState: !currentVariant.variant.filterActive})}}
                 bkgColor='bkg-black' fontColor='font-white' size="small">
-                  <button onClick={()=>{handleApplyThisFilter({variantIndex: currentVariant.index, filterState: true})}}>Apply Filter</button>
+                  <button>
+                    {currentVariant?.variant?.filterActive ? "Remove Filter" : "Apply Filter"}</button>
                </Buttom>
                
-               <Buttom
-                bkgColor='bkg-orange' fontColor='font-white' size="small">
-                  <button onClick={()=>{handleApplyThisFilter({variantIndex: currentVariant.index, filterState: false})}}>Remove Filter</button>
-               </Buttom>
-
                <button onClick={()=>{setShowSelector(false)}} className={css.collapse}>
                  <HiOutlineArrowNarrowUp/>
                </button>
