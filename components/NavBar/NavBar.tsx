@@ -1,19 +1,21 @@
 //React
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { useRef, useEffect } from 'react'
 
 //Redux
-import { useAppSelector, useAppDispatch } from '../../redux/hooks';
+import { useAppSelector } from '../../redux/hooks';
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store' //to get the correct types
-import { open, close,setTransitionOn, setTransitionOff } from '../../redux/slices/navbarSlice';
+import { close, setTransitionOff } from '../../redux/slices/navbarSlice';
 
 //Components
 import Logo from '../Logo/Logo' 
 import NavBarToggle from '../NavBar_Toggle/NavBar_Toggle'
 import {FaShoppingCart} from 'react-icons/fa'
 import {HiUser} from 'react-icons/hi'
+import { FaDog } from 'react-icons/fa';
+
 
 //Context and hooks
 import { useProfile } from '../../context/profile-context';

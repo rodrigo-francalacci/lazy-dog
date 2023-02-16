@@ -587,21 +587,3 @@ export const layoutQuery = `{
       return output
 
     }
-
-
-
-//Query list of posts and order starting from the last post
-/* export const singlePost = `{
-	'sitesettings': *[_type == 'siteSettings'][0]{
-       title, description, 
-       contactsList, socialMedias,
-       footerText, aboutUs
-  },
-  
-  'banners': *[_type == 'banners']{
-       text,
-       link,
-       color,
-       timer
-    }
-}` */

@@ -4,6 +4,7 @@ import { useRef, useEffect } from 'react';
 
 /* Style */
 import styles from './Box.module.scss'
+import {NewClampClass} from '../../styles/Clamp/ClampedClasses'
 
 
 /* Types */
@@ -17,6 +18,7 @@ type BoxProps = {
 
 /* Component */
 const Box = ({bkgColor="bkg-white", fontColor="font-black", size='', className='', children }: BoxProps) => {
+
     
     //states and refs
     const ref_ = useRef<HTMLDivElement>(null!);
@@ -31,11 +33,15 @@ const Box = ({bkgColor="bkg-white", fontColor="font-black", size='', className='
     },[fontColor])
 
 
+
+
   return (
-    <div className={`${size} ${bkgColor} ${fontColor} ${styles.container} ${className}`} ref={ref_}>
+
+    <div className={`${size} ${bkgColor} ${fontColor} ${styles.container} ${className} blue`} ref={ref_}>
         {children}
     </div>
   )
 }
 
 export default Box
+

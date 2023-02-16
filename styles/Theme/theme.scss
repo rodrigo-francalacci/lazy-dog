@@ -1,42 +1,33 @@
 /* Theme 1 */
-/* @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @font-face {
-    font-family: 'Good Dog';
-    src: url('gooddog-plain/gooddog-plain.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+  font-family: 'Good Dog';
+  src: url('gooddog-plain/gooddog-plain.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
-
-@font-face {
-    font-family: 'Work Sans';
-    src: url('worksans/WorkSans-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
-} 
-
 
 :root{
 
-    --font-worksans: 'Work Sans', sans-serif;
-	--font-gooddog: 'Good Dog';
-	--black: #000000;
-    --black-light: #18272F;
-    --red: #F23737;
-    --orange: #FF6432;
-    --salmon: #FFAA64;
-    --gold: #FFAA2A;
-	--pale: #FADCC8;
-	--white: #FFFFFF;
-    --blue-sea: #00237D;
-	--blue-velvet: #016298;
-	--green: #008C62;
-	--green-light: #B9DCC8;
-	--blue-sky: #A5CDEB;
-	--grey: #D2D2D2;    
-    --grey-dark: #828282;
-    
+  --font-worksans: 'Work Sans', sans-serif;
+--font-gooddog: 'Good Dog';
+--black: #000000;
+  --black-light: #18272F;
+  --red: #F23737;
+  --orange: #FF6432;
+  --salmon: #FFAA64;
+  --gold: #FFAA2A;
+--pale: #FADCC8;
+--white: #FFFFFF;
+  --blue-sea: #00237D;
+--blue-velvet: #016298;
+--green: #008C62;
+--green-light: #B9DCC8;
+--blue-sky: #A5CDEB;
+--grey: #D2D2D2;    
+  --grey-dark: #828282;
+  
 }
 
 /* Font Color */
@@ -59,25 +50,31 @@
 
 /* Opacity Overlay */
 .overlay {
-    position: fixed; top: 0; bottom: 0; left: 0; right: 0;
-    background: var(--black);
-    transition: 1s;
-    visibility: visible;
-    opacity: 0.8;
-    z-index: 2;
+  position: fixed; top: 0; bottom: 0; left: 0; right: 0;
+  background: var(--black);
+  -webkit-transition: 1s;
+  -o-transition: 1s;
+  transition: 1s;
+  visibility: visible;
+  opacity: 0.8;
+  z-index: 2;
 }
 
 /* Body */
 body{
-    overscroll-behavior: none;
+  -ms-scroll-chaining: none;
+      overscroll-behavior: none;
 }
 
 /* Overriding The Default Text Selection Color */
-::selection {
-    background: var(--blue-sky); color: var(--black);
-  }
 ::-moz-selection {
   background: var(--blue-sky); color: var(--black);
+}
+::selection {
+  background: var(--blue-sky); color: var(--black);
+}
+::-moz-selection {
+background: var(--blue-sky); color: var(--black);
 }
 
 input,
@@ -85,53 +82,39 @@ textarea,
 button,
 select,
 a {
-  -webkit-tap-highlight-color: rgba(0,0,0,0);
+-webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 /* ===== Scrollbar CSS ===== */
-  /* Firefox */
-  * {
-    scrollbar-width: auto;
-    scrollbar-color: var(--blue-sky) #ffffff;
-  }
-
-  /* Chrome, Edge, and Safari */
-  *::-webkit-scrollbar {
-    width: 16px;
-  }
-
-  *::-webkit-scrollbar-track {
-    background: #ffffff;
-    border-left: 1px solid #000000;
-   /*  &:hover{
-        background: var(--orange)
-    } */
-  }
-
-  *::-webkit-scrollbar-thumb {
-    background-color: var(--blue-sky);
-    border-radius: 16px;
-    border: 1px solid #1a1919;
-    transition: background-color 1s ease;
-    &:hover{
-        background-color: var(--blue-velvet);
-    }
-  }
-
-/* [data-title]:hover:after {
-    visibility: visible;
+/* Firefox */
+* {
+  scrollbar-width: auto;
+  scrollbar-color: var(--blue-sky) #ffffff;
 }
-  
-[data-title]:after {
-    content: attr(data-title);
-    background-color: #4b9c2c;    
-    color: #ffffff;
-    font-size: 150%;
-    position: absolute;
-    padding: 4px 8px 4px 8px;
-    visibility: hidden;
-} */
 
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 16px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-left: 1px solid #000000;
+ /*  &:hover{
+      background: var(--orange)
+  } */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--blue-sky);
+  border-radius: 16px;
+  border: 1px solid #1a1919;
+  -webkit-transition: background-color 1s ease;
+  transition: background-color 1s ease;
+  &:hover{
+      background-color: var(--blue-velvet);
+  }
+}
 
 
 
